@@ -12,7 +12,7 @@
     "MARTIN Valentin <vmartin@voxeet.com>"
   ],
   "dependencies": {
-    "@voxeet/react-components": "^0.31.0-rc14",
+    "@voxeet/react-components": "^0.31.0-rc15",
     "@voxeet/voxeet-web-sdk": "^1.7.11",
     "express": "^4.0.0",
     "react": "^16.0.0",

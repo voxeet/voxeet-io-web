@@ -15,10 +15,10 @@ class VoxeetConference extends Component {
   componentDidMount() {
     const settings = {
       conferenceAlias: this.props.conferenceName,
-      //consumerKey: 'NWUzZTI4cDc0M2JodQ',
-      //consumerSecret: 'MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU'
-      consumerKey: 'rrd',
-      consumerSecret: 'voxeet'
+      consumerKey: 'NWUzZTI4cDc0M2JodQ',
+      consumerSecret: 'MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU'
+      //consumerKey: 'rrd',
+      //consumerSecret: 'voxeet'
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer
