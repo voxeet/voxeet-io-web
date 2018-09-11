@@ -98,7 +98,7 @@
     redux-promise "0.5.3"
     redux-thunk "2.2.0"
 
-"@voxeet/voxeet-web-sdk@^1.7.10":
+"@voxeet/voxeet-web-sdk@^1.7.11":
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/@voxeet/voxeet-web-sdk/-/voxeet-web-sdk-1.7.11.tgz#7fe566abcb2fad4c519c5100e25547a7031d84ea"
   dependencies:
