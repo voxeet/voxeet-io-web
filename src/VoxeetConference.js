@@ -41,7 +41,7 @@ class VoxeetConference extends Component {
           videoCodec={"H264"}
           //isManualKickAllowed
           handleOnLeave={this.props.handleOnLeave}
-          isWidget={false}
+          //isWidget={true}
           consumerKey={settings.consumerKey}
           consumerSecret={settings.consumerSecret}
           conferenceAlias={settings.conferenceAlias}

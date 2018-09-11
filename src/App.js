@@ -74,8 +74,9 @@ class App extends Component {
 
   handleOnLeave() {
     ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
-    this.setState({ isSubmit: false, form : { userName: "Benoit", photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png", externalId: "111" } })
-    window.location.reload();
+    const oldConferenceName = this.state.form.conferenceName
+    this.setState({ isSubmit: false/*, form : { conferenceName:oldConferenceName, userName: "Benoit", photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png", externalId: "111" }*/})
+    //window.location.reload();
   }
 
   handleClick() {
@@ -119,7 +120,7 @@ class App extends Component {
             <div className="img-user">
               <img src={this.state.form.photoURL} />
             </div>
-            <select name="userName" onChange={this.handleChangeSelect}>
+            <select value={this.state.form.userName} name="userName" onChange={this.handleChangeSelect}>
               {this.state.users.map((x, i) =>
                 <option key={i} style={{backgroundImage: "url(" + x.photoURL + ")"}}>{x.name}</option>
               )}
