@@ -13,7 +13,7 @@ let strings = new LocalizedStrings({
    name:"Your Name",
    admin:"Admin",
    conferencename:"Your conference name",
-   electronmessage:"The Voxeet App is launching, please wait ...",
+   electronmessage:"The Voxeet App is loading, please wait",
    copyright:" All rights reserved"
  },
  fr: {
@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
    name:"Nom",
    admin:"Administrateur",
    conferencename:"Nom de la conférence",
-   electronmessage:"L'application Voxeet démarre, veuillez patienter ...",
+   electronmessage:"Le client Voxeet va démarrer, veuillez patienter",
    copyright:"Tous droits réservés"
  }
 });
@@ -88,14 +88,18 @@ class App extends Component {
     if (this.state.isSubmit) {
         return (
           <div>
-            <div className="content-sample">
-              <div className="logo">
-                <img src={logo} className="voxeet-logo" alt="logo" />
-                <h1>voxeet</h1>
+            <div>
+              <div className="electron-message-container">
+                <div className="electron-center-container">
+                  <div className="electron-logo-container">
+                    <img src={logo} />
+                  </div>
+                  <div id="loader-container"><div className="loader"></div></div>
+                  <div className="electron-info-container">
+                    {strings.electronmessage}<span className="one">.</span><span className="two">.</span><span className="three">.</span>​
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="copyright">
-              Voxeet © 2018 All rights reserved
             </div>
             <VoxeetConference handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={this.state.form.photoURL} externalId={this.state.form.externalId} conferenceName={this.state.form.conferenceName} />
           </div>
