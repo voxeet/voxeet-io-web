@@ -9,7 +9,7 @@ import { combineReducers, createStore, applyMiddleware } from 'redux'
 
 import { ConferenceRoom, reducer as voxeetReducer } from '@voxeet/react-components'
 
-import '@voxeet/react-components/dist/voxeet-react-components.css';
+import './assets/css/voxeet-react-components.css';
 class VoxeetConference extends Component {
 
   componentDidMount() {
@@ -17,8 +17,8 @@ class VoxeetConference extends Component {
       conferenceAlias: this.props.conferenceName,
       consumerKey: 'NWUzZTI4cDc0M2JodQ',
       consumerSecret: 'MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU'
-      //consumerKey: 'rrd',
-      //consumerSecret: 'voxeet'
+      /*consumerKey: 'rrd',
+      consumerSecret: 'voxeet'*/
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer
@@ -28,6 +28,10 @@ class VoxeetConference extends Component {
       externalId: this.props.externalId,
       avatarUrl: this.props.photoURL
     };
+    const constraints = {
+      video: true,
+      audio: true
+    }
     const configureStore = () => createStore(
       reducers,
       applyMiddleware(thunkMidleware)
@@ -42,6 +46,7 @@ class VoxeetConference extends Component {
           //isManualKickAllowed
           handleOnLeave={this.props.handleOnLeave}
           isWidget={false}
+          constraints={constraints}
           consumerKey={settings.consumerKey}
           consumerSecret={settings.consumerSecret}
           conferenceAlias={settings.conferenceAlias}

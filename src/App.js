@@ -32,7 +32,7 @@ class App extends Component {
       super(props);
       this.state = {
         isSubmit: false,
-        users: [
+        /*users: [
           {id: "111", name: "Benoit", photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png"},
           {id: "222", name: "Stephane", photoURL: "https://cdn.voxeet.com/images/team-stephane-giraudie.png"},
           {id: "333", name: "Thomas", photoURL: "https://cdn.voxeet.com/images/team-thomas.png"},
@@ -42,16 +42,16 @@ class App extends Component {
           {id: "777", name: "Barnabé", photoURL: "https://cdn.voxeet.com/images/team-barnabe.png"},
           {id: "888", name: "Corentin", photoURL: "https://cdn.voxeet.com/images/team-corentin.png"},
           {id: "999", name: "Romain", photoURL: "https://cdn.voxeet.com/images/team-romain.png"}
-        ],
+        ],*/
         form : {
           conferenceName: "",
-          userName: "Benoit",
+          userName: ""/*,
           photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png",
-          externalId: "111"
+          externalId: "111"*/
         }
       }
       this.handleChange = this.handleChange.bind(this)
-      this.handleChangeSelect = this.handleChangeSelect.bind(this)
+      //this.handleChangeSelect = this.handleChangeSelect.bind(this)
   }
 
   handleChange(e) {
@@ -60,7 +60,7 @@ class App extends Component {
     this.setState({ form });
   }
 
-  handleChangeSelect(e) {
+  /*handleChangeSelect(e) {
     const { form } = this.state;
     form[e.target.name] = e.target.value;
     this.state.users.map((x, i) => {
@@ -70,7 +70,7 @@ class App extends Component {
       }
     })
     this.setState({ form });
-  }
+  }*/
 
   handleOnLeave() {
     ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
@@ -86,6 +86,7 @@ class App extends Component {
 
   render() {
     if (this.state.isSubmit) {
+        const photoURL = "https://gravatar.com/avatar/" + Math.floor(Math.random() * 1000000) + "?s=200&d=identicon"
         return (
           <div>
             <div>
@@ -101,7 +102,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <VoxeetConference handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={this.state.form.photoURL} externalId={this.state.form.externalId} conferenceName={this.state.form.conferenceName} />
+            <VoxeetConference handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} externalId={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
           </div>
         )
     }
@@ -118,8 +119,13 @@ class App extends Component {
             <input name="conferenceName" placeholder={strings.conferencename} value={this.state.form.conferenceName} onChange={this.handleChange} id="conferenceName" type="text" className="validate" />
           </div>
 
+          <div className="input-field">
+            <input name="userName" placeholder={strings.name} value={this.state.form.userName} onChange={this.handleChange} id="userName" type="text" className="validate" />
+          </div>
 
-          <div className="block-user-name">
+
+          {
+            /*<div className="block-user-name">
             <label htmlFor="userName">Select a user</label>
             <div className="img-user">
               <img src={this.state.form.photoURL} />
@@ -129,7 +135,8 @@ class App extends Component {
                 <option key={i} style={{backgroundImage: "url(" + x.photoURL + ")"}}>{x.name}</option>
               )}
             </select>
-          </div>
+          </div>*/
+          }
 
 
           <div className="blockButton">
