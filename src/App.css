@@ -104,8 +104,8 @@ body {
    border: 2px solid #f3f3f3;
    border-radius: 50%;
    border-top: 2px solid #58C6F4;
-   width: 32px;
-   height: 32px;
+   width: 28px;
+   height: 28px;
    -webkit-animation: spin 2s linear infinite; /* Safari */
    animation: spin 2s linear infinite;
  }
@@ -113,6 +113,9 @@ body {
  #loader-container {
    margin: auto;
    width: 32px;
+   height: 23px;
+   display: inline-block;
+   margin-right: 15px;
  }
 
  /* Safari */
@@ -225,7 +228,15 @@ body {
   outline: none;
 }
 
-button {
+.button-demo {
+  text-align:left;
+  border:none!important;
+  font-size: 13px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+#join {
   padding: 15px 50px;
   background-image: linear-gradient(225deg,#c0e249,#48d57c);
   border-radius: 4px;
@@ -241,7 +252,7 @@ button {
   font-weight: 200;
 }
 
-button:hover {
+#join:hover {
   background-color: #66B2F3;
 }
 

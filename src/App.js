@@ -13,13 +13,15 @@ let strings = new LocalizedStrings({
    name:"Your Name",
    admin:"Admin",
    conferencename:"Your conference name",
-   electronmessage:"The Voxeet App is loading, please wait",
+   joinDemo: "or experience Voxeet demo",
+   electronmessage:"Voxeet is loading, please wait",
    copyright:" All rights reserved"
  },
  fr: {
    join:"Rejoindre la conférence",
    name:"Nom",
    admin:"Administrateur",
+   joinDemo: "ou tester Voxeet demo",
    conferencename:"Nom de la conférence",
    electronmessage:"Le client Voxeet va démarrer, veuillez patienter",
    copyright:"Tous droits réservés"
@@ -32,6 +34,8 @@ class App extends Component {
       super(props);
       this.state = {
         isSubmit: false,
+        sdk:null,
+        isDemo: false,
         /*users: [
           {id: "111", name: "Benoit", photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png"},
           {id: "222", name: "Stephane", photoURL: "https://cdn.voxeet.com/images/team-stephane-giraudie.png"},
@@ -75,13 +79,18 @@ class App extends Component {
   handleOnLeave() {
     ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.form.conferenceName
-    this.setState({ isSubmit: false/*, form : { conferenceName:oldConferenceName, userName: "Benoit", photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png", externalId: "111" }*/})
+    this.setState({ isDemo: false, isSubmit: false/*, form : { conferenceName:oldConferenceName, userName: "Benoit", photoURL: "https://cdn.voxeet.com/images/team-benoit-senard.png", externalId: "111" }*/})
     //window.location.reload();
   }
 
   handleClick() {
-    Sdk.create()
-    this.setState({ isSubmit: true})
+    const sdk = Sdk.create()
+    this.setState({ sdk: sdk, isSubmit: true})
+  }
+
+  handleClickDemo() {
+    const sdk = Sdk.create()
+    this.setState({ sdk: sdk, isDemo: true, isSubmit: true})
   }
 
   render() {
@@ -102,7 +111,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <VoxeetConference handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} externalId={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
+            <VoxeetConference isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} sdk={this.state.sdk} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
           </div>
         )
     }
@@ -123,27 +132,14 @@ class App extends Component {
             <input name="userName" placeholder={strings.name} value={this.state.form.userName} onChange={this.handleChange} id="userName" type="text" className="validate" />
           </div>
 
-
-          {
-            /*<div className="block-user-name">
-            <label htmlFor="userName">Select a user</label>
-            <div className="img-user">
-              <img src={this.state.form.photoURL} />
-            </div>
-            <select value={this.state.form.userName} name="userName" onChange={this.handleChangeSelect}>
-              {this.state.users.map((x, i) =>
-                <option key={i} style={{backgroundImage: "url(" + x.photoURL + ")"}}>{x.name}</option>
-              )}
-            </select>
-          </div>*/
-          }
-
-
           <div className="blockButton">
-            <button disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick.bind(this)}>
+            <button id="join" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick.bind(this)}>
               <span>{strings.join}</span>
             </button>
           </div>
+          <button className="button-demo" onClick={this.handleClickDemo.bind(this)}>
+            <span>{strings.joinDemo}</span>
+          </button>
         </div>
         <div className="copyright">
           Voxeet © 2018 {strings.copyright}
