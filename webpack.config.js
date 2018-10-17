@@ -16,6 +16,7 @@ module.exports = {
     port: 8081,
     https: true,
     disableHostCheck: true,
+    historyApiFallback: true,
     host: 'localhost',
   },
   module: {
