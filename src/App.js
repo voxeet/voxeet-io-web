@@ -35,6 +35,7 @@ class App extends Component {
       this.state = {
         isSubmit: false,
         sdk:null,
+        isJoiningFromUrl: false,
         isDemo: false,
         form : {
           conferenceName: "",
@@ -47,7 +48,7 @@ class App extends Component {
   componentWillMount() {
     const { conferenceName } = this.props.match.params
     if (conferenceName) {
-      this.setState({ form :{ conferenceName: conferenceName}})
+      this.setState({ isJoiningFromUrl: true, form :{ conferenceName: conferenceName}})
     }
   }
 
@@ -66,7 +67,7 @@ class App extends Component {
   handleClick() {
     this.props.history.push('/' + this.state.form.conferenceName)
     const sdk = Sdk.create()
-    this.setState({ sdk: sdk, isSubmit: true})
+    this.setState({ isJoiningFromUrl: false, sdk: sdk, isSubmit: true})
   }
 
   handleClickDemo() {
@@ -105,11 +106,11 @@ class App extends Component {
             <img src={logo} className="voxeet-logo" alt="logo" />
             <h1>voxeet</h1>
           </div>
-
+          { !this.state.isJoiningFromUrl &&
           <div className="input-field">
             <input name="conferenceName" placeholder={strings.conferencename} value={this.state.form.conferenceName} onChange={this.handleChange} id="conferenceName" type="text" className="validate" />
           </div>
-
+          }
           <div className="input-field">
             <input name="userName" placeholder={strings.name} value={this.state.form.userName} onChange={this.handleChange} id="userName" type="text" className="validate" />
           </div>
