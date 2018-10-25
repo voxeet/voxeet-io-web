@@ -53,9 +53,13 @@ module.exports = {
         'NODE_ENV': `"production"`
       }
     }),
+    new CopyWebpackPlugin([
+      'src/renderer.js'
+    ]),
     new HtmlWebpackPlugin({
       inject: true,
-      template: './public/index.html'
+      template: './public/index.html',
+      js: process.env.ELECTRON ? ["renderer.js"] : [],
     }),
     new webpack.NoEmitOnErrorsPlugin()
   ]

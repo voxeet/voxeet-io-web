@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import thunkMidleware from 'redux-thunk'
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 
+import VoxeetSdk from '@voxeet/voxeet-web-sdk'
 import { ConferenceRoom, reducer as voxeetReducer } from '@voxeet/react-components'
 
 import './assets/css/voxeet-react-components.css';
@@ -53,6 +54,7 @@ class VoxeetConference extends Component {
           videoCodec={"H264"}
           handleOnLeave={this.props.handleOnLeave}
           isWidget={false}
+          isElectron={VoxeetSdk.isElectron}
           constraints={constraints}
           consumerKey={settings.consumerKey}
           consumerSecret={settings.consumerSecret}

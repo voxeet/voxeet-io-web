@@ -26,6 +26,9 @@
     <title>Voxeet.io</title>
   </head>
   <body ontouchstart="">
+    <% for (var js in htmlWebpackPlugin.options.js) { %>
+      <script src="<%= htmlWebpackPlugin.options.js[js] %>"></script>
+    <% } %>
     <div id="root"></div>
   </body>
   <script>

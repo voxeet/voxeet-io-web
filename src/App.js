@@ -67,6 +67,19 @@ class App extends Component {
   handleClick() {
     this.props.history.push('/' + this.state.form.conferenceName)
     const sdk = Sdk.create()
+    
+    if (VoxeetSdk.isElectron) { 
+      console.error("isElectron", VoxeetSdk.isElectron);
+      navigator.attachMediaStream = function(element, stream) { // Shim for electron
+        if (sdk.conference && stream) {
+          if (!element.renderer) {
+            VideoRenderer.create(element);
+          }
+          sdk.conference.rtc.attachMediaStream(element.renderer, stream.peerId(), stream.label());
+        }
+      }
+    }
+
     this.setState({ isJoiningFromUrl: false, sdk: sdk, isSubmit: true})
   }
 
