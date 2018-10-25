@@ -33,11 +33,12 @@ class VoxeetConference extends Component {
     };
     var constraints = {
       audio: true,
-      video: {
-        width: 1280,
-        height: 720,
-      }
+      video: false
     };
+    var videoRatio = {
+      width: 1280,
+      height: 720
+    }
     const configureStore = () => createStore(
       reducers,
       applyMiddleware(thunkMidleware)
@@ -51,7 +52,9 @@ class VoxeetConference extends Component {
           //isWebinar
           //isAdmin
           isDemo={this.props.isDemo}
+          liveRecordingEnabled
           videoCodec={"H264"}
+          videoRatio={videoRatio}
           handleOnLeave={this.props.handleOnLeave}
           isWidget={false}
           isElectron={VoxeetSdk.isElectron}

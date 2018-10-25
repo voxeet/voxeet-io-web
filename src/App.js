@@ -90,7 +90,6 @@ class App extends Component {
 
   render() {
     if (this.state.isSubmit) {
-        console.log(this.state)
         const photoURL = "https://gravatar.com/avatar/" + Math.floor(Math.random() * 1000000) + "?s=200&d=identicon"
         return (
           <div>
