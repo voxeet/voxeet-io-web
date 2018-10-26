@@ -5,10 +5,10 @@ import App from './App'
 
 const Root = ({ }) => (
 <Router>
-<Switch>
-    <Route path="/:conferenceName" component={App} />
-    <Route path="/" component={App} />
-</Switch>
+    <Switch>
+        <Route path="/:conferenceName" exact component={App} />
+        <Route path="/" component={App} />
+    </Switch>
 </Router>
 )
 

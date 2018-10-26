@@ -6,7 +6,8 @@
   "scripts": {
     "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
     "start": "webpack-dev-server -d --hot --inline --content-base",
-    "build": "webpack --config webpack.config.prod.js --progress -p"
+    "build": "webpack --config webpack.config.prod.js --progress -p",
+    "build:electron": "ELECTRON=true npm run build"
   },
   "author": "Voxeet",
   "contributors": [

@@ -47,6 +47,7 @@ class App extends Component {
 
   componentWillMount() {
     const { conferenceName } = this.props.match.params
+    console.error(this.props);
     if (conferenceName) {
       this.setState({ isJoiningFromUrl: true, form :{ conferenceName: conferenceName}})
     }
@@ -68,8 +69,7 @@ class App extends Component {
     this.props.history.push('/' + this.state.form.conferenceName)
     const sdk = Sdk.create()
     
-    if (VoxeetSdk.isElectron) { 
-      console.error("isElectron", VoxeetSdk.isElectron);
+    if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
       navigator.attachMediaStream = function(element, stream) { // Shim for electron
         if (sdk.conference && stream) {
           if (!element.renderer) {
