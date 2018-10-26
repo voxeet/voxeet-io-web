@@ -4,6 +4,7 @@
   "private": true,
   "main": "./src/main.js",
   "scripts": {
+    "dist": "npm run build:electron && ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build",
     "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
     "start": "webpack-dev-server -d --hot --inline --content-base",
     "build": "webpack --config webpack.config.prod.js --progress -p",
@@ -14,9 +15,60 @@
     "MARTIN Valentin <vmartin@voxeet.com>",
     "GOURGUES Thomas <tgourgues@voxeet.com>"
   ],
+  "build": {
+    "appId": "io.voxeet.app",
+    "productName": "Voxeet",
+    "extends": null,
+    "files": [
+      "dist/*.svg",
+      "dist/*.ttf",
+      "dist/index.html",
+      "dist/renderer.js",
+      "dist/bundle.js",
+      "src/main.js",
+      "node_modules/",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150
+        }
+      ]
+    },
+    "pkg": {
+      "allowCurrentUserHome": false,
+      "allowAnywhere": false
+    },
+    "mac": {
+      "target": [
+        "pkg"
+      ],
+      "icon": "public/icon.png",
+      "extraResources": [
+        "libraries"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.png"
+    }
+  },
   "dependencies": {
     "@voxeet/react-components": "^0.31.0-rc15",
     "@voxeet/voxeet-web-sdk": "^1.7.11",
+    "@voxeet/media-engine": "0.16.0",
     "express": "^4.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -37,6 +89,7 @@
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
     "electron": "^3.0.5",
+    "electron-builder": "^20.28.4",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
