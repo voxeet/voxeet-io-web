@@ -49,7 +49,6 @@ class App extends Component {
 
   componentWillMount() {
     const { conferenceName } = this.props.match.params
-    console.error(this.props);
     if (conferenceName) {
       this.setState({ isJoiningFromUrl: true, form :{ conferenceName: conferenceName}})
     }
