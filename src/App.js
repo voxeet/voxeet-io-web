@@ -42,7 +42,9 @@ class App extends Component {
           userName: ""
         }
       }
+      this.handleClick = this.handleClick.bind(this)
       this.handleChange = this.handleChange.bind(this)
+      this.escFunction = this.escFunction.bind(this)
   }
 
   componentWillMount() {
@@ -51,6 +53,20 @@ class App extends Component {
     if (conferenceName) {
       this.setState({ isJoiningFromUrl: true, form :{ conferenceName: conferenceName}})
     }
+  }
+
+  escFunction(event){
+      if(event.keyCode === 13 && !this.state.isSubmit) {
+          this.handleClick()
+      }
+    }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.escFunction, false);
   }
 
   handleChange(e) {
@@ -68,7 +84,7 @@ class App extends Component {
   handleClick() {
     this.props.history.push('/' + this.state.form.conferenceName)
     const sdk = Sdk.create()
-    
+
     if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
       navigator.attachMediaStream = function(element, stream) { // Shim for electron
         if (sdk.conference && stream) {
@@ -128,7 +144,7 @@ class App extends Component {
           </div>
 
           <div className="blockButton">
-            <button id="join" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick.bind(this)}>
+            <button id="join" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick}>
               <span>{strings.join}</span>
             </button>
           </div>
