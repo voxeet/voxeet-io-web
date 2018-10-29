@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 try {
   require('os').networkInterfaces()
@@ -53,9 +54,13 @@ module.exports = {
         'NODE_ENV': `""`
       }
     }),
+    new CopyWebpackPlugin([
+      'src/renderer.js'
+    ]),
     new HtmlWebpackPlugin({
       inject: true,
-      template: './public/index.html'
+      template: './public/index.html',
+      js: process.env.ELECTRON ? ["renderer.js"] : [],
     }),
     new webpack.NoEmitOnErrorsPlugin()
   ]

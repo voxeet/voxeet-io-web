@@ -16,6 +16,7 @@ app.commandLine.appendSwitch('v','1');
 app.commandLine.appendSwitch('num-raster-threads', 2)
 app.commandLine.appendSwitch('enable-zero-copy', 'true');
 app.commandLine.appendSwitch('enable-gpu-memory-buffer-compositor-resources', 'true');
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 
 if (process.platform === 'darwin') {
   const env = {}
@@ -59,15 +60,15 @@ app.on('ready', () => {
     app.quit();
   });
 
-//  if (isDevelopment) {
-//    mainWindow.loadURL(`http://localhost:8080`);
-//  } else {
+  if (isDevelopment) {
+    mainWindow.loadURL(`https://localhost.voxeet.com:8081`);
+  } else {
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, '../dist', 'index.html'),
       protocol: 'file:',
       slashes: false
     }));
-//  }
+  }
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   
