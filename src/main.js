@@ -52,7 +52,7 @@ app.on('window-all-close', () => {
 });
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 1280, height: 720});
   mainWindow.webContents.setFrameRate(30);
   
   ipcMain.on('leave', (e) => {
