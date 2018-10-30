@@ -48,6 +48,7 @@ const template = [{
 let mainWindow;
 
 app.on('window-all-close', () => {
+  mainWindow.close();
   app.quit();
 });
 
@@ -79,5 +80,6 @@ app.on('ready', () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+    app.quit();
   });
 });
