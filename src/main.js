@@ -48,11 +48,12 @@ const template = [{
 let mainWindow;
 
 app.on('window-all-close', () => {
+  mainWindow.close();
   app.quit();
 });
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 1280, height: 720});
   mainWindow.webContents.setFrameRate(30);
   
   ipcMain.on('leave', (e) => {
@@ -79,5 +80,6 @@ app.on('ready', () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+    app.quit();
   });
 });
