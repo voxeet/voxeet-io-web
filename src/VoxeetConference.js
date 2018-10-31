@@ -20,14 +20,16 @@ class VoxeetConference extends Component {
       conferenceAlias: conferenceName,
       consumerKey: 'NWUzZTI4cDc0M2JodQ',
       consumerSecret: 'MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU'
-      /*consumerKey: 'rrd',
-	     consumerSecret: 'voxeet'*/
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer
     });
+    let name = this.props.userName
+    if (this.props.userName.length == 0) {
+      name = 'Guest ' + Math.floor((Math.random() * 100) + 1)
+    }
     const userInfo = {
-      name: this.props.userName,
+      name: name,
       externalId: this.props.externalId,
       avatarUrl: this.props.photoURL
     };
@@ -43,6 +45,12 @@ class VoxeetConference extends Component {
       reducers,
       applyMiddleware(thunkMidleware)
     );
+    let displayModes = ["tiles", "speaker"]
+    if (this.props.isDemo && VoxeetSdk.isElectron) {
+      displayModes = ["list", "tiles", "speaker"]
+    } else if (VoxeetSdk.isElectron) {
+      displayModes = ["tiles", "speaker", "list"]
+    }
     ReactDOM.render(
       <Provider store={configureStore()}>
         <ConferenceRoom
@@ -54,6 +62,7 @@ class VoxeetConference extends Component {
           isDemo={this.props.isDemo}
           liveRecordingEnabled
           videoCodec={"H264"}
+          displayModes={displayModes}
           videoRatio={videoRatio}
           handleOnLeave={this.props.handleOnLeave}
           isWidget={false}
