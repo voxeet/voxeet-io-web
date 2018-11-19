@@ -24,14 +24,60 @@ class VoxeetConference extends Component {
     const reducers = combineReducers({
       voxeet: voxeetReducer
     });
+
+
     let name = this.props.userName
+    let photoURL = this.props.photoURL
     if (this.props.userName.length == 0) {
       name = 'Guest ' + Math.floor((Math.random() * 100) + 1)
     }
+
+    switch (name) {
+      case "valvoxeet":
+        name = "Valentin"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/val.png"
+      break;
+      case "cocovoxeet":
+        name = "Corentin"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/coco.png"
+      break;
+      case "kevinvoxeet":
+        name = "Kevin"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/kevin.png"
+      break;
+      case "vanvoxeet":
+        name = "Van"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/van.png"
+      break;
+      case "totovoxeet":
+        name = "Thomas"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/thomas.png"
+      break;
+      case "raphvoxeet":
+        name = "Raphael"
+      break;
+      case "stephanevoxeet":
+        name = "Stephane"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/stephane.jpeg"
+      break;
+      case "benoitvoxeet":
+        name = "Benoit"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/benoit.jpg"
+      break;
+      case "bernardvoxeet":
+        name = "Bernard"
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/bernard.png"
+      break;
+      case "fabienvoxeet":
+        name = "Fabien"
+      break;
+    }
+
+
     const userInfo = {
       name: name,
       externalId: this.props.externalId,
-      avatarUrl: this.props.photoURL
+      avatarUrl: photoURL
     };
     var constraints = {
       audio: true,
@@ -62,6 +108,7 @@ class VoxeetConference extends Component {
           isDemo={this.props.isDemo}
           liveRecordingEnabled
           videoCodec={"H264"}
+          chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
           displayModes={displayModes}
           videoRatio={videoRatio}
           handleOnLeave={this.props.handleOnLeave}
