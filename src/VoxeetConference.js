@@ -38,7 +38,7 @@ class VoxeetConference extends Component {
         photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/val.png"
       break;
       case "cocovoxeet":
-        name = "Corentin"
+        name = "Coco"
         photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/coco.png"
       break;
       case "kevinvoxeet":
