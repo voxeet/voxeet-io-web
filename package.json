@@ -68,10 +68,9 @@
   "dependencies": {
     "@voxeet/react-components": "^0.31.0-rc15",
     "@voxeet/voxeet-web-sdk": "^1.7.11",
-    "@voxeet/media-engine": "0.16.0",
     "express": "^4.0.0",
     "react": "^16.0.0",
-    "react-dom": "16.5.0",
+    "react-dom": "16.6.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4"
