@@ -1,7 +1,7 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, powerSaveBlocker } = require('electron');
+//const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
-const EventEmitter = require('events');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -74,7 +74,7 @@ app.on('ready', () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   
   // Debugging purpose
-  if (isDevelopment) {
+  if (process.env.DEBUG) {
     mainWindow.webContents.openDevTools();
   }
 
