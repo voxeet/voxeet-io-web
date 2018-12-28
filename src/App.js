@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import logo from './logo.svg';
 import './App.css';
 import ReactDOM from 'react-dom'
@@ -78,6 +79,7 @@ class App extends Component {
     ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.form.conferenceName
     this.setState({ isDemo: false, isSubmit: false})
+    this.props.handleLeave();
   }
 
   handleClick() {
@@ -96,11 +98,13 @@ class App extends Component {
     }
 
     this.setState({ isJoiningFromUrl: false, sdk: sdk, isSubmit: true})
+    this.props.handleJoin();
   }
 
   handleClickDemo() {
     const sdk = Sdk.create()
     this.setState({ sdk: sdk, isDemo: true, isSubmit: true})
+    this.props.handleJoin();
   }
 
   render() {
@@ -157,6 +161,16 @@ class App extends Component {
       </div>
     );
   }
+}
+
+App.propTypes = {
+  handleJoin: PropTypes.func,
+  handleLeave: PropTypes.func
+}
+
+App.defaultProps = {
+  handleJoin: () => {},
+  handleLeave: () => {}
 }
 
 const mapStateToProps = (state, ownProps) => {

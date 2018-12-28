@@ -46,6 +46,7 @@ const template = [{
 ];
 
 let mainWindow;
+let powerId = null;
 
 app.on('window-all-close', () => {
   mainWindow.close();
@@ -56,6 +57,16 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({width: 1280, height: 720});
   mainWindow.webContents.setFrameRate(30);
   
+  ipcMain.on('conferenceJoined', (e) => {
+    console.error('conference joined');
+    powerId = powerSaveBlocker.start("prevent-display-sleep");
+  });
+
+  ipcMain.on('conferenceLeft', (e) => {
+    powerSaveBlocker.stop(powerId);
+    powerId = null;
+  });
+
   ipcMain.on('leave', (e) => {
     mainWindow.close();
     app.quit();

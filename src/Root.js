@@ -6,8 +6,15 @@ import App from './App'
 const Root = ({ }) => (
 <Router>
     <Switch>
-        <Route path="/:conferenceName" exact component={App} />
-        <Route path="/" component={App} />
+        <Route 
+            path="/:conferenceName" 
+            exact
+            render = {(props) => <App {...props} handleJoin={global.electronOnJoined} handleLeave={global.electronOnLeft}/>}
+         />
+        <Route 
+            path="/" 
+            render = {(props) => <App {...props} handleJoin={global.electronOnJoined} handleLeave={global.electronOnLeft}/>}
+        />
     </Switch>
 </Router>
 )
