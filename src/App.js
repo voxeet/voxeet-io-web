@@ -86,7 +86,6 @@ class App extends Component {
 
     if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
       navigator.attachMediaStream = function(element, stream) { // Shim for electron
-        console.error("Attach media stream");
         if (sdk.conference && stream) {
           if (!element.renderer) {
             VideoRenderer.create(element);
