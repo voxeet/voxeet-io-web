@@ -1,6 +1,6 @@
 {
   "name": "voxeet-io",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "main": "./src/main.js",
   "scripts": {
@@ -66,9 +66,12 @@
     }
   },
   "dependencies": {
+    "@trodi/electron-splashscreen": "^0.3.4",
     "@voxeet/react-components": "^0.31.0",
     "@voxeet/voxeet-web-sdk": "^1.8.6",
+    "@voxeet/media-engine": "^0.16.0",
     "react": "^16.7.0",
+    "express": "^4.0.0",
     "react-dom": "16.6.1",
     "redux": "3.7.2",
     "react-redux": "^5.0.6",
@@ -88,7 +91,7 @@
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
     "electron": "^3.0.5",
-    "electron-builder": "^20.28.4",
+    "electron-builder": "^20.38.4",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",

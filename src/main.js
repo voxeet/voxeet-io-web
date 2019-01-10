@@ -1,7 +1,7 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, powerSaveBlocker } = require('electron');
+//const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
-const EventEmitter = require('events');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -46,6 +46,7 @@ const template = [{
 ];
 
 let mainWindow;
+let powerId = null;
 
 app.on('window-all-close', () => {
   mainWindow.close();
@@ -56,6 +57,16 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({width: 1280, height: 720});
   mainWindow.webContents.setFrameRate(30);
   
+  ipcMain.on('conferenceJoined', (e) => {
+    console.error('conference joined');
+    powerId = powerSaveBlocker.start("prevent-display-sleep");
+  });
+
+  ipcMain.on('conferenceLeft', (e) => {
+    powerSaveBlocker.stop(powerId);
+    powerId = null;
+  });
+
   ipcMain.on('leave', (e) => {
     mainWindow.close();
     app.quit();
@@ -74,7 +85,7 @@ app.on('ready', () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   
   // Debugging purpose
-  if (isDevelopment) {
+  if (process.env.DEBUG) {
     mainWindow.webContents.openDevTools();
   }
 
