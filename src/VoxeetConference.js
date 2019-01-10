@@ -103,6 +103,7 @@ class VoxeetConference extends Component {
           autoJoin
           sdk={this.props.sdk}
           userInfo={userInfo}
+          //preConfig
           //isWebinar
           //isAdmin
           isDemo={this.props.isDemo}

@@ -49,8 +49,15 @@ class App extends Component {
 
   componentWillMount() {
     const { conferenceName } = this.props.match.params
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var c = url.searchParams.get("name");
     if (conferenceName) {
-      this.setState({ isJoiningFromUrl: true, form :{ conferenceName: conferenceName}})
+      if (c != null) {
+        this.setState({ isSubmit: true, form :{ conferenceName: conferenceName, userName: c}})
+      } else {
+        this.setState({ isJoiningFromUrl: true, form :{ conferenceName: conferenceName}})
+      }
     }
   }
 
@@ -75,9 +82,11 @@ class App extends Component {
   }
 
   handleOnLeave() {
-    ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
-    const oldConferenceName = this.state.form.conferenceName
-    this.setState({ isDemo: false, isSubmit: false})
+    /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
+    const oldConferenceName = this.state.form.conferenceName*/
+    this.setState({ isSubmit: false })
+    this.props.history.push('/')
+    window.location.reload()
   }
 
   handleClick() {
