@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const BabelPolyfill = require("babel-polyfill");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 try {
   require('os').networkInterfaces()
@@ -12,6 +14,7 @@ try {
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     './src/index.js',
   ],
   output: {
@@ -48,6 +51,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new UglifyJsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': `"production"`
