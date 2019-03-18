@@ -1,8 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 try {
   require('os').networkInterfaces()
@@ -20,7 +17,7 @@ module.exports = {
     libraryTarget: 'umd'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /.js?$/,
         loaders: ['babel-loader'],
@@ -30,6 +27,11 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.mp3$/,
+        include: "/assets/sounds",
+        loader: 'file-loader'
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -49,9 +51,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': `"production"`
-      }
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new CopyWebpackPlugin([
       'src/renderer.js'

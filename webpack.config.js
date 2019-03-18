@@ -21,7 +21,7 @@ module.exports = {
     host: 'localhost',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /.js?$/,
         loaders: ['babel-loader'],
@@ -31,6 +31,11 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.mp3$/,
+        include: "/assets/sounds",
+        loader: 'file-loader'
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,

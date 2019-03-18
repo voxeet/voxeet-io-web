@@ -11,6 +11,10 @@ export default class Sdk {
         return Sdk.instance
     }
 
+    static destroy() {
+        Sdk.instance = null
+    }
+
     static setSdk(sdk) {
         Sdk.instance = sdk
     }

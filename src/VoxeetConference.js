@@ -102,11 +102,8 @@ class VoxeetConference extends Component {
       <Provider store={configureStore()}>
         <ConferenceRoom
           autoJoin
-          sdk={this.props.sdk}
           userInfo={userInfo}
-          //preConfig
-          //isWebinar
-          //isAdmin
+          isListener={this.props.isListener}
           isDemo={this.props.isDemo}
           liveRecordingEnabled
           videoCodec={"H264"}
@@ -140,6 +137,7 @@ VoxeetConference.propTypes = {
     sdk: PropTypes.object,
     isDemo: PropTypes.bool,
     externalId: PropTypes.string,
+    isListener: PropTypes.bool,
     userName: PropTypes.string,
     handleOnLeave: PropTypes.func.isRequired
 }

@@ -35,7 +35,7 @@ class App extends Component {
       super(props);
       this.state = {
         isSubmit: false,
-        sdk:null,
+        isListener: false,
         isJoiningFromUrl: false,
         isDemo: false,
         form : {
@@ -46,6 +46,7 @@ class App extends Component {
       this.handleClick = this.handleClick.bind(this)
       this.handleChange = this.handleChange.bind(this)
       this.escFunction = this.escFunction.bind(this)
+      this.toggleChangeListener = this.toggleChangeListener.bind(this)
   }
 
   componentWillMount() {
@@ -86,15 +87,20 @@ class App extends Component {
     /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.form.conferenceName*/
     this.setState({ isSubmit: false })
-    this.props.history.push('/')
-    window.location.reload()
+    /*this.props.history.push('/')
+    window.location.reload()*/
+  }
+
+  toggleChangeListener() {
+    this.setState({
+      isListener: !this.state.isListener,
+    });
   }
 
   handleClick() {
     this.props.history.push('/' + this.state.form.conferenceName)
-    const sdk = Sdk.create()
 
-    if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
+    /*if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
       navigator.attachMediaStream = function(element, stream) { // Shim for electron
         if (sdk.conference && stream) {
           if (!element.renderer) {
@@ -103,9 +109,9 @@ class App extends Component {
           sdk.conference.rtc.attachMediaStream(element.renderer, stream.peerId(), stream.label());
         }
       }
-    }
+    }*/
 
-    this.setState({ isJoiningFromUrl: false, sdk: sdk, isSubmit: true})
+    this.setState({ isJoiningFromUrl: false, isSubmit: true})
     this.props.handleJoin();
   }
 
@@ -133,7 +139,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <VoxeetConference isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} sdk={this.state.sdk} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
+            <VoxeetConference isListener={this.state.isListener} isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
           </div>
         )
     }
@@ -153,6 +159,9 @@ class App extends Component {
           <div className="input-field">
             <input name="userName" placeholder={strings.name} value={this.state.form.userName} onChange={this.handleChange} id="userName" type="text" className="validate" />
           </div>
+
+          <input type="checkbox" id="isListener" checked={this.state.isListener} onChange={this.toggleChangeListener} />
+          <label id="isListenerLabel" htmlFor="isListener">Join as a listener</label>
 
           <div className="blockButton">
             <button id="join" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick}>
