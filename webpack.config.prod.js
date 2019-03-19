@@ -57,6 +57,7 @@ module.exports = {
     new CopyWebpackPlugin([
       'src/renderer.js',
       'src/static',
+      'public/webrtc-ie-shim.js',
       'public/manifest.json'
     ]),
     new UglifyJSPlugin(),
