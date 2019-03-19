@@ -60,7 +60,8 @@ module.exports = {
       }
     }),
     new CopyWebpackPlugin([
-      'src/renderer.js'
+      'src/renderer.js',
+      'src/static'
     ]),
     new HtmlWebpackPlugin({
       inject: true,

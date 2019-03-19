@@ -1,0 +1,418 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: url('../static/images/bg.svg') no-repeat center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  overflow-x: hidden;
+}
+
+.electron-message-container {
+  position: absolute;
+  right:0;
+  left: 0;
+  top:0;
+  bottom:0;
+  background-color: #3e4665;
+  display: flex;
+  align-items: center;
+}
+
+.electron-logo-container {
+  text-align:center;
+  margin-bottom: 25px;
+  img {
+    width:95px;
+  }
+}
+
+.electron-center-container {
+  max-width: 450px;
+  margin:auto;
+}
+
+.electron-info-container {
+  text-align: center;
+  color: #fff;
+  margin-top: 25px;
+  font-family: 'proxima-nova-soft-medium';
+  font-size: 18px;
+  display: inline-block;
+}
+
+.one {
+    margin-left: 8px;
+    opacity: 0;
+    -webkit-animation: dot 1.3s infinite;
+    -webkit-animation-delay: 0.0s;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.0s;
+}
+
+.two {
+    opacity: 0;
+    -webkit-animation: dot 1.3s infinite;
+    -webkit-animation-delay: 0.2s;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.2s;
+}
+
+.three {
+    opacity: 0;
+    -webkit-animation: dot 1.3s infinite;
+    -webkit-animation-delay: 0.3s;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.3s;
+}
+
+@-webkit-keyframes dot {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes dot {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.loader {
+   border: 2px solid #f3f3f3;
+   border-radius: 50%;
+   border-top: 2px solid #58C6F4;
+   width: 28px;
+   height: 28px;
+   -webkit-animation: spin 2s linear infinite; /* Safari */
+   animation: spin 2s linear infinite;
+ }
+
+ #loader-container {
+   margin: auto;
+   width: 32px;
+   height: 23px;
+   display: inline-block;
+   margin-right: 15px;
+ }
+
+ /* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.copyright {
+  position: absolute;
+  bottom: 8px;
+  left:0;
+  font-size: 12px;
+  right:0;
+  text-align: center;
+  color: #000938;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.disable {
+  cursor: not-allowed!important;
+}
+
+.blockInput div {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.block-user-name select {
+  margin: auto;
+  margin-left: 3%;
+  width: 50%;
+  margin-top: 19px;
+}
+
+
+.block-user-name label {
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 16px;
+  font-weight: 400;
+  color: #6A6A6A;
+}
+
+.img-user img {
+  max-width: 100%;
+}
+
+.img-user {
+  margin-bottom: 10px!important;
+  display: inline-block!important;
+  float:left;
+  width: 15%;
+}
+
+.button-disabled, .button-disabled:hover{
+  background-color: #72A1F3!important;
+  cursor: not-allowed!important;
+}
+
+.content-sample {
+  background-color: #fff;
+  -webkit-box-shadow: 0 13px 44px 0 rgba(0,10,56,.11);
+  box-shadow: 0 13px 44px 0 rgba(0,10,56,.11);
+  border-radius: 5px;
+  padding: 30px;
+  width: 470px;
+}
+
+.electron-message {
+  text-align: center;
+  color: #000938;
+  margin-top: 35px;
+  font-size: 16px;
+}
+
+.title {
+  font-size: 19px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.input-field {
+  margin-top: 15px;
+}
+
+.input-field input {
+  width: 100%;
+  border-bottom-width: 2px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 18px;
+  margin-bottom: 30px;
+  padding: 15px 0px 15px 0px;
+}
+
+.input-field input:focus {
+  border-bottom-color: #208fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.button-demo {
+  text-align:left;
+  border:none!important;
+  font-size: 13px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+#join {
+  padding: 15px 50px;
+  background-image: linear-gradient(225deg,#c0e249,#48d57c);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  border: none!important;
+  width: 100%;
+  cursor: pointer;
+}
+
+#conferenceName, #first_name, #last_name { 
+  color: #000;
+  font-weight: 200;
+}
+
+#join:hover {
+  background-color: #66B2F3;
+}
+
+.logo {
+  text-align: center;
+  margin-top: 0px;
+  padding-bottom: 35px;
+  display: inline-block;
+  width: 100%;
+}
+
+.logo h1 {
+  font-size: 55px;
+  margin: 25px 15px 30px 15px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 70%;
+  display: inline-block;
+  color: #000938;
+}
+
+.voxeet-logo {
+  width: 45px;
+}
+
+.blockButton {
+  text-align: center;
+  margin-top: 22px;
+}
+
+
+
+
+
+
+
+
+/*Checkboxes styles*/
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  font: 14px/20px 'Open Sans', Arial, sans-serif;
+  color: #000;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #6cc0e5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+
+
+.loader {
+   border: 2px solid #f3f3f3;
+   border-radius: 50%;
+   border-top: 2px solid #58C6F4;
+   width: 32px;
+   height: 32px;
+   -webkit-animation: spin 2s linear infinite; /* Safari */
+   animation: spin 2s linear infinite;
+ }
+
+ #loader-container {
+   margin: auto;
+   width: 32px;
+ }
+
+ /* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+/* MEDIA QUERIES */
+
+@media screen and (min-width: 768px) and (max-width: 991px)
+{
+  .electron-info-container { width: 100%;margin:auto; }
+  #loader-container {
+    margin: auto;
+    width: 32px;
+    height: 23px;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px)
+{
+}
+
+@media screen and (max-width: 767px)
+{
+  body {
+    display: block;
+  }
+  .voxeet-logo { width: 50px; }
+  .logo h1 { display:block;font-size: 30px;margin: 0px 15px 0px 15px; }
+  .input-field input { 
+    font-size: 13px;
+  }
+  button { font-size: 12px;padding: 13px 50px; }
+  .content-sample { margin: 8px;padding:10px; width: auto; }
+  .blockButton { margin-top: 10px; }
+  .blockButton button { font-size: 12px!important;padding: 10px!important; }
+  .button-demo { font-size: 12px;margin-top: 10px;padding: 10px; }
+  .electron-info-container { width: 100%;margin:auto; }
+  #loader-container {
+    margin: auto;
+    width: 32px;
+    height: 23px;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 448px) {
+}

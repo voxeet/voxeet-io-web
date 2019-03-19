@@ -1,14 +1,14 @@
 {
-  "short_name": "Web ConferenceKit",
-  "name": "Voxeet Web ConferenceKit",
+  "short_name": "Voxeet.io",
+  "name": "Voxeet Conference APp",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "public/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "public/index.html",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
