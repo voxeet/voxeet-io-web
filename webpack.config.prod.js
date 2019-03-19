@@ -64,7 +64,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: './public/index.html',
-      favicon: './public/favicon.ico',
       js: process.env.ELECTRON ? ["renderer.js"] : [],
     }),
     new webpack.NoEmitOnErrorsPlugin()
