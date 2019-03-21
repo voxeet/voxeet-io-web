@@ -68,7 +68,7 @@
   "dependencies": {
     "@trodi/electron-splashscreen": "^0.3.4",
     "@voxeet/react-components": "^0.31.4",
-    "@voxeet/voxeet-web-sdk": "^1.8.5",
+    "@voxeet/voxeet-web-sdk": "^1.9.0",
     "express": "^4.16.4",
     "react": "^16.7.0",
     "react-dom": "16.6.1",
