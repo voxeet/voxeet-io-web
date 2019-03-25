@@ -2,6 +2,7 @@
   "presets":[
     ["@babel/preset-env", {
       useBuiltIns: 'entry',
+      corejs: 'core-js@2',
       debug: false
     }],
     "@babel/preset-react"
