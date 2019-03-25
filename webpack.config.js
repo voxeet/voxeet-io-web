@@ -11,23 +11,25 @@ try {
 
 module.exports = {
   entry: [
+    'react-hot-loader/patch',
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/index.js',
   ],
+  devtool: "source-map",
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
   devServer: {
-    port: 8081,
+    port: 8080,
     https: true,
     disableHostCheck: true,
+    host: '0.0.0.0',
     historyApiFallback: true,
-    host: 'localhost',
   },
   module: {
     rules: [
-      {
-        test: /.js?$/,
-        loaders: ['babel-loader'],
-        exclude: /node_modules/,
-        include: path.resolve(__dirname),
-      },
       {
         test: /\.css$/,
         loaders: ["style-loader", "css-loader"]
