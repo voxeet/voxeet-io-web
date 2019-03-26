@@ -25,7 +25,6 @@ module.exports = {
       {
         test: /.js?$/,
         loaders: ['babel-loader'],
-        exclude: /node_modules/,
         include: path.resolve(__dirname),
       },
       {
@@ -35,7 +34,6 @@ module.exports = {
       {
         test: /.jsx?$/,
         loaders: ['babel-loader'],
-        exclude: /node_modules/,
         include: path.resolve(__dirname),
       },
       {
