@@ -22,7 +22,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://www.voxeet.com/wp-content/themes/wp-theme/assets/images/favicon/favicon-16x16.png">
     <title>Voxeet.io</title>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-    <script src="https://cdn.voxeet.com/ie11/webrtc-ie-shim.js"></script>
   </head>
   <body ontouchstart="">
     <% for (var js in htmlWebpackPlugin.options.js) { %>
@@ -30,6 +29,7 @@
     <% } %>
     <div id="root"></div>
   </body>
+  <script src="../src/static/webrtc-ie-shim.js"></script>
   <footer>
   </footer>
 </html>
