@@ -68,7 +68,7 @@
   "dependencies": {
     "@trodi/electron-splashscreen": "^0.3.4",
     "@voxeet/react-components": "^0.32.0",
-    "@voxeet/voxeet-web-sdk": "^1.9.1",
+    "@voxeet/voxeet-web-sdk": "^1.9.2",
     "core-js": "^2.6.5",
     "express": "^4.16.4",
     "react": "^16.7.0",
@@ -100,7 +100,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "peerDependencies": {
-    "@voxeet/voxeet-web-sdk": "^1.9.1",
+    "@voxeet/voxeet-web-sdk": "^1.9.2",
     "express": "^4.0.0"
   },
   "files": [
