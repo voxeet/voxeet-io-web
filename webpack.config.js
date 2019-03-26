@@ -11,6 +11,7 @@ try {
 
 module.exports = {
   entry: [
+    "@babel/polyfill",
     'react-hot-loader/patch',
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/index.js',

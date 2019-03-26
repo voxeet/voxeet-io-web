@@ -12,7 +12,8 @@ try {
 
 module.exports = {
   entry: [
-    './src/index.js',
+    "@babel/polyfill",
+    './src/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
