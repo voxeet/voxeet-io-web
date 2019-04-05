@@ -251,9 +251,9 @@ body {
   cursor: pointer;
 }
 
-#conferenceName, #first_name, #last_name { 
-  color: #000;
-  font-weight: 200;
+#conferenceName, #first_name, #last_name {
+  color:#000;
+  font-weight:200;
 }
 
 #join:hover {
