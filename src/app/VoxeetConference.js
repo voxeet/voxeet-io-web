@@ -77,7 +77,6 @@ class VoxeetConference extends Component {
 
     const userInfo = {
       name: name,
-      externalId: this.props.externalId,
       avatarUrl: photoURL
     };
     var constraints = {
@@ -99,10 +98,11 @@ class VoxeetConference extends Component {
       displayModes = ["tiles", "speaker", "list"]
     }
     ReactDOM.render(
-      <Provider store={configureStore()}>
+      <Provider context={React.createContext()} store={configureStore()}>
         <ConferenceRoom
           autoJoin
           userInfo={userInfo}
+          preConfig={this.props.widgetMode ? false : true}
           isListener={this.props.isListener}
           isDemo={this.props.isDemo}
           liveRecordingEnabled
@@ -111,7 +111,7 @@ class VoxeetConference extends Component {
           displayModes={displayModes}
           videoRatio={videoRatio}
           handleOnLeave={this.props.handleOnLeave}
-          isWidget={false}
+          isWidget={this.props.widgetMode}
           isElectron={VoxeetSdk.isElectron}
           constraints={constraints}
           consumerKey={settings.consumerKey}
@@ -138,6 +138,7 @@ VoxeetConference.propTypes = {
     isDemo: PropTypes.bool,
     externalId: PropTypes.string,
     isListener: PropTypes.bool,
+    widgetMode: PropTypes.bool,
     userName: PropTypes.string,
     handleOnLeave: PropTypes.func.isRequired
 }

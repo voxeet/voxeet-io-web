@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import logo from '../static/images/logo.svg';
@@ -16,6 +16,7 @@ let strings = new LocalizedStrings({
    conferencename:"Your conference name",
    joinDemo: "or experience Voxeet demo",
    electronmessage:"Voxeet is loading, please wait",
+   conferenceJoined: "You're in the conference",
    copyright:" All rights reserved"
  },
  fr: {
@@ -25,6 +26,7 @@ let strings = new LocalizedStrings({
    joinDemo: "ou tester Voxeet demo",
    conferencename:"Nom de la conférence",
    electronmessage:"Le client Voxeet va démarrer, veuillez patienter",
+   conferenceJoined: "Vous êtes dans la conférence",
    copyright:"Tous droits réservés"
  }
 });
@@ -36,6 +38,7 @@ class App extends Component {
       this.state = {
         isSubmit: false,
         isListener: false,
+        widgetMode: false,
         isJoiningFromUrl: false,
         isDemo: false,
         form : {
@@ -44,9 +47,11 @@ class App extends Component {
         }
       }
       this.handleClick = this.handleClick.bind(this)
-      this.handleChange = this.handleChange.bind(this)
+      this.handleChangeUserName = this.handleChangeUserName.bind(this)
+      this.handleChangeConferenceName = this.handleChangeConferenceName.bind(this)
       this.escFunction = this.escFunction.bind(this)
       this.toggleChangeListener = this.toggleChangeListener.bind(this)
+      this.toggleWidgetMode = this.toggleWidgetMode.bind(this)
   }
 
   componentWillMount() {
@@ -77,9 +82,15 @@ class App extends Component {
     document.removeEventListener("keydown", this.escFunction, false);
   }
 
-  handleChange(e) {
+  handleChangeConferenceName(e) {
     const { form } = this.state;
-    form[e.target.name] = e.target.value;
+    form["conferenceName"] = e.target.value;
+    this.setState({ form });
+  }
+
+  handleChangeUserName(e) {
+    const { form } = this.state;
+    form["userName"] = e.target.value;
     this.setState({ form });
   }
 
@@ -94,6 +105,12 @@ class App extends Component {
   toggleChangeListener() {
     this.setState({
       isListener: !this.state.isListener,
+    });
+  }
+
+  toggleWidgetMode() {
+    this.setState({
+      widgetMode: !this.state.widgetMode,
     });
   }
 
@@ -132,14 +149,24 @@ class App extends Component {
                   <div className="electron-logo-container">
                     <img src={logo} />
                   </div>
-                  <div id="loader-container"><div className="loader"></div></div>
-                  <div className="electron-info-container">
-                    {strings.electronmessage}<span className="one">.</span><span className="two">.</span><span className="three">.</span>​
-                  </div>
+                  { !this.state.widgetMode ?
+                    <Fragment>
+                      <div id="loader-container"><div className="loader"></div></div>
+                      <div className="electron-info-container">
+                        {strings.electronmessage}<span className="one">.</span><span className="two">.</span><span className="three">.</span>​
+                      </div>
+                    </Fragment>
+                    :
+                    <Fragment>
+                      <div className="electron-info-container">
+                        {strings.conferenceJoined}
+                      </div>
+                    </Fragment>
+                  }
                 </div>
               </div>
             </div>
-            <VoxeetConference isListener={this.state.isListener} isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
+            <VoxeetConference isListener={this.state.isListener} widgetMode={this.state.widgetMode} isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
           </div>
         )
     }
@@ -153,22 +180,25 @@ class App extends Component {
           </div>
           { !this.state.isJoiningFromUrl &&
           <div className="input-field">
-            <input name="conferenceName" placeholder={strings.conferencename} value={this.state.form.conferenceName} onChange={this.handleChange} id="conferenceName" type="text" className="validate" />
+            <input name="conferenceName" placeholder={strings.conferencename} value={this.state.form.conferenceName} onChange={this.handleChangeConferenceName} id="conferenceName" type="text" className="validate" />
           </div>
           }
           <div className="input-field">
-            <input name="userName" placeholder={strings.name} value={this.state.form.userName} onChange={this.handleChange} id="userName" type="text" className="validate" />
+            <input name="userName" placeholder={strings.name} value={this.state.form.userName} onChange={this.handleChangeUserName} id="userName" type="text" className="validate" />
           </div>
 
           <input type="checkbox" id="isListener" checked={this.state.isListener} onChange={this.toggleChangeListener} />
           <label id="isListenerLabel" htmlFor="isListener">Join as a listener</label>
 
+          <input type="checkbox" id="widgetMode" checked={this.state.widgetMode} onChange={this.toggleWidgetMode} />
+          <label id="widgetModeLabel" htmlFor="widgetMode">Widget Mode</label>
+
           <div className="blockButton">
-            <button id="join" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick}>
+            <button id="join" type="button" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick}>
               <span>{strings.join}</span>
             </button>
           </div>
-          <button className="button-demo" onClick={this.handleClickDemo.bind(this)}>
+          <button className="button-demo" type="button" onClick={this.handleClickDemo.bind(this)}>
             <span>{strings.joinDemo}</span>
           </button>
         </div>
