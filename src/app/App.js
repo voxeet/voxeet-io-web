@@ -40,6 +40,7 @@ class App extends Component {
         isListener: false,
         widgetMode: false,
         isJoiningFromUrl: false,
+        configuration: false,
         isDemo: false,
         form : {
           conferenceName: "",
@@ -52,6 +53,7 @@ class App extends Component {
       this.escFunction = this.escFunction.bind(this)
       this.toggleChangeListener = this.toggleChangeListener.bind(this)
       this.toggleWidgetMode = this.toggleWidgetMode.bind(this)
+      this.toggleConfiguration = this.toggleConfiguration.bind(this)
   }
 
   componentWillMount() {
@@ -92,6 +94,12 @@ class App extends Component {
     const { form } = this.state;
     form["userName"] = e.target.value;
     this.setState({ form });
+  }
+
+  toggleConfiguration() {
+    this.setState({
+      configuration: !this.state.configuration,
+    });
   }
 
   handleOnLeave() {
@@ -166,7 +174,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <VoxeetConference isListener={this.state.isListener} widgetMode={this.state.widgetMode} isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
+            <VoxeetConference isListener={this.state.isListener} configuration={this.state.configuration} widgetMode={this.state.widgetMode} isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
           </div>
         )
     }
@@ -192,6 +200,9 @@ class App extends Component {
 
           <input type="checkbox" id="widgetMode" checked={this.state.widgetMode} onChange={this.toggleWidgetMode} />
           <label id="widgetModeLabel" htmlFor="widgetMode">Widget Mode</label>
+
+          <input type="checkbox" id="configurationMode" checked={this.state.configuration} onChange={this.toggleConfiguration} />
+          <label id="configurationModeLabek" htmlFor="configurationMode">Configuration before joining</label>
 
           <div className="blockButton">
             <button id="join" type="button" disabled={ this.state.form.conferenceName.length == 0 ? true : false } className={ this.state.form.conferenceName.length == 0 ? "waves-effect waves-light disable" : "waves-effect waves-light" } onClick={this.handleClick}>
