@@ -103,7 +103,13 @@ class VoxeetConference extends Component {
         <ConferenceRoom
           autoJoin
           userInfo={userInfo}
-          preConfig={this.props.configuration ? (this.props.widgetMode ? false : true) : false}
+          preConfig={
+            this.props.configuration
+              ? this.props.widgetMode
+                ? false
+                : true
+              : false
+          }
           isListener={this.props.isListener}
           isDemo={this.props.isDemo}
           liveRecordingEnabled
@@ -130,17 +136,17 @@ class VoxeetConference extends Component {
 }
 
 VoxeetConference.propTypes = {
-    conferenceName: PropTypes.string,
-    photoURL: PropTypes.string,
-    sdk: PropTypes.object,
-    isDemo: PropTypes.bool,
-    externalId: PropTypes.string,
-    isListener: PropTypes.bool,
-    widgetMode: PropTypes.bool,
-    configuration: PropTypes.bool,
-    userName: PropTypes.string,
-    handleOnLeave: PropTypes.func.isRequired
-}
+  conferenceName: PropTypes.string,
+  photoURL: PropTypes.string,
+  sdk: PropTypes.object,
+  isDemo: PropTypes.bool,
+  externalId: PropTypes.string,
+  isListener: PropTypes.bool,
+  widgetMode: PropTypes.bool,
+  configuration: PropTypes.bool,
+  userName: PropTypes.string,
+  handleOnLeave: PropTypes.func.isRequired
+};
 
 VoxeetConference.defaultProps = {
   conferenceName: "conference_name",

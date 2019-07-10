@@ -33,26 +33,28 @@ let strings = new LocalizedStrings({
 
 class App extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        isSubmit: false,
-        isListener: false,
-        widgetMode: false,
-        isJoiningFromUrl: false,
-        configuration: false,
-        isDemo: false,
-        form : {
-          conferenceName: "",
-          userName: ""
-        }
+    super(props);
+    this.state = {
+      isSubmit: false,
+      isListener: false,
+      widgetMode: false,
+      isJoiningFromUrl: false,
+      configuration: false,
+      isDemo: false,
+      form: {
+        conferenceName: "",
+        userName: ""
       }
-      this.handleClick = this.handleClick.bind(this)
-      this.handleChangeUserName = this.handleChangeUserName.bind(this)
-      this.handleChangeConferenceName = this.handleChangeConferenceName.bind(this)
-      this.escFunction = this.escFunction.bind(this)
-      this.toggleChangeListener = this.toggleChangeListener.bind(this)
-      this.toggleWidgetMode = this.toggleWidgetMode.bind(this)
-      this.toggleConfiguration = this.toggleConfiguration.bind(this)
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChangeUserName = this.handleChangeUserName.bind(this);
+    this.handleChangeConferenceName = this.handleChangeConferenceName.bind(
+      this
+    );
+    this.escFunction = this.escFunction.bind(this);
+    this.toggleChangeListener = this.toggleChangeListener.bind(this);
+    this.toggleWidgetMode = this.toggleWidgetMode.bind(this);
+    this.toggleConfiguration = this.toggleConfiguration.bind(this);
   }
 
   componentWillMount() {
@@ -103,7 +105,7 @@ class App extends Component {
 
   toggleConfiguration() {
     this.setState({
-      configuration: !this.state.configuration,
+      configuration: !this.state.configuration
     });
   }
 
@@ -186,7 +188,15 @@ class App extends Component {
                 )}
               </div>
             </div>
-            <VoxeetConference isListener={this.state.isListener} widgetMode={this.state.widgetMode} isDemo={this.state.isDemo} handleOnLeave={this.handleOnLeave.bind(this)} userName={this.state.form.userName} photoURL={photoURL} conferenceName={this.state.form.conferenceName} />
+            <VoxeetConference
+              isListener={this.state.isListener}
+              widgetMode={this.state.widgetMode}
+              isDemo={this.state.isDemo}
+              handleOnLeave={this.handleOnLeave.bind(this)}
+              userName={this.state.form.userName}
+              photoURL={photoURL}
+              conferenceName={this.state.form.conferenceName}
+            />
           </div>
           <VoxeetConference
             isListener={this.state.isListener}
@@ -253,8 +263,15 @@ class App extends Component {
             Widget Mode
           </label>
 
-          <input type="checkbox" id="configurationMode" checked={this.state.configuration} onChange={this.toggleConfiguration} />
-          <label id="configurationModeLabek" htmlFor="configurationMode">Configuration before joining</label>
+          <input
+            type="checkbox"
+            id="configurationMode"
+            checked={this.state.configuration}
+            onChange={this.toggleConfiguration}
+          />
+          <label id="configurationModeLabek" htmlFor="configurationMode">
+            Configuration before joining
+          </label>
 
           <div className="blockButton">
             <button
@@ -281,9 +298,7 @@ class App extends Component {
             <span>{strings.joinDemo}</span>
           </button>
         </div>
-        <div className="copyright">
-          Voxeet © 2019 {strings.copyright}
-        </div>
+        <div className="copyright">Voxeet © 2019 {strings.copyright}</div>
       </div>
     );
   }
