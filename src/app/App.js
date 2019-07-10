@@ -214,7 +214,7 @@ class App extends Component {
           </button>
         </div>
         <div className="copyright">
-          Voxeet © 2018 {strings.copyright}
+          Voxeet © 2019 {strings.copyright}
         </div>
       </div>
     );
