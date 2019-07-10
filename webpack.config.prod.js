@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+var PrettierPlugin = require("prettier-webpack-plugin");
 
 try {
   require('os').networkInterfaces()
@@ -90,6 +91,7 @@ module.exports = {
         'NODE_ENV': `"production"`
       }
     }),
+    new PrettierPlugin(),
     new CopyWebpackPlugin(
       [
         { from: './src/static',ignore: [ '*.html' ]},
