@@ -1,79 +1,82 @@
-import React, { Component } from 'react';
-import logo from '../static/images/logo.svg';
-import 'core-js/es6/';
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import { Provider } from 'react-redux'
-import thunkMidleware from 'redux-thunk'
-import { combineReducers, createStore, applyMiddleware } from 'redux'
+import React, { Component } from "react";
+import logo from "../static/images/logo.svg";
+import "core-js/es6/";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { Provider } from "react-redux";
+import thunkMidleware from "redux-thunk";
+import { combineReducers, createStore, applyMiddleware } from "redux";
 
-import VoxeetSdk from '@voxeet/voxeet-web-sdk'
-import { ConferenceRoom, reducer as voxeetReducer } from '@voxeet/react-components'
+import VoxeetSdk from "@voxeet/voxeet-web-sdk";
+import {
+  ConferenceRoom,
+  reducer as voxeetReducer
+} from "@voxeet/react-components";
 
-import '@voxeet/react-components/dist/voxeet-react-components.css';
+import "@voxeet/react-components/dist/voxeet-react-components.css";
 
 class VoxeetConference extends Component {
-
   componentDidMount() {
-    let conferenceName = this.props.conferenceName.trim().toLowerCase().replace(/ /g,'')
+    let conferenceName = this.props.conferenceName
+      .trim()
+      .toLowerCase()
+      .replace(/ /g, "");
     const settings = {
       conferenceAlias: conferenceName,
-      consumerKey: 'NWUzZTI4cDc0M2JodQ',
-      consumerSecret: 'MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU'
+      consumerKey: "NWUzZTI4cDc0M2JodQ",
+      consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer
     });
 
-
-    let name = this.props.userName
-    let photoURL = this.props.photoURL
+    let name = this.props.userName;
+    let photoURL = this.props.photoURL;
     if (this.props.userName.length == 0) {
-      name = 'Guest ' + Math.floor((Math.random() * 100) + 1)
+      name = "Guest " + Math.floor(Math.random() * 100 + 1);
     }
 
     switch (name) {
       case "valvoxeet":
-        name = "Valentin"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/val.png"
-      break;
+        name = "Valentin";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/val.png";
+        break;
       case "cocovoxeet":
-        name = "Coco"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/coco.png"
-      break;
+        name = "Coco";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/coco.png";
+        break;
       case "kevinvoxeet":
-        name = "Kevin"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/kevin.png"
-      break;
+        name = "Kevin";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/kevin.png";
+        break;
       case "vanvoxeet":
-        name = "Van"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/van.png"
-      break;
+        name = "Van";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/van.png";
+        break;
       case "totovoxeet":
-        name = "Thomas"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/thomas.png"
-      break;
+        name = "Thomas";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/thomas.png";
+        break;
       case "raphvoxeet":
-        name = "Raphael"
-      break;
+        name = "Raphael";
+        break;
       case "stephanevoxeet":
-        name = "Stephane"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/stephane.jpeg"
-      break;
+        name = "Stephane";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/stephane.jpeg";
+        break;
       case "benoitvoxeet":
-        name = "Benoit"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/benoit.jpg"
-      break;
+        name = "Benoit";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/benoit.jpg";
+        break;
       case "bernardvoxeet":
-        name = "Bernard"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/bernard.png"
-      break;
+        name = "Bernard";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/bernard.png";
+        break;
       case "fabienvoxeet":
-        name = "Fabien"
-        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/fabien.png"
-      break;
+        name = "Fabien";
+        photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/fabien.png";
+        break;
     }
-
 
     const userInfo = {
       name: name,
@@ -86,16 +89,14 @@ class VoxeetConference extends Component {
     var videoRatio = {
       width: 1280,
       height: 720
-    }
-    const configureStore = () => createStore(
-      reducers,
-      applyMiddleware(thunkMidleware)
-    );
-    let displayModes = ["tiles", "speaker"]
+    };
+    const configureStore = () =>
+      createStore(reducers, applyMiddleware(thunkMidleware));
+    let displayModes = ["tiles", "speaker"];
     if (this.props.isDemo && VoxeetSdk.isElectron) {
-      displayModes = ["list", "tiles", "speaker"]
+      displayModes = ["list", "tiles", "speaker"];
     } else if (VoxeetSdk.isElectron) {
-      displayModes = ["tiles", "speaker", "list"]
+      displayModes = ["tiles", "speaker", "list"];
     }
     ReactDOM.render(
       <Provider context={React.createContext()} store={configureStore()}>
@@ -119,33 +120,30 @@ class VoxeetConference extends Component {
           conferenceAlias={settings.conferenceAlias}
         />
       </Provider>,
-      document.getElementById('voxeet-widget')
-    )
+      document.getElementById("voxeet-widget")
+    );
   }
 
   render() {
-    return (
-      <div id="voxeet-widget">
-      </div>
-    )
+    return <div id="voxeet-widget"></div>;
   }
 }
 
 VoxeetConference.propTypes = {
-    conferenceName: PropTypes.string,
-    photoURL: PropTypes.string,
-    sdk: PropTypes.object,
-    isDemo: PropTypes.bool,
-    externalId: PropTypes.string,
-    isListener: PropTypes.bool,
-    widgetMode: PropTypes.bool,
-    userName: PropTypes.string,
-    handleOnLeave: PropTypes.func.isRequired
-}
+  conferenceName: PropTypes.string,
+  photoURL: PropTypes.string,
+  sdk: PropTypes.object,
+  isDemo: PropTypes.bool,
+  externalId: PropTypes.string,
+  isListener: PropTypes.bool,
+  widgetMode: PropTypes.bool,
+  userName: PropTypes.string,
+  handleOnLeave: PropTypes.func.isRequired
+};
 
 VoxeetConference.defaultProps = {
-    conferenceName: 'conference_name',
-    userName: 'Guest ' + Math.floor((Math.random() * 100) + 1)
-}
+  conferenceName: "conference_name",
+  userName: "Guest " + Math.floor(Math.random() * 100 + 1)
+};
 
 export default VoxeetConference;
