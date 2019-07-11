@@ -192,21 +192,13 @@ class App extends Component {
               isListener={this.state.isListener}
               widgetMode={this.state.widgetMode}
               isDemo={this.state.isDemo}
+              configuration={this.state.configuration}
               handleOnLeave={this.handleOnLeave.bind(this)}
               userName={this.state.form.userName}
               photoURL={photoURL}
               conferenceName={this.state.form.conferenceName}
             />
           </div>
-          <VoxeetConference
-            isListener={this.state.isListener}
-            widgetMode={this.state.widgetMode}
-            isDemo={this.state.isDemo}
-            handleOnLeave={this.handleOnLeave.bind(this)}
-            userName={this.state.form.userName}
-            photoURL={photoURL}
-            conferenceName={this.state.form.conferenceName}
-          />
         </div>
       );
     }
