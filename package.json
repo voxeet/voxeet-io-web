@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "@trodi/electron-splashscreen": "^0.3.4",
-    "@voxeet/react-components": "^0.35.0-rc3",
+    "@voxeet/react-components": "^0.34.2",
     "@voxeet/voxeet-web-sdk": "1.9.5",
     "browserslist": "^4.5.2",
     "core-js": "2",
@@ -91,7 +91,7 @@
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^2.1.1",
-    "electron": "^3.0.5",
+    "electron": "^5.0.7",
     "electron-builder": "^20.38.4",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^3.0.1",
