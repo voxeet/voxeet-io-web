@@ -112,7 +112,7 @@ class App extends Component {
   handleOnLeave() {
     /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.form.conferenceName*/
-    this.setState({ isSubmit: false });
+    this.setState({ isSubmit: false, isDemo: false })
     /*this.props.history.push('/')
     window.location.reload()*/
   }
