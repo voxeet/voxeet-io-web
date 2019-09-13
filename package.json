@@ -70,8 +70,8 @@
   },
   "dependencies": {
     "@trodi/electron-splashscreen": "^0.3.4",
-    "@voxeet/react-components": "^0.34.2",
-    "@voxeet/voxeet-web-sdk": "1.9.5",
+    "@voxeet/react-components": "^0.36.2",
+    "@voxeet/voxeet-web-sdk": "1.9.6",
     "browserslist": "^4.5.2",
     "core-js": "2",
     "express": "^4.16.4",
