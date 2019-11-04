@@ -767,10 +767,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.18.tgz#b7d45fc950e6ffd7edc685e890d13aa7b8535dce"
   integrity sha512-ryO3Q3++yZC/+b8j8BdKd/dn9JlzlHBPdm80656xwYUdmPkpTGTjkAdt6BByiNupGPE8w0FhBgvYy/fX9hRNGQ==
 
-"@voxeet/react-components@0.36.2-redux7":
-  version "0.36.2-redux7"
-  resolved "https://registry.yarnpkg.com/@voxeet/react-components/-/react-components-0.36.2-redux7.tgz#efb11b5e3a0767cafc8905f92f39254e58d5f252"
-  integrity sha512-oLJ2GWwLoBW4yJzMPjvRCrYOP0jKfqK+/+og63GivwvgmDN6eMcFRJvsfAQu0vqDjtZgsSpKddKwfkYnNgA1AA==
+"@voxeet/react-components@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@voxeet/react-components/-/react-components-1.0.1.tgz#616ac9762b3818844fe02b4ae6a02344cba960a3"
+  integrity sha512-+r1mGw5T3+tXXdqMy0Qi3jRaVqNmOg7n5ANiFxrde6xlE82+imZLl6pNuXNhdz8gP+TQ8/pbdXv2w9ynwzy4rQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@voxeet/react-redux-5.1.1" "5.1.1"
