@@ -3,13 +3,13 @@ import logo from "../static/images/logo.svg";
 import "core-js/es6/";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { Provider } from "react-redux";
 import thunkMidleware from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 
 import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
   ConferenceRoom,
+  VoxeetProvider,
   reducer as voxeetReducer
 } from "@voxeet/react-components";
 
@@ -99,7 +99,7 @@ class VoxeetConference extends Component {
       displayModes = ["tiles", "speaker", "list"];
     }
     ReactDOM.render(
-      <Provider context={React.createContext()} store={configureStore()}>
+      <VoxeetProvider store={configureStore()}>
         <ConferenceRoom
           autoJoin
           userInfo={userInfo}
@@ -125,7 +125,7 @@ class VoxeetConference extends Component {
           consumerSecret={settings.consumerSecret}
           conferenceAlias={settings.conferenceAlias}
         />
-      </Provider>,
+      </VoxeetProvider>,
       document.getElementById("voxeet-widget")
     );
   }
