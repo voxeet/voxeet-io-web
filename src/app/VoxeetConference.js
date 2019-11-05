@@ -110,6 +110,8 @@ class VoxeetConference extends Component {
                 : true
               : false
           }
+          displayActions={["mute", "video", "share", "attendees", "chat"]}
+          shareActions={["screenshare", "videopresentation"]}
           isListener={this.props.isListener}
           isDemo={this.props.isDemo}
           liveRecordingEnabled
