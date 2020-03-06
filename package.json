@@ -71,7 +71,7 @@
   "dependencies": {
     "@trodi/electron-splashscreen": "^0.3.4",
     "@voxeet/react-components": "^1.0.1",
-    "@voxeet/voxeet-web-sdk": "1.9.6",
+    "@voxeet/voxeet-web-sdk": "2.1.0",
     "browserslist": "^4.5.2",
     "core-js": "2",
     "express": "^4.16.4",
