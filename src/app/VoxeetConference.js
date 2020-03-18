@@ -116,6 +116,7 @@ class VoxeetConference extends Component {
           videoCodec={"H264"}
           chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
           displayModes={displayModes}
+          simulcast={this.props.simulcastMode}
           videoRatio={videoRatio}
           handleOnLeave={this.props.handleOnLeave}
           isWidget={this.props.widgetMode}
@@ -137,6 +138,7 @@ class VoxeetConference extends Component {
 
 VoxeetConference.propTypes = {
   conferenceName: PropTypes.string,
+  simulcastMode: PropTypes.bool,
   photoURL: PropTypes.string,
   sdk: PropTypes.object,
   isDemo: PropTypes.bool,

@@ -36,6 +36,7 @@ class App extends Component {
     super(props);
     this.state = {
       isSubmit: false,
+      simulcastMode: false,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
@@ -54,6 +55,7 @@ class App extends Component {
     this.escFunction = this.escFunction.bind(this);
     this.toggleChangeListener = this.toggleChangeListener.bind(this);
     this.toggleWidgetMode = this.toggleWidgetMode.bind(this);
+    this.toggleSimulcastMode = this.toggleSimulcastMode.bind(this);
     this.toggleConfiguration = this.toggleConfiguration.bind(this);
   }
 
@@ -129,6 +131,12 @@ class App extends Component {
     });
   }
 
+  toggleSimulcastMode() {
+    this.setState({
+      simulcastMode: !this.state.simulcastMode
+    });
+  }
+
   handleClick() {
     this.props.history.push("/" + this.state.form.conferenceName);
 
@@ -191,6 +199,7 @@ class App extends Component {
             <VoxeetConference
               isListener={this.state.isListener}
               widgetMode={this.state.widgetMode}
+              simulcastMode={this.state.simulcastMode}
               isDemo={this.state.isDemo}
               configuration={this.state.configuration}
               handleOnLeave={this.handleOnLeave.bind(this)}
@@ -253,6 +262,16 @@ class App extends Component {
           />
           <label id="widgetModeLabel" htmlFor="widgetMode">
             Widget Mode
+          </label>
+
+          <input
+            type="checkbox"
+            id="simulcastMode"
+            checked={this.state.simulcastMode}
+            onChange={this.toggleSimulcastMode}
+          />
+          <label id="simulcastModeLabel" htmlFor="simulcastMode">
+            Simulcast
           </label>
 
           <input
