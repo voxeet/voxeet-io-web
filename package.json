@@ -69,9 +69,10 @@
     }
   },
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "@trodi/electron-splashscreen": "^0.3.4",
-    "@voxeet/react-components": "^1.0.1",
-    "@voxeet/voxeet-web-sdk": "2.1.0",
+    "@voxeet/react-components": "2.0.0",
+    "@voxeet/voxeet-web-sdk": "2.1.1",
     "browserslist": "^4.5.2",
     "core-js": "2",
     "express": "^4.16.4",
@@ -110,7 +111,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "peerDependencies": {
-    "@voxeet/voxeet-web-sdk": "1.9.4",
+    "@voxeet/voxeet-web-sdk": "2.1.1",
     "express": "^4.0.0"
   },
   "files": [
