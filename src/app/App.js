@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import logo from "../static/images/logo.svg";
+import dolbyLogo from "../static/images/icons/DVo_Logo_RGB_V_White.png";
 import "../styles/App.css";
 import Sdk from "../sdk";
 import VoxeetConference from "./VoxeetConference";
@@ -17,7 +18,9 @@ let strings = new LocalizedStrings({
     joinDemo: "or experience Voxeet demo",
     electronmessage: "Voxeet is loading, please wait",
     conferenceJoined: "You're in the conference",
-    copyright: " All rights reserved"
+    copyright: " All Rights Reserved",
+    next: "Next",
+    welcome: "Welcome",
   },
   fr: {
     join: "Rejoindre la conférence",
@@ -27,7 +30,9 @@ let strings = new LocalizedStrings({
     conferencename: "Nom de la conférence",
     electronmessage: "Le client Voxeet va démarrer, veuillez patienter",
     conferenceJoined: "Vous êtes dans la conférence",
-    copyright: "Tous droits réservés"
+    copyright: "Tous Droits Réservés",
+    next: "Next",
+    welcome: "Welcome",
   }
 });
 
@@ -184,19 +189,20 @@ class App extends Component {
                       {strings.electronmessage}
                       <span className="one">.</span>
                       <span className="two">.</span>
-                      <span className="three">.</span>​
+                      <span className="three">.</span>
                     </div>
                   </Fragment>
                 ) : (
-                  <Fragment>
-                    <div className="electron-info-container">
-                      {strings.conferenceJoined}
-                    </div>
-                  </Fragment>
-                )}
+                    <Fragment>
+                      <div className="electron-info-container">
+                        {strings.conferenceJoined}
+                      </div>
+                    </Fragment>
+                  )}
               </div>
             </div>
-            <VoxeetConference
+          </div>
+          <VoxeetConference
               isListener={this.state.isListener}
               widgetMode={this.state.widgetMode}
               simulcastMode={this.state.simulcastMode}
@@ -206,8 +212,7 @@ class App extends Component {
               userName={this.state.form.userName}
               photoURL={photoURL}
               conferenceName={this.state.form.conferenceName}
-            />
-          </div>
+          />
         </div>
       );
     }
@@ -216,8 +221,7 @@ class App extends Component {
       <div>
         <div className="content-sample">
           <div className="logo">
-            <img src={logo} className="voxeet-logo" alt="logo" />
-            <h1>voxeet</h1>
+            <h1>{strings.welcome}</h1>
           </div>
           {!this.state.isJoiningFromUrl && (
             <div className="input-field">
@@ -244,46 +248,6 @@ class App extends Component {
             />
           </div>
 
-          <input
-            type="checkbox"
-            id="isListener"
-            checked={this.state.isListener}
-            onChange={this.toggleChangeListener}
-          />
-          <label id="isListenerLabel" htmlFor="isListener">
-            Join as a listener
-          </label>
-
-          <input
-            type="checkbox"
-            id="widgetMode"
-            checked={this.state.widgetMode}
-            onChange={this.toggleWidgetMode}
-          />
-          <label id="widgetModeLabel" htmlFor="widgetMode">
-            Widget Mode
-          </label>
-
-          <input
-            type="checkbox"
-            id="simulcastMode"
-            checked={this.state.simulcastMode}
-            onChange={this.toggleSimulcastMode}
-          />
-          <label id="simulcastModeLabel" htmlFor="simulcastMode">
-            Simulcast
-          </label>
-
-          <input
-            type="checkbox"
-            id="configurationMode"
-            checked={this.state.configuration}
-            onChange={this.toggleConfiguration}
-          />
-          <label id="configurationModeLabek" htmlFor="configurationMode">
-            Configuration before joining
-          </label>
-
           <div className="blockButton">
             <button
               id="join"
@@ -298,18 +262,14 @@ class App extends Component {
               }
               onClick={this.handleClick}
             >
-              <span>{strings.join}</span>
+              <span>{strings.next}</span>
             </button>
           </div>
-          <button
-            className="button-demo"
-            type="button"
-            onClick={this.handleClickDemo.bind(this)}
-          >
-            <span>{strings.joinDemo}</span>
-          </button>
         </div>
-        <div className="copyright">Voxeet © 2019 {strings.copyright}</div>
+        <div className="dolby-container-wrapper">
+          <img src={dolbyLogo} />
+        </div>
+        <div className="copyright">Copyright © 2019 Dolby — {strings.copyright}</div>
       </div>
     );
   }
@@ -321,8 +281,8 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  handleJoin: () => {},
-  handleLeave: () => {}
+  handleJoin: () => { },
+  handleLeave: () => { }
 };
 
 const mapStateToProps = (state, ownProps) => {
