@@ -1,7 +1,9 @@
+@import "./font.css";
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "DINNextLTPro-Regular";
   display: -webkit-box;
   display: -ms-flexbox;
   -webkit-box-align: center;
@@ -10,7 +12,8 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background: url("../static/images/bg.svg") no-repeat center fixed;
+  background: url("../static/images/photos/sources_bg/vladimir-kudinov-RKiMg1bwsMY-unsplash.jpg")
+    no-repeat center fixed;
   background-repeat: no-repeat;
   background-size: cover;
   top: 0;
@@ -27,7 +30,8 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  background-color: #3e4665;
+  background-image: linear-gradient(#13141c 0%, #424248 100%);
+  /* background-color: #3e4665; */
   display: flex;
   align-items: center;
 }
@@ -35,9 +39,10 @@ body {
 .electron-logo-container {
   text-align: center;
   margin-bottom: 25px;
-  img {
-    width: 95px;
-  }
+}
+
+.electron-logo-container img {
+  width: 95px;
 }
 
 .electron-center-container {
@@ -49,8 +54,8 @@ body {
   text-align: center;
   color: #fff;
   margin-top: 25px;
-  font-family: "proxima-nova-soft-medium";
-  font-size: 18px;
+  /* font-family: "proxima-nova-soft-medium"; */
+  font-size: 20px;
   display: inline-block;
 }
 
@@ -142,13 +147,14 @@ body {
 
 .copyright {
   position: absolute;
-  bottom: 8px;
+  bottom: 25px;
   left: 0;
-  font-size: 12px;
+  font-family: "DINNextLTPro-Medium";
+  font-size: 14px;
   right: 0;
+  opacity: 0.8;
   text-align: center;
-  color: #000938;
-  font-family: "Open Sans", sans-serif;
+  color: #ffffff;
 }
 
 .disable {
@@ -195,7 +201,6 @@ body {
 }
 
 .content-sample {
-  background-color: #fff;
   -webkit-box-shadow: 0 13px 44px 0 rgba(0, 10, 56, 0.11);
   box-shadow: 0 13px 44px 0 rgba(0, 10, 56, 0.11);
   border-radius: 5px;
@@ -220,21 +225,22 @@ body {
 
 .input-field  {
   margin-top: 15px;
+  height: 50px;
 }
 
 .input-field input {
-  width: 100%;
-  border-bottom-width: 2px;
+  width: 92%;
+  border-bottom: 2px solid #ffffff;
   border-top: none;
   border-left: none;
   border-right: none;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 30px;
-  padding: 15px 0px 15px 0px;
+  padding: 15px 4% 15px 4%;
 }
 
 .input-field input:focus {
-  border-bottom-color: #208fff;
+  border-bottom-color: #3e44fe;
   box-shadow: none;
   outline: none;
 }
@@ -248,21 +254,33 @@ body {
 }
 
 #join {
-  padding: 15px 50px;
-  background-image: linear-gradient(225deg, #c0e249, #48d57c);
-  border-radius: 4px;
+  padding: 0 50px;
+  background-image: linear-gradient(225deg, #aa33ff, #3e44fe);
+  opacity: 0.85;
+  border-radius: 100px;
   color: #fff;
-  font-size: 14px;
+  font-size: 20px;
   border: none !important;
+  height: 50px;
   width: 100%;
+
   cursor: pointer;
 }
 
+#join:focus {
+  outline: none;
+}
+
 #conferenceName,
+#userName,
 #first_name,
 #last_name {
+  border-radius: 100px;
   color: #000;
   font-weight: 200;
+  font-size: 16px;
+  /* padding-top: 18px; */
+  font-family: "DINNextLTPro-Regular";
 }
 
 #join:hover {
@@ -272,7 +290,7 @@ body {
 .logo {
   text-align: center;
   margin-top: 0px;
-  padding-bottom: 35px;
+  padding-bottom: 70px;
   display: inline-block;
   width: 100%;
 }
@@ -281,10 +299,9 @@ body {
   font-size: 55px;
   margin: 25px 15px 30px 15px;
   color: #fff;
-  font-weight: 700;
+  font-weight: 300;
   line-height: 70%;
   display: inline-block;
-  color: #000938;
 }
 
 .voxeet-logo {
@@ -296,6 +313,25 @@ body {
   margin-top: 22px;
 }
 
+.dolby-container-logo {
+  text-align: center;
+  display: none;
+}
+
+.dolby-container-logo img {
+  width: 120px;
+  height: 140px;
+}
+
+.dolby-container-wrapper {
+  text-align: center;
+}
+
+.dolby-container-wrapper img {
+  width: 150px;
+  height: 170px;
+}
+
 /*Checkboxes styles*/
 input[type="checkbox"] {
   display: none;
@@ -304,10 +340,13 @@ input[type="checkbox"] {
 input[type="checkbox"] + label {
   display: block;
   position: relative;
-  padding-left: 35px;
+  padding-top: 5px;
+  padding-left: 40px;
   margin-bottom: 20px;
-  font: 14px/20px "Open Sans", Arial, sans-serif;
-  color: #000;
+  margin-left: 20px;
+  /* font: 14px/20px "Open Sans", Arial, sans-serif; */
+  font: 18px "DINNextLTPro-Regular";
+  color: #fff;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -323,7 +362,7 @@ input[type="checkbox"] + label:before {
   display: block;
   width: 20px;
   height: 20px;
-  border: 1px solid #6cc0e5;
+  border: 3px solid #fff;
   position: absolute;
   left: 0;
   top: 0;
@@ -421,12 +460,20 @@ input[type="checkbox"]:checked + label:before {
     padding: 10px;
     width: auto;
   }
+  .input-field input {
+    margin-bottom: 20px;
+  }
+  .content-sample .input-field input {
+    font-size: 12px !important;
+  }
   .blockButton {
     margin-top: 10px;
   }
   .blockButton button {
     font-size: 12px !important;
-    padding: 10px !important;
+    padding: 14px !important;
+    height: auto !important;
+    margin-top: 5px !important;
   }
   .button-demo {
     font-size: 12px;
@@ -444,6 +491,43 @@ input[type="checkbox"]:checked + label:before {
     display: block;
     margin-bottom: 20px;
   }
+
+  .dolby-container-logo {
+    display: inherit;
+  }
+
+  .dolby-container-wrapper {
+    display: none;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    font-size: 14px;
+    padding-top: 2px;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    margin-left: 20px;
+  }
+
+  input[type="checkbox"] + label:before {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    width: 5px;
+    top: -2px;
+    left: 4px;
+  }
+
+  .copyright {
+    display: none;
+  }
+
 }
 
 @media screen and (max-width: 448px) {

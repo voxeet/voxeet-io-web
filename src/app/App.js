@@ -20,7 +20,7 @@ let strings = new LocalizedStrings({
     conferenceJoined: "You're in the conference",
     copyright: " All Rights Reserved",
     next: "Next",
-    welcome: "Welcome",
+    welcome: "Welcome"
   },
   fr: {
     join: "Rejoindre la conférence",
@@ -32,7 +32,7 @@ let strings = new LocalizedStrings({
     conferenceJoined: "Vous êtes dans la conférence",
     copyright: "Tous Droits Réservés",
     next: "Next",
-    welcome: "Welcome",
+    welcome: "Welcome"
   }
 });
 
@@ -41,11 +41,11 @@ class App extends Component {
     super(props);
     this.state = {
       isSubmit: false,
-      simulcastMode: false,
+      simulcastMode: true,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
-      configuration: false,
+      useDefaultSettings: true,
       isDemo: false,
       form: {
         conferenceName: "",
@@ -112,7 +112,7 @@ class App extends Component {
 
   toggleConfiguration() {
     this.setState({
-      configuration: !this.state.configuration
+      useDefaultSettings: !this.state.useDefaultSettings
     });
   }
 
@@ -193,25 +193,25 @@ class App extends Component {
                     </div>
                   </Fragment>
                 ) : (
-                    <Fragment>
-                      <div className="electron-info-container">
-                        {strings.conferenceJoined}
-                      </div>
-                    </Fragment>
-                  )}
+                  <Fragment>
+                    <div className="electron-info-container">
+                      {strings.conferenceJoined}
+                    </div>
+                  </Fragment>
+                )}
               </div>
             </div>
           </div>
           <VoxeetConference
-              isListener={this.state.isListener}
-              widgetMode={this.state.widgetMode}
-              simulcastMode={this.state.simulcastMode}
-              isDemo={this.state.isDemo}
-              configuration={this.state.configuration}
-              handleOnLeave={this.handleOnLeave.bind(this)}
-              userName={this.state.form.userName}
-              photoURL={photoURL}
-              conferenceName={this.state.form.conferenceName}
+            isListener={this.state.isListener}
+            widgetMode={this.state.widgetMode}
+            simulcastMode={this.state.simulcastMode}
+            isDemo={this.state.isDemo}
+            configuration={!this.state.useDefaultSettings}
+            handleOnLeave={this.handleOnLeave.bind(this)}
+            userName={this.state.form.userName}
+            photoURL={photoURL}
+            conferenceName={this.state.form.conferenceName}
           />
         </div>
       );
@@ -222,6 +222,9 @@ class App extends Component {
         <div className="content-sample">
           <div className="logo">
             <h1>{strings.welcome}</h1>
+          </div>
+          <div className="dolby-container-logo">
+            <img src={dolbyLogo} />
           </div>
           {!this.state.isJoiningFromUrl && (
             <div className="input-field">
@@ -248,6 +251,36 @@ class App extends Component {
             />
           </div>
 
+          <input
+            type="checkbox"
+            id="isListener"
+            checked={this.state.isListener}
+            onChange={this.toggleChangeListener}
+          />
+          <label id="isListenerLabel" htmlFor="isListener">
+            Join as a listener
+          </label>
+
+          <input
+            type="checkbox"
+            id="widgetMode"
+            checked={this.state.widgetMode}
+            onChange={this.toggleWidgetMode}
+          />
+          <label id="widgetModeLabel" htmlFor="widgetMode">
+            Widget Mode
+          </label>
+
+          <input
+            type="checkbox"
+            id="configuration"
+            checked={this.state.useDefaultSettings}
+            onChange={this.toggleConfiguration}
+          />
+          <label id="configurationLabel" htmlFor="configuration">
+            Connect using default settings
+          </label>
+
           <div className="blockButton">
             <button
               id="join"
@@ -265,11 +298,13 @@ class App extends Component {
               <span>{strings.next}</span>
             </button>
           </div>
+          <div className="dolby-container-wrapper">
+            <img src={dolbyLogo} />
+          </div>
         </div>
-        <div className="dolby-container-wrapper">
-          <img src={dolbyLogo} />
+        <div className="copyright">
+          Copyright © 2019 Dolby — {strings.copyright}
         </div>
-        <div className="copyright">Copyright © 2019 Dolby — {strings.copyright}</div>
       </div>
     );
   }
@@ -281,8 +316,8 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  handleJoin: () => { },
-  handleLeave: () => { }
+  handleJoin: () => {},
+  handleLeave: () => {}
 };
 
 const mapStateToProps = (state, ownProps) => {

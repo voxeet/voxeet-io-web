@@ -81,8 +81,15 @@ module.exports = {
         test: /\.(jpg|jpeg|gif|png)$/,
         exclude: /node_modules/,
         loader: 'url-loader?limit=65000&name=images/[name].[ext]'
+      },
+      {
+        test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url-loader?limit=10000&mimetype=application/octet-stream",
+        options: {
+          name: 'fonts/[name].[ext]',
+        }
       }
-    ] 
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
