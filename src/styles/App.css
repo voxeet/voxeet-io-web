@@ -418,6 +418,11 @@ input[type="checkbox"]:checked + label:before {
 }
 
 /* MEDIA QUERIES */
+@media screen and (min-width: 1600px) {
+    .content-sample {
+      width: 80% !important;
+    }
+}
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .electron-info-container {
@@ -436,7 +441,11 @@ input[type="checkbox"]:checked + label:before {
 @media screen and (min-width: 992px) and (max-width: 1199px) {
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767px),
+only screen and (-moz-min-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
   body {
     display: block;
   }
@@ -456,7 +465,7 @@ input[type="checkbox"]:checked + label:before {
     padding: 13px 50px;
   }
   .content-sample {
-    margin: 8px;
+    margin: auto;
     padding: 10px;
     width: auto;
   }
@@ -509,7 +518,7 @@ input[type="checkbox"]:checked + label:before {
     padding-top: 2px;
     padding-left: 30px;
     margin-bottom: 12px;
-    margin-left: 20px;
+    margin-left: 20px; 
   }
 
   input[type="checkbox"] + label:before {
