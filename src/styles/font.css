@@ -1,0 +1,229 @@
+@font-face {
+  font-family: "DINNextLTPro-Black";
+  font-style: normal;
+  src: local("DINNextLTPro-Black"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Black.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-BlackCondensed";
+  font-style: normal;
+  src: local("DINNextLTPro-BlackCondensed"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-BlackCondensed.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-BlackItalic";
+  font-style: normal;
+  src: local("DINNextLTPro-BlackItalic"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-BlackItalic.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Bold";
+  font-style: normal;
+  src: local("DINNextLTPro-Bold"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Bold.otf") format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-BoldCondensed";
+  font-style: normal;
+  src: local("DINNextLTPro-BoldCondensed"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-BoldCondensed.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-BoldItalic";
+  font-style: normal;
+  src: local("DINNextLTPro-BoldItalic"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-BoldItalic.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Condensed";
+  font-style: normal;
+  src: local("DINNextLTPro-Condensed"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Condensed.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Heavy";
+  font-style: normal;
+  src: local("DINNextLTPro-Heavy"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Heavy.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-HeavyCondensed";
+  font-style: normal;
+  src: local("DINNextLTPro-HeavyCondensed"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-HeavyCondensed.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-HeavyItalic";
+  font-style: normal;
+  src: local("DINNextLTPro-HeavyItalic"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-HeavyItalic.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Italic";
+  font-style: normal;
+  src: local("DINNextLTPro-Italic"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Italic.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Light";
+  font-style: normal;
+  src: local("DINNextLTPro-Light"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Light.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-LightCondensed";
+  font-style: normal;
+  src: local("DINNextLTPro-LightCondensed"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-LightCondensed.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-LightItalic";
+  font-style: normal;
+  src: local("DINNextLTPro-LightItalic"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-LightItalic.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Medium";
+  font-style: normal;
+  src: local("DINNextLTPro-Medium"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Medium.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-MediumCond";
+  font-style: normal;
+  src: local("DINNextLTPro-MediumCond"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-MediumCond.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-MediumItalic";
+  font-style: normal;
+  src: local("DINNextLTPro-MediumItalic"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-MediumItalic.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-Regular";
+  font-style: normal;
+  src: local("DINNextLTPro-Regular"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-Regular.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-UltraLight";
+  font-style: normal;
+  src: local("DINNextLTPro-UltraLight"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-UltraLight.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-UltraLightCond";
+  font-style: normal;
+  src: local("DINNextLTPro-UltraLightCond"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-UltraLightCond.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}
+
+@font-face {
+  font-family: "DINNextLTPro-UltraLightIt";
+  font-style: normal;
+  src: local("DINNextLTPro-UltraLightIt"),
+    url("../static/fonts/DINNextLTPro/DINNextLTPro-UltraLightIt.otf")
+      format("opentype");
+  unicode-range: "U+0000-00FF", "U+0131", "U+0152-0153", "U+02C6", "U+02DA",
+    "U+02DC", "U+2000-206F", "U+2074", "U+20AC", "U+2212", "U+2215", "U+E0FF",
+    "U+EFFD", "U+F000";
+}

@@ -36,7 +36,7 @@ module.exports = {
         loaders: ['babel-loader'],
         exclude: /node_modules/,
         include: path.resolve(__dirname)
-      },    
+      },
       {
         test: /\.css$/,
         loaders: ["style-loader", "css-loader"]
@@ -92,6 +92,10 @@ module.exports = {
         test: /\.(jpg|jpeg|gif|png)$/,
         exclude: /node_modules/,
         loader: 'url-loader?limit=65000&name=images/[name].[ext]'
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        loader: "file-loader"
       }
     ]
   },
@@ -103,7 +107,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin(
       [
-        { from: './src/static',ignore: [ '*.html' ]},
+        { from: './src/static', ignore: ['*.html'] },
         "./public/manifest.json"
       ]
     ),
