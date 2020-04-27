@@ -1,0 +1,29 @@
+name: Snapshot build
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: setting nodejs
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: install dependencies and build
+      run: |
+          yarn install
+          yarn build
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+
+    - name: publish to registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: voxeet/voxeet-io-web
+        username: AWS
+        password: ${{ secrets.ECR_PASSWORD }}
+        registry: 368094550167.dkr.ecr.us-east-1.amazonaws.com
