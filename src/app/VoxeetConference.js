@@ -21,6 +21,8 @@ class VoxeetConference extends Component {
       .trim()
       .toLowerCase()
       .replace(/ /g, "");
+    // consumerKey and consumerSecret below are for demo
+    // purposes and are not valid values
     const settings = {
       conferenceAlias: conferenceName,
       consumerKey: "NWUzZTI4cDc0M2JodQ",
