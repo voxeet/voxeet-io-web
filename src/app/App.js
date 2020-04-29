@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import logo from "../static/images/logo.svg";
+import logo from "../static/images/DDLoader.gif";
 import dolbyLogo from "../static/images/icons/DVo_Logo_RGB_V_White.png";
 import "../styles/App.css";
 import Sdk from "../sdk";
@@ -303,7 +303,7 @@ class App extends Component {
           </div>
         </div>
         <div className="copyright">
-          Copyright © 2019 Dolby — {strings.copyright}
+          Copyright © 2020 Dolby — {strings.copyright}
         </div>
       </div>
     );
