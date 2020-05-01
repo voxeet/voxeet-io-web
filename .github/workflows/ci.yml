@@ -1,0 +1,26 @@
+name: CI build
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: build and publish Docker container
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+          NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+      with:
+        name: voxeet/voxeet-io-web
+        dockerfile: Dockerfile.snapshot
+        username: AWS
+        password: ${{ secrets.ECR_PASSWORD }}
+        registry: 368094550167.dkr.ecr.us-east-1.amazonaws.com
+        buildargs: NPM_TOKEN
+        tags: ${{ github.head_ref }}
