@@ -21,8 +21,7 @@ jobs:
       with:
         name: voxeet/voxeet-io-web
         dockerfile: Dockerfile.snapshot
-        username: AWS
-        password: ${{ secrets.ECR_PASSWORD }}
-        registry: 368094550167.dkr.ecr.us-east-1.amazonaws.com
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
         buildargs: NPM_TOKEN
         tags: ${{ env.GITHUB_REF_SLUG }}
