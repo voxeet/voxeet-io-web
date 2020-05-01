@@ -1,0 +1,21 @@
+FROM node:12 AS base
+WORKDIR /app
+COPY . .
+COPY .npmrc.nexus .npmrc
+
+FROM base AS production
+ARG NPM_TOKEN
+RUN yarn install
+RUN yarn build
+
+FROM base AS staging
+ARG NPM_TOKEN
+RUN sed -i s/-production"/-staging"/ package.json
+RUN yarn install
+RUN yarn build
+
+FROM nginx:1.17.0-alpine AS final
+COPY --from=production /app/dist /usr/share/nginx/html
+COPY --from=staging /app/dist /usr/share/nginx/html/staging
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
