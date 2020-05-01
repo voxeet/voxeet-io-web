@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: rlespinasse/github-slug-action@master
     - name: build and publish Docker container
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
@@ -24,4 +25,4 @@ jobs:
         password: ${{ secrets.ECR_PASSWORD }}
         registry: 368094550167.dkr.ecr.us-east-1.amazonaws.com
         buildargs: NPM_TOKEN
-        tags: ${{ github.head_ref }}
+        tags: ${{ env.GITHUB_REF_SLUG }}
