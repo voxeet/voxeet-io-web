@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "../static/images/logo.svg";
 import "core-js/es6/";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
@@ -27,7 +26,7 @@ class VoxeetConference extends Component {
       consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
     };
     const reducers = combineReducers({
-      voxeet: voxeetReducer
+      voxeet: voxeetReducer,
     });
 
     let name = this.props.userName;

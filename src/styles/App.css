@@ -149,7 +149,11 @@ body {
 }
 
 .copyright {
-  position: relative;
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.copyright span {
   font-family: "DINNextLTPro-Medium";
   font-size: 14px;
   opacity: 0.8;
@@ -545,12 +549,12 @@ input[type="checkbox"]:checked + label:before {
 }
 
 @media screen and (min-height: 799px) {
-  .copyright {
+  /* .copyright {
     position: absolute;
     bottom: 25px;
     left: 0;
     right: 0;
-  }
+  } */
 }
 
 /* @media only screen and (min-resolution: 2dppx) and (max-width: 767px) {
@@ -647,22 +651,22 @@ input[type="checkbox"]:checked + label:before {
 } */
 
 @media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (max-height: 699px) {
-  .copyright {
+  /* .copyright {
     position: relative !important;
     bottom: 0px !important;
-  }
+  } */
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (min-height: 700px) {
-  .copyright {
+  /* .copyright {
     position: absolute;
     bottom: 15px;
     left: 0;
     right: 0;
-  }
+  } */
 }
 
-@media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (max-width: 1366px) {
+@media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (max-width: 1200px) {
   .dolby-container-logo {
     display: inherit;
   }

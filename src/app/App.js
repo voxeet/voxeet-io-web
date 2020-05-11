@@ -303,7 +303,7 @@ class App extends Component {
           </div>
         </div>
         <div className="copyright">
-          Copyright © 2020 Dolby — {strings.copyright}
+          <span>Copyright © 2020 Dolby — {strings.copyright}</span>
         </div>
       </div>
     );
