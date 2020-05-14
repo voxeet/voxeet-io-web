@@ -1,0 +1,30 @@
+name: CI build
+
+on:
+  push:
+    branches:
+      - electron-ci
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: rlespinasse/github-slug-action@master
+    - name: Install Node.js, NPM and Yarn
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Build/release Electron app
+      uses: samuelmeuli/action-electron-builder@v1
+      with:
+        # GitHub token, automatically provided to the action
+        # (No need to define this secret in the repo settings)
+        github_token: ${{ secrets.github_token }}
+        build_script_name: "build:electron"
+      env:
+        ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true
+    - name: debug action output
+      run: ls -la . dist
