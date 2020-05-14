@@ -12,7 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: rlespinasse/github-slug-action@master
     - name: Install Node.js, NPM and Yarn
       uses: actions/setup-node@v1
       with:
