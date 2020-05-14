@@ -1,4 +1,4 @@
-name: CI build
+name: Electron CI build
 
 on:
   push:
@@ -21,11 +21,9 @@ jobs:
       with:
         node-version: 12
     - name: Build/release Electron app
-      uses: samuelmeuli/action-electron-builder@v1
-      with:
-        # GitHub token, automatically provided to the action
-        # (No need to define this secret in the repo settings)
-        github_token: ${{ secrets.github_token }}
-        build_script_name: "build:electron"
+      run: |
+          yarn
+          yarn run build:electron
+          yarn run electron-builder
       env:
         ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true
