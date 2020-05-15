@@ -8,7 +8,8 @@
     "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
     "start": "webpack-dev-server -d --hot --inline --content-base",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress -p",
-    "build:electron": "cross-env ELECTRON=true npm run build"
+    "build:electron": "cross-env ELECTRON=true npm run build",
+    "get-version": "cross-env-shell echo ${npm_package_version}"
   },
   "author": "Voxeet",
   "contributors": [
