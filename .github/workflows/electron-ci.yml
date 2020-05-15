@@ -21,9 +21,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
+        registry-url: 'https://stg-gke-eu.voxeet.net/nexus/repository/npm-group/'
+        always-auth: true
     - name: install dependencies
       run: |
           yarn install
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
     - name: update version
       run: |
           yarn version --no-git-tag-version --new-version "$(npm run --silent get-version)-$($env:GITHUB_REF.replace('refs/heads/',''))"
@@ -34,6 +38,7 @@ jobs:
           yarn run build:electron
           yarn run electron-builder --publish always
       env:
+        NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
