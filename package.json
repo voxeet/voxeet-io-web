@@ -50,12 +50,17 @@
     },
     "mac": {
       "target": [
-        "pkg"
+        "dmg", "zip"
       ],
       "icon": "public/icon.png",
       "extraResources": [
         "libraries"
-      ]
+      ],
+      "publish": {
+        "provider": "s3",
+        "bucket": "voxeet-io-electron-ci",
+        "publishAutoUpdate": "true"
+      }
     },
     "linux": {
       "target": [
@@ -65,7 +70,12 @@
     },
     "win": {
       "target": "squirrel",
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "publish": {
+        "provider": "s3",
+        "bucket": "voxeet-io-electron-ci",
+        "publishAutoUpdate": "true"
+      }
     }
   },
   "dependencies": {
