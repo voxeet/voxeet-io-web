@@ -1,5 +1,5 @@
 {
-  "name": "voxeet-io-web",
+  "name": "voxeet-io",
   "version": "1.0.4",
   "private": true,
   "main": "./src/main.js",
