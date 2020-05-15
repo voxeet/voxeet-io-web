@@ -24,6 +24,8 @@ jobs:
       run: |
           yarn
           yarn run build:electron
-          yarn run electron-builder
+          yarn run electron-builder --publish always
       env:
         ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
