@@ -25,8 +25,8 @@ jobs:
         always-auth: true
     - name: Download DVEF
       run: |
-          Invoke-WebRequest https://voxeet-io-electron-ci.s3.amazonaws.com/${{ secrets.DVEF_S3_LOCATION }} -OutFile out.zip
-          Expand-Archive out.zip -DestinationPath dvef -Force
+          echo Invoke-WebRequest https://voxeet-io-electron-ci.s3.amazonaws.com/${{ runner.os }} -OutFile out.zip
+          echo Expand-Archive out.zip -DestinationPath dvef -Force
       shell: pwsh
     - name: install dependencies
       run: |
@@ -41,7 +41,7 @@ jobs:
     - name: build/release Electron app
       run: |
           yarn run build:electron
-          yarn run electron-builder --publish always --config electron-builder-dvef.yml
+          yarn run electron-builder --publish always
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true
