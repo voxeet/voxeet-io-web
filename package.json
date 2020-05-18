@@ -51,7 +51,7 @@
     },
     "mac": {
       "target": [
-        "dmg", "zip"
+        "pkg", "zip"
       ],
       "icon": "public/icon.png",
       "extraResources": [
