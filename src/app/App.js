@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import logo from "../static/images/logo.svg";
+import logo from "../static/images/DDLoader.gif";
+import dolbyLogo from "../static/images/icons/DVo_Logo_RGB_V_White.png";
 import "../styles/App.css";
 import Sdk from "../sdk";
 import VoxeetConference from "./VoxeetConference";
@@ -17,7 +18,9 @@ let strings = new LocalizedStrings({
     joinDemo: "or experience Voxeet demo",
     electronmessage: "Voxeet is loading, please wait",
     conferenceJoined: "You're in the conference",
-    copyright: " All rights reserved"
+    copyright: " All Rights Reserved",
+    next: "Next",
+    welcome: "Welcome"
   },
   fr: {
     join: "Rejoindre la conférence",
@@ -27,7 +30,9 @@ let strings = new LocalizedStrings({
     conferencename: "Nom de la conférence",
     electronmessage: "Le client Voxeet va démarrer, veuillez patienter",
     conferenceJoined: "Vous êtes dans la conférence",
-    copyright: "Tous droits réservés"
+    copyright: "Tous Droits Réservés",
+    next: "Next",
+    welcome: "Welcome"
   }
 });
 
@@ -36,9 +41,11 @@ class App extends Component {
     super(props);
     this.state = {
       isSubmit: false,
+      simulcastMode: true,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
+      useDefaultSettings: true,
       isDemo: false,
       form: {
         conferenceName: "",
@@ -53,6 +60,8 @@ class App extends Component {
     this.escFunction = this.escFunction.bind(this);
     this.toggleChangeListener = this.toggleChangeListener.bind(this);
     this.toggleWidgetMode = this.toggleWidgetMode.bind(this);
+    this.toggleSimulcastMode = this.toggleSimulcastMode.bind(this);
+    this.toggleConfiguration = this.toggleConfiguration.bind(this);
   }
 
   componentWillMount() {
@@ -101,10 +110,16 @@ class App extends Component {
     this.setState({ form });
   }
 
+  toggleConfiguration() {
+    this.setState({
+      useDefaultSettings: !this.state.useDefaultSettings
+    });
+  }
+
   handleOnLeave() {
     /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.form.conferenceName*/
-    this.setState({ isSubmit: false });
+    this.setState({ isSubmit: false, isDemo: false });
     /*this.props.history.push('/')
     window.location.reload()*/
   }
@@ -118,6 +133,12 @@ class App extends Component {
   toggleWidgetMode() {
     this.setState({
       widgetMode: !this.state.widgetMode
+    });
+  }
+
+  toggleSimulcastMode() {
+    this.setState({
+      simulcastMode: !this.state.simulcastMode
     });
   }
 
@@ -168,7 +189,7 @@ class App extends Component {
                       {strings.electronmessage}
                       <span className="one">.</span>
                       <span className="two">.</span>
-                      <span className="three">.</span>​
+                      <span className="three">.</span>
                     </div>
                   </Fragment>
                 ) : (
@@ -184,7 +205,9 @@ class App extends Component {
           <VoxeetConference
             isListener={this.state.isListener}
             widgetMode={this.state.widgetMode}
+            simulcastMode={this.state.simulcastMode}
             isDemo={this.state.isDemo}
+            configuration={!this.state.useDefaultSettings}
             handleOnLeave={this.handleOnLeave.bind(this)}
             userName={this.state.form.userName}
             photoURL={photoURL}
@@ -198,8 +221,10 @@ class App extends Component {
       <div>
         <div className="content-sample">
           <div className="logo">
-            <img src={logo} className="voxeet-logo" alt="logo" />
-            <h1>voxeet</h1>
+            <h1>{strings.welcome}</h1>
+          </div>
+          <div className="dolby-container-logo">
+            <img src={dolbyLogo} />
           </div>
           {!this.state.isJoiningFromUrl && (
             <div className="input-field">
@@ -246,6 +271,16 @@ class App extends Component {
             Widget Mode
           </label>
 
+          <input
+            type="checkbox"
+            id="configuration"
+            checked={this.state.useDefaultSettings}
+            onChange={this.toggleConfiguration}
+          />
+          <label id="configurationLabel" htmlFor="configuration">
+            Connect using default settings
+          </label>
+
           <div className="blockButton">
             <button
               id="join"
@@ -260,18 +295,16 @@ class App extends Component {
               }
               onClick={this.handleClick}
             >
-              <span>{strings.join}</span>
+              <span>{strings.next}</span>
             </button>
           </div>
-          <button
-            className="button-demo"
-            type="button"
-            onClick={this.handleClickDemo.bind(this)}
-          >
-            <span>{strings.joinDemo}</span>
-          </button>
+          <div className="dolby-container-wrapper">
+            <img src={dolbyLogo} />
+          </div>
         </div>
-        <div className="copyright">Voxeet © 2018 {strings.copyright}</div>
+        <div className="copyright">
+          <span>Copyright © 2020 Dolby — {strings.copyright}</span>
+        </div>
       </div>
     );
   }

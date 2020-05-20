@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import logo from "../static/images/logo.svg";
 import "core-js/es6/";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { Provider } from "react-redux";
 import thunkMidleware from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 
 import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
   ConferenceRoom,
+  VoxeetProvider,
   reducer as voxeetReducer
 } from "@voxeet/react-components";
 
@@ -21,15 +20,13 @@ class VoxeetConference extends Component {
       .trim()
       .toLowerCase()
       .replace(/ /g, "");
-    // consumerKey and consumerSecret below are for demo
-    // purposes and are not valid values
     const settings = {
       conferenceAlias: conferenceName,
       consumerKey: "NWUzZTI4cDc0M2JodQ",
       consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
     };
     const reducers = combineReducers({
-      voxeet: voxeetReducer
+      voxeet: voxeetReducer,
     });
 
     let name = this.props.userName;
@@ -86,7 +83,7 @@ class VoxeetConference extends Component {
     };
     var constraints = {
       audio: true,
-      video: false
+      video: true
     };
     var videoRatio = {
       width: 1280,
@@ -101,17 +98,24 @@ class VoxeetConference extends Component {
       displayModes = ["tiles", "speaker", "list"];
     }
     ReactDOM.render(
-      <Provider context={React.createContext()} store={configureStore()}>
+      <VoxeetProvider store={configureStore()}>
         <ConferenceRoom
           autoJoin
           userInfo={userInfo}
-          preConfig={this.props.widgetMode ? false : true}
+          preConfig={
+            this.props.configuration
+              ? this.props.widgetMode
+                ? false
+                : true
+              : false
+          }
           isListener={this.props.isListener}
           isDemo={this.props.isDemo}
           liveRecordingEnabled
           videoCodec={"H264"}
           chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
           displayModes={displayModes}
+          simulcast={this.props.simulcastMode}
           videoRatio={videoRatio}
           handleOnLeave={this.props.handleOnLeave}
           isWidget={this.props.widgetMode}
@@ -121,7 +125,7 @@ class VoxeetConference extends Component {
           consumerSecret={settings.consumerSecret}
           conferenceAlias={settings.conferenceAlias}
         />
-      </Provider>,
+      </VoxeetProvider>,
       document.getElementById("voxeet-widget")
     );
   }
@@ -133,12 +137,14 @@ class VoxeetConference extends Component {
 
 VoxeetConference.propTypes = {
   conferenceName: PropTypes.string,
+  simulcastMode: PropTypes.bool,
   photoURL: PropTypes.string,
   sdk: PropTypes.object,
   isDemo: PropTypes.bool,
   externalId: PropTypes.string,
   isListener: PropTypes.bool,
   widgetMode: PropTypes.bool,
+  configuration: PropTypes.bool,
   userName: PropTypes.string,
   handleOnLeave: PropTypes.func.isRequired
 };
