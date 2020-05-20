@@ -29,6 +29,7 @@
       "dist/index.html",
       "dist/renderer.js",
       "dist/bundle.js",
+      "dist/images",
       "src/main.js",
       "node_modules/",
       "package.json"
