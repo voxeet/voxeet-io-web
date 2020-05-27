@@ -41,7 +41,7 @@ jobs:
     - name: build/release Electron app
       run: |
           yarn run build:electron
-          yarn run electron-builder --publish always -c.electronDist=dvef 
+          yarn run electron-builder --publish always -c.electronDist=dvef
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true
