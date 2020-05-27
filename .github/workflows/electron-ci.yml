@@ -25,7 +25,7 @@ jobs:
         always-auth: true
     - name: Download DVEF
       run: |
-          Invoke-WebRequest https://voxeet-io-electron-ci.s3.amazonaws.com/${{ secrets.DVEF_S3_LOCATION }} -OutFile out.zip
+          Invoke-WebRequest https://voxeet-io-electron-ci.s3.amazonaws.com/${{ secrets.DVEF_S3_LOCATION }}/DVEF_build_${{ runner.os }}.zip -OutFile out.zip
           Expand-Archive out.zip -DestinationPath dvef -Force
       shell: pwsh
     - name: install dependencies
