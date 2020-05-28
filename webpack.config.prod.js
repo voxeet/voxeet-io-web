@@ -5,6 +5,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrettierPlugin = require("prettier-webpack-plugin");
 
+// Try the environment variable, otherwise use root
+const ASSET_PATH = process.env.ASSET_PATH || '/';
+
 try {
   require("os").networkInterfaces();
 } catch (e) {
@@ -16,6 +19,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath: ASSET_PATH,
   },
   module: {
     rules: [
@@ -96,6 +100,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: `"production"`,
+        ASSET_PATH: JSON.stringify(ASSET_PATH),
       },
     }),
     new PrettierPlugin(),
