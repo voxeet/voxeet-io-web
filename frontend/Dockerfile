@@ -1,6 +1,6 @@
 FROM node:12 as build
 WORKDIR /app
-COPY . .
+COPY .. .
 RUN yarn install
 RUN yarn build
 

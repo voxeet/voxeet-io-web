@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  voxeet-io-serv-dev:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: voxeet-io-serv-dev
+    ports:
+      - "3500:3500"
+    environment:
+      - NODE_ENV=development
+      - LOCAL_PORT=3500
+      - LOCAL_HOST=192.168.1.48
+      - SESSION_HOST=session.voxeet.com
+      - KEY_PATH=/run/secrets/key
+      - CERT_PATH=/run/secrets/cert
+      - CA_PATH=/run/secrets/ca
+      - CKEY=/run/secrets/ckey
+      - CSEC=/run/secrets/csec
+    volumes:
+      - /home/node/app/node_modules
+    secrets:
+      - cert
+      - key
+      - ca
+      - ckey
+      - csec
+    command: npm run docker_start
+
+
+secrets:
+  cert:
+    file: ./certs/cert.pem
+  key:
+    file: ./certs/key.pem
+  ca:
+    file: ./certs/ca.pem
+  ckey:
+    file: ./certs/ckey.txt
+  csec:
+    file: ./certs/csec.txt
