@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./app/App";
 
+const ASSET_PATH = process.env.ASSET_PATH || "/";
+
 const Root = ({}) => (
-  <Router>
+  <Router basename={ASSET_PATH}>
     <Switch>
       <Route
         path="/:conferenceName"
