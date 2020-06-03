@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const https = require('https');
+const http = require('http');
 const axios = require('axios');
 const btoa = require('btoa');
 const fs = require('fs');
@@ -16,18 +17,30 @@ let refreshToken = null;
 
 // console.log(process.env)
 
-const customerKey = process.env.CKEY ? process.env.CKEY : path.resolve(__dirname, './cert/ckey.txt');
-const customerSecret = process.env.CSEC ? process.env.CSEC : path.resolve(__dirname, './cert/csec.txt');
-console.log('key/sec', customerKey, customerSecret)
+const customerKey = process.env.CKEY ? process.env.CKEY : (process.env.CKEY_PATH ?
+    fs.readFileSync(process.env.CKEY_PATH) :
+    fs.readFileSync(path.resolve(__dirname, './certs/ckey.txt')));
+const customerSecret = process.env.CSEC ? process.env.CSEC : (process.env.CSEC_PATH ?
+    fs.readFileSync(process.env.CSEC_PATH) :
+    fs.readFileSync(path.resolve(__dirname, './certs/csec.txt')));
+// console.log('key/sec', customerKey, customerSecret)
 const server = process.env.SESSION_HOST ? `https://${process.env.SESSION_HOST}` : `https://session.voxeet.com`;
 const port = process.env.LOCAL_PORT ? process.env.LOCAL_PORT : 3500;
 const callback_prefix = process.env.LOCAL_HOST ? `https://${process.env.LOCAL_HOST}:${port}` : "https://127.0.0.1:3500"; // Fix this
 
-const key_path = process.env.KEY_PATH ? process.env.KEY_PATH : path.resolve(__dirname, './cert/key.pem');
-const cert_path = process.env.CERT_PATH ? process.env.CERT_PATH : path.resolve(__dirname, './cert/cert.pem');
-const ca_path = process.env.CA_PATH ? process.env.CA_PATH : path.resolve(__dirname, './cert/ca.pem');
+const key_path = process.env.KEY_PATH ? process.env.KEY_PATH : path.resolve(__dirname, './certs/key.pem');
+const cert_path = process.env.CERT_PATH ? process.env.CERT_PATH : path.resolve(__dirname, './certs/cert.pem');
+const ca_path = process.env.CA_PATH ? process.env.CA_PATH : path.resolve(__dirname, './certs/ca.pem');
+let useHttps = false;
+try {
+  if (fs.existsSync(key_path) && fs.existsSync(cert_path) && fs.existsSync(ca_path)) {
+    useHttps = true;
+  }
+} catch(err) {
+  console.error(err)
+}
 
-const authHeader = "Basic " + btoa(encodeURI(fs.readFileSync(customerKey)) + ":" + encodeURI(fs.readFileSync(customerSecret)));
+const authHeader = "Basic " + btoa(encodeURI(customerKey) + ":" + encodeURI(customerSecret));
 
 const requests = {
   token: {
@@ -217,12 +230,21 @@ app.get("/api/status/:conferenceId", (req, res, next) => {
     .catch(next);
 });
 
-app.use(express.static('src'))
+app.use(express.static('public'))
 
 // Browser History
+if(useHttps) {
 
-https.createServer({
-  key: fs.readFileSync( key_path ),
-  cert: fs.readFileSync( cert_path ),
-  ca: fs.readFileSync( ca_path )
-}, app).listen(port);
+  https.createServer({
+    key: fs.readFileSync( key_path ),
+    cert: fs.readFileSync( cert_path ),
+    ca: fs.readFileSync( ca_path )
+  }, app).listen(port, () => {
+    console.log('Running https server on port %s', port);
+  });
+} else {
+  http.createServer(app).listen(port, () => {
+    console.log('Running http server on port %s', port);
+  });
+}
+
