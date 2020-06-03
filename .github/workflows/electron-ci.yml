@@ -6,6 +6,10 @@ on:
       - master
       - develop
 
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   build:
 

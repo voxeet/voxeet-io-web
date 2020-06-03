@@ -14,13 +14,27 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: rlespinasse/github-slug-action@master
-    - name: build and publish Docker container
+    - name: build and publish frontend Docker container
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
           NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
       with:
         name: voxeet/voxeet-io-web
         dockerfile: Dockerfile.snapshot
+        workdir: frontend
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        buildargs: NPM_TOKEN
+        tags: ${{ env.GITHUB_REF_SLUG }}
+
+    - name: build and publish auth server Docker container
+      uses: elgohr/Publish-Docker-Github-Action@2.14
+      env:
+          NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+      with:
+        name: voxeet/voxeet-io-web-auth
+        dockerfile: Dockerfile
+        workdir: backend
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         buildargs: NPM_TOKEN
