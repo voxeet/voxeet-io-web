@@ -2,7 +2,7 @@
   "name": "voxeet-io",
   "version": "1.0.4",
   "private": true,
-  "main": "./src/main.js",
+  "main": "src/main.js",
   "scripts": {
     "dist": "npm run build:electron && ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build",
     "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
@@ -129,7 +129,7 @@
     "express": "^4.0.0"
   },
   "files": [
-    "README.md",
+    "../README.md",
     "dist/"
   ]
 }

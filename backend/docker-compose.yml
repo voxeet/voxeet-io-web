@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  voxeet-io-serv-dev:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: voxeet-io-serv-dev
+    ports:
+      - "3500:3500"
+    environment:
+      - NODE_ENV=development
+      - LOCAL_PORT=3500
+      - SESSION_HOST=session.voxeet.com
+      - CKEY=[MYKEY]
+      - CSEC=[MYSECRET]
+    volumes:
+      - /home/node/app/node_modules
+    secrets:
+      - cert
+      - key
+      - ca
+      - ckey
+      - csec
+    command: npm run docker_start
+
