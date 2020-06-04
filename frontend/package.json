@@ -78,6 +78,9 @@
         "bucket": "voxeet-io-electron-ci",
         "publishAutoUpdate": "true"
       }
+    },
+    "squirrelWindows": {
+      "iconUrl": "https://raw.githubusercontent.com/voxeet/voxeet-io-web/master/public/icon.png"
     }
   },
   "dependencies": {
