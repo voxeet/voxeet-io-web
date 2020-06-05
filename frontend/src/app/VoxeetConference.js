@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import thunkMidleware from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
+import axios from 'axios';
 
 import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
