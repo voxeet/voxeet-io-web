@@ -18,6 +18,7 @@ RUN env ASSET_PATH=/staging/ yarn build
 FROM nginx:1.17.0-alpine AS final
 COPY --from=production /app/dist /usr/share/nginx/html/production
 COPY --from=production /app/dist/index.html /usr/share/nginx/html/
+COPY --from=production /app/dist/manifest.json /usr/share/nginx/html/manifest.json
 COPY --from=staging /app/dist /usr/share/nginx/html/staging
 EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
