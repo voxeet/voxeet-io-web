@@ -3,6 +3,9 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
+// Try the environment variable, otherwise use localhost
+const AUTH_SERVER = process.env.AUTH_SERVER || 'https://127.0.0.1:3500';
+
 try {
   require("os").networkInterfaces();
 } catch (e) {
@@ -107,6 +110,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: `""`,
+        AUTH_SERVER: JSON.stringify(AUTH_SERVER),
       },
     }),
     new CopyWebpackPlugin([

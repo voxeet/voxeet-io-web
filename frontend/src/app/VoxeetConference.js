@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import thunkMidleware from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
+import axios from 'axios';
 
 import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
@@ -14,6 +15,8 @@ import {
 
 import "@voxeet/react-components/dist/voxeet-react-components.css";
 
+const AUTH_SERVER = process.env.AUTH_SERVER || "https://127.0.0.1:3500";
+
 class VoxeetConference extends Component {
   componentDidMount() {
     let conferenceName = this.props.conferenceName
@@ -22,8 +25,8 @@ class VoxeetConference extends Component {
       .replace(/ /g, "");
     const settings = {
       conferenceAlias: conferenceName,
-      consumerKey: "NWUzZTI4cDc0M2JodQ",
-      consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
+     // consumerKey: "NWUzZTI4cDc0M2JodQ",
+     // consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer,
@@ -97,37 +100,53 @@ class VoxeetConference extends Component {
     } else if (VoxeetSdk.isElectron) {
       displayModes = ["tiles", "speaker", "list"];
     }
-    ReactDOM.render(
-      <VoxeetProvider store={configureStore()}>
-        <ConferenceRoom
-          autoJoin
-          userInfo={userInfo}
-          preConfig={
-            this.props.configuration
-              ? this.props.widgetMode
-                ? false
-                : true
-              : false
-          }
-          isListener={this.props.isListener}
-          isDemo={this.props.isDemo}
-          liveRecordingEnabled
-          videoCodec={"H264"}
-          chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
-          displayModes={displayModes}
-          simulcast={this.props.simulcastMode}
-          videoRatio={videoRatio}
-          handleOnLeave={this.props.handleOnLeave}
-          isWidget={this.props.widgetMode}
-          isElectron={VoxeetSdk.isElectron}
-          constraints={constraints}
-          consumerKey={settings.consumerKey}
-          consumerSecret={settings.consumerSecret}
-          conferenceAlias={settings.conferenceAlias}
-        />
-      </VoxeetProvider>,
-      document.getElementById("voxeet-widget")
-    );
+
+    try {
+      let token = "";
+      axios
+        .get(`${AUTH_SERVER}/api/token`, {})
+        .then(response => {
+          //console.log("TOKEN: ", response);
+          const token = response.data;
+          ReactDOM.render(
+            <VoxeetProvider store={configureStore()}>
+              <ConferenceRoom
+                autoJoin
+                userInfo={userInfo}
+                preConfig={
+                  this.props.configuration
+                    ? this.props.widgetMode
+                      ? false
+                      : true
+                    : false
+                }
+                isListener={this.props.isListener}
+                isDemo={this.props.isDemo}
+                liveRecordingEnabled
+                videoCodec={"H264"}
+                chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
+                displayModes={displayModes}
+                simulcast={this.props.simulcastMode}
+                videoRatio={videoRatio}
+                handleOnLeave={this.props.handleOnLeave}
+                isWidget={this.props.widgetMode}
+                isElectron={VoxeetSdk.isElectron}
+                constraints={constraints}
+                // consumerKey={settings.consumerKey}
+                // consumerSecret={settings.consumerSecret}
+                oauthToken={token}
+                conferenceAlias={settings.conferenceAlias}
+              />
+            </VoxeetProvider>,
+            document.getElementById("voxeet-widget")
+          );
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } catch (e) {
+      alert("Something went wrong : " + e);
+    }
   }
 
   render() {
