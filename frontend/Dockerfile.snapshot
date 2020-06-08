@@ -7,13 +7,13 @@ FROM base AS production
 ARG NPM_TOKEN
 RUN yarn install
 RUN yarn build
-RUN env ASSET_PATH=/production/ yarn build
+RUN env ASSET_PATH=/production/ AUTH_SERVER= yarn build
 
 FROM base AS staging
 ARG NPM_TOKEN
 RUN sed -i s/-production"/-staging"/ package.json
 RUN yarn install
-RUN env ASSET_PATH=/staging/ yarn build
+RUN env ASSET_PATH=/staging/ AUTH_SERVER= yarn build
 
 FROM nginx:1.17.0-alpine AS final
 COPY --from=production /app/dist /usr/share/nginx/html/production
