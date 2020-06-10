@@ -25,8 +25,8 @@ class VoxeetConference extends Component {
       .replace(/ /g, "");
     const settings = {
       conferenceAlias: conferenceName,
-     // consumerKey: "NWUzZTI4cDc0M2JodQ",
-     // consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
+      consumerKey: "NWUzZTI4cDc0M2JodQ",
+      consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer,
@@ -132,8 +132,8 @@ class VoxeetConference extends Component {
                 isWidget={this.props.widgetMode}
                 isElectron={VoxeetSdk.isElectron}
                 constraints={constraints}
-                // consumerKey={settings.consumerKey}
-                // consumerSecret={settings.consumerSecret}
+                consumerKey={settings.consumerKey}
+                consumerSecret={settings.consumerSecret}
                 oauthToken={token}
                 conferenceAlias={settings.conferenceAlias}
               />
