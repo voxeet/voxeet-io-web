@@ -6,7 +6,7 @@ import dolbyLogo from "../static/images/icons/DVo_Logo_RGB_V_White.png";
 import "../styles/App.css";
 import Sdk from "../sdk";
 import VoxeetConference from "./VoxeetConference";
-import VoxeetSdk from "@voxeet/voxeet-web-sdk";
+// import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import LocalizedStrings from "react-localization";
 
 let strings = new LocalizedStrings({

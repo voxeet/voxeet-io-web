@@ -23,6 +23,14 @@ module.exports = {
     filename: "bundle.js",
     publicPath: ASSET_PATH,
   },
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all',
+      maxSize:3000000,
+      minSize:1000000,
+    }
+  },
   module: {
     rules: [
       {
