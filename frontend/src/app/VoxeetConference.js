@@ -102,13 +102,13 @@ class VoxeetConference extends Component {
 
     const doRefreshToken = () => {
       return axios
-          .get(`${AUTH_SERVER}/api/refresh`, {params:{refresh_token: refreshToken}})
+          .get(`${AUTH_SERVER}/api/token`, {})
           .then(response => {
             accessToken = response.data.access_token;
             refreshToken = response.data.refresh_token;
 
             return accessToken;
-          })
+          });
     }
 
     try {
