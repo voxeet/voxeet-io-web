@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import thunkMidleware from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import axios from 'axios';
+import axios from "axios";
 
 import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
@@ -24,9 +24,7 @@ class VoxeetConference extends Component {
       .toLowerCase()
       .replace(/ /g, "");
     const settings = {
-      conferenceAlias: conferenceName,
-      consumerKey: "NWUzZTI4cDc0M2JodQ",
-      consumerSecret: "MjU3MWg4dHBhc2NkZWE5NDlnNWowNmdxNWU"
+      conferenceAlias: conferenceName
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer,
@@ -100,6 +98,18 @@ class VoxeetConference extends Component {
     } else if (VoxeetSdk.isElectron) {
       displayModes = ["tiles", "speaker", "list"];
     }
+    let accessToken, refreshToken;
+
+    const doRefreshToken = () => {
+      return axios
+          .get(`${AUTH_SERVER}/api/token`, {})
+          .then(response => {
+            accessToken = response.data.access_token;
+            refreshToken = response.data.refresh_token;
+
+            return accessToken;
+          });
+    }
 
     try {
       let token = "";
@@ -107,7 +117,10 @@ class VoxeetConference extends Component {
         .get(`${AUTH_SERVER}/api/token`, {})
         .then(response => {
           //console.log("TOKEN: ", response);
-          const token = response.data;
+
+          accessToken = response.data.access_token;
+          refreshToken = response.data.refresh_token;
+
           ReactDOM.render(
             <VoxeetProvider store={configureStore()}>
               <ConferenceRoom
@@ -132,9 +145,8 @@ class VoxeetConference extends Component {
                 isWidget={this.props.widgetMode}
                 isElectron={VoxeetSdk.isElectron}
                 constraints={constraints}
-                consumerKey={settings.consumerKey}
-                consumerSecret={settings.consumerSecret}
-                oauthToken={token}
+                oauthToken={accessToken}
+                refreshTokenCallback={doRefreshToken}
                 conferenceAlias={settings.conferenceAlias}
               />
             </VoxeetProvider>,

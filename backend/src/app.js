@@ -117,7 +117,7 @@ app.get("/api/token", (req, res, next) => {
          .then(r => {
            accessToken = r.data.access_token;
            refreshToken = r.data.refresh_token;
-           return res.json(accessToken);
+           return res.json(r.data);
          })
          .catch(e => {
            console.error('Could not get token', requests.token, e.message/*, e*/);
@@ -126,17 +126,22 @@ app.get("/api/token", (req, res, next) => {
 });
 
 app.get("/api/refresh", (req, res, next) => {
+  let refreshToken = req.params.refresh_token;
   let request = Object.assign({}, requests.refresh);
   request.data = {
     'refresh_token': refreshToken
-  }
+  };
 
   return axios(request)
            .then(r => {
              accessToken = r.data.access_token;
-             return res.json(accessToken);
+             refreshToken = r.data.refresh_token;
+             return res.json(r.data);
            })
-           .catch(next);
+           .catch(e => {
+             console.error('Could not refresh token', requests.refresh, e.message/*, e*/);
+             res.status(401).send('invalid token...');
+           });
 });
 
 app.get("/api/invalidate", (req, res, next) => {
