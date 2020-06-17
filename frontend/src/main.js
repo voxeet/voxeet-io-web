@@ -55,7 +55,6 @@ app.on('window-all-close', () => {
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({width: 1280, height: 720});
-  mainWindow.webContents.setFrameRate(30);
   
   ipcMain.on('conferenceJoined', (e) => {
     console.error('conference joined');
