@@ -1,11 +1,11 @@
-Voxeet Token Auth server
+Dolby Interactivity APIs Showcase App - Backend Token Auth server
 =====================
 
 <p align="center">
-<img src="https://www.voxeet.com/wp-content/themes/wp-theme/assets/images/logo.svg" alt="Voxeet SDK logo" title="Voxeet SDK logo" width="100"/>
+<img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
-This is a ...
+This is the backend part of the showcase app. The backend authentication server uses [Authentication API](https://dolby.io/developers/interactivity-apis/rest-apis/authentication#operation/postOAuthToken) to retrieve an access token on behalf of the front end app, and passes the access token to the front end app upon request. For more information regarding token authentication, refer to this [document](https://dolby.io/developers/interactivity-apis/client-sdk/initializing).
 
 ## Table of contents
 
