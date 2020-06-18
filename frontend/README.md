@@ -5,7 +5,7 @@ Dolby Interactivity APIs Web Showcase App - Frontend
 <img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
-This is a sample application to show how backend authentication server can be implemented. The backend authentication server uses the [Authentication API](https://dolby.io/developers/interactivity-apis/rest-apis/authentication#operation/postOAuthToken) to acquire an access token and pass to the front end application, so it can connect to the Dolby Interactivity API platform.
+This is a front end part of the showcase application. The front end application acquires an access token from the backend part of the showcase app. 
 
 
 ## Table of contents
