@@ -81,7 +81,7 @@ Environment variables as defined in [app.js](src/app.js), allows developers to c
 | CKEY       |      | ConsumerKey |
 | CKEY_PATH  | ./certs/ckey.txt | ConsumerKey file path, if CKEY exists this is ignored | 
 | CSEC       |      | ConsumerSecret|
-| CSEC_PATH  | ./certs/csec.tx | ConsumeSecret file path, if CSEC exists this is ignored| 
+| CSEC_PATH  | ./certs/csec.txt | ConsumeSecret file path, if CSEC exists this is ignored| 
 | LOCAL_PORT | 3500 | Local listen port | 
 | LOCAL_HOST | https://127.0.0.1:3500 | Full URL of the server|
 | KEY_PATH | ./certs/key.pem | Private key for the HTTPS server certificate|
