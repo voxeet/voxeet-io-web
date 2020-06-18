@@ -51,9 +51,9 @@ The project is now running, go to : https://localhost:8080/
   All configurations and property are write inside the npm package, feel free to modify the ConferenceRoom inside the react-sample to see how it works !
   ([Voxeet React Components](https://www.npmjs.com/package/@voxeet/react-components))
 
-## Tech
+## Dependencies
 
-  * [Voxeet React Components](https://www.npmjs.com/package/@voxeet/react-components) - The React Component Voxeet Widget
-  * [Voxeet Web SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk) - The WEB SDK Voxeet to communicate with Voxeet Servers
+  * [Dolby Interactivity APIs Web UXKit](https://www.npmjs.com/package/@voxeet/react-components)
+  * [Dolby Interactivity APIs Web SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk)
 
 © Voxeet, 2018
