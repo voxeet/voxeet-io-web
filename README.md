@@ -9,8 +9,8 @@ This is a showcase application that shows how to build a beautiful, fully functi
 
 The application is comprised of two parts:
 
-- A node.js backend authentication server.
-- A front end Web application that uses Dolby Interactivity APIs [UXKit](https://www.npmjs.com/package/@voxeet/react-components) and [SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk).
+- A node.js backend [token authentication server](backend).
+- A front end [Web application](frontend) that uses Dolby Interactivity APIs [UXKit](https://www.npmjs.com/package/@voxeet/react-components) and [SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk).
 
 Following the instruction in each part to start the full stack app.
 
