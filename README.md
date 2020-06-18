@@ -16,13 +16,14 @@ This is a sample application to show how the Voxeet Web ConferenceKit works.
   1. [Initializing the sample](#initializing-the-sample)
   1. [Running the sample](#running-the-sample)
   1. [Customise the Sample](#customise-the-sample)
-  1. [Tech](#tech)
+  1. [Dependencies](#dependencies)
 
 ## Project setup
 
- - Download the sample
- - Get your Voxeet consumerKey and consumerSecret on our portal. ([Developer Portal Voxeet](https://developer.voxeet.com))
- - Put your keys inside the ConferenceRoom
+ - Clone the project
+ - Get your app consumerKey and consumerSecret on [Dolby.io](https://dolby.io/developers/interactivity-apis/client-sdk/initializing)
+ - Start the backend authentication server
+ - Start the frontend server
  - Enter a Conference alias inside the ConferenceRoom
 
 ## Initializing the sample
