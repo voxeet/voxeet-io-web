@@ -14,4 +14,9 @@ The application is comprised of two parts:
 
 Following the instruction in each part to start the full stack app.
 
+
+## Tools
+- [node.js](https://nodejs.org/en/download/)
+- [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+
 © Dolby.io, 2020
