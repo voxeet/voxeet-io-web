@@ -22,7 +22,7 @@ Run "mkcert -install" to avoid verification errors
 Created a new certificate valid for the following names 
  - "127.0.0.1"
 
-The certificate is at "./127.0.0.1.pem" and the key at "./127.0.0.1-key.pem" ✅
+The certificate is at "./127.0.0.1.pem" and the key at "./127.0.0.1-key.pem"
 
 ```
 - Export environment variables
@@ -50,10 +50,9 @@ $ export CSEC={Your Consumer Secret}
 
 ## Running inside a container
 
- - Put your keys inside the [ckey.txt](./certs/ckey.txt) and [csec.txt](./certs/csec.txt)
- - Generate certificate for local server. For more details refer to [mkcert](https://github.com/FiloSottile/mkcert). 
- - Copy certificates to [ca.pem](./certs/ca.pem), [key.pem](./certs/key.pem), [cert.pem](./certs/cert.pem).
- - Edit local host IP and Port in [docker-compose.yml](./docker-compose.yml)
+ - Enter the consumerKey and consumerSecret inside the [ckey.txt](./certs/ckey.txt) and [csec.txt](./certs/csec.txt) respectively.
+ - Copy certificate and key files generated earlier to [ca.pem](./certs/ca.pem), [key.pem](./certs/key.pem), [cert.pem](./certs/cert.pem).
+ - Edit local host IP and Port in [docker-compose.yml](./docker-compose.yml).
 
 **Start:**
 
@@ -70,7 +69,7 @@ The server is now running on: `https://localhost:3500/`
 `docker-compose -f ./docker-compose.yml down --rmi all`
 
 ## Tools
-  * [mkcert](https://github.com/FiloSottile/mkcert) - A simple zero-config tool to make locally trusted development certificates with any names you'd like
+  * [mkcert](https://github.com/FiloSottile/mkcert) - A simple zero-config tool to make locally trusted development certificates.
   * [Docker compose](https://docs.docker.com/compose/) - A tool for defining and running multi-container Docker applications.
 
 © Dolby.io, 2020
