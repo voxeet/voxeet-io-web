@@ -5,53 +5,33 @@ Dolby Interactivity APIs Web Showcase App - Frontend
 <img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
-This is a front end part of the showcase application. The front end application acquires an access token from the backend part of the showcase app. 
+This is a front end part of the showcase application, which acquires access token from the backend part of the showcase app to communicate with the Dolby Interactivity APIs platform. 
 
 
-## Table of contents
-
-  1. [Project setup](#project-setup)
-  1. [Initializing the sample](#initializing-the-sample)
-  1. [Running the sample](#running-the-sample)
-  1. [Customise the Sample](#customise-the-sample)
-  1. [Tech](#tech)
-
-## Project setup
-
- - Download the sample
- - Get your Voxeet consumerKey and consumerSecret on our portal. ([Developer Portal Voxeet](https://developer.voxeet.com))
- - Put your keys inside the ConferenceRoom
- - Enter a Conference alias inside the ConferenceRoom
-
-## Initializing the sample
-
+## Initializing the app
 ```bash
      $ yarn install
 ```
 
 ## Running the sample
-
 ```bash
     $ yarn start
 ```
 
 ## Building the sample (generate bundle file)
-
 ```bash
     $ yarn run build
 ```
 
 The project is now running, go to : https://localhost:8080/
 
-## Customise the Sample
+## Customise the front end app
+  UI customization is supported through UXKit [ConferenceRoom](https://dolby.io/developers/interactivity-apis/client-ux-kit/uxkit-voxeet-react#uxkit-properties) object.
+  
+## Dependencies
+  * [Dolby Interactivity APIs Web UXKit](https://www.npmjs.com/package/@voxeet/react-components)
+  * [Dolby Interactivity APIs Web SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk)
 
-  A lot of configuration are possible for this component.
-  All configurations and property are write inside the npm package, feel free to modify the ConferenceRoom inside the react-sample to see how it works !
-  ([Voxeet React Components](https://www.npmjs.com/package/@voxeet/react-components))
+Complete list of dependencies are available in the `package.json` file.
 
-## Tech
-
-  * [Voxeet React Components](https://www.npmjs.com/package/@voxeet/react-components) - The React Component Voxeet Widget
-  * [Voxeet Web SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk) - The WEB SDK Voxeet to communicate with Voxeet Servers
-
-© Voxeet, 2018
+© Dolby.io, 2020
