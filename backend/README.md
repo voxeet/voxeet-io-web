@@ -72,4 +72,20 @@ The server is now running on: `https://localhost:3500/`
   * [mkcert](https://github.com/FiloSottile/mkcert) - A simple zero-config tool to make locally trusted development certificates.
   * [Docker compose](https://docs.docker.com/compose/) - A tool for defining and running multi-container Docker applications.
 
+## Environment variables
+
+Environment variables as defined in [app.js](src/app.js), allows developers to customizes where the authentication server reads the configuration.
+
+| Variable   | Default  | Meaning     |
+|----------  | -------- | --------    |
+| CKEY       |      | ConsumerKey |
+| CKEY_PATH  | ./certs/ckey.txt | ConsumerKey file path, if CKEY exists this is ignored | 
+| CSEC       |      | ConsumerSecret|
+| CSEC_PATH  | ./certs/csec.tx | ConsumeSecret file path, if CSEC exists this is ignored| 
+| LOCAL_PORT | 3500 | Local listen port | 
+| LOCAL_HOST | https://127.0.0.1:3500 | Full URL of the server|
+| KEY_PATH | ./certs/key.pem | Private key for the HTTPS server certificate|
+| CERT_PATH | ./certs/cert.pem | X.509 Certificate for the HTTP server|
+| CA_PATH | ./certs/ca.pem | X.509 Certificate Authority (CA)|
+
 © Dolby.io, 2020
