@@ -1,8 +1,8 @@
-Voxeet Web ConferenceKit
+Dolby Interactivity APIs Web Showcase App
 =====================
 
 <p align="center">
-<img src="https://www.voxeet.com/wp-content/themes/wp-theme/assets/images/logo.svg" alt="Voxeet SDK logo" title="Voxeet SDK logo" width="100"/>
+<img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Voxeet SDK logo" width="200"/>
 </p>
 
 This is a sample application to show how the Voxeet Web ConferenceKit works.
