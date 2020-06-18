@@ -6,9 +6,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrettierPlugin = require("prettier-webpack-plugin");
 
 // Try the environment variable, otherwise use root
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = process.env.ASSET_PATH || '';
 // Try the environment variable, otherwise use localhost
-const AUTH_SERVER = process.env.AUTH_SERVER || 'https://127.0.0.1:3500';
+const AUTH_SERVER = process.env.AUTH_SERVER || '';
 
 try {
   require("os").networkInterfaces();
