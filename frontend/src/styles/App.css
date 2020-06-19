@@ -1,0 +1,681 @@
+@import "font.css";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "DINNextLTPro-Regular";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: url("../static/images/photos/sources_bg/vladimir-kudinov-RKiMg1bwsMY-unsplash.jpg")
+    no-repeat center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  overflow-x: hidden;
+}
+
+.electron-message-container {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-image: linear-gradient(#13141c 0%, #424248 100%);
+  /* background-color: #3e4665; */
+  display: flex;
+  align-items: center;
+}
+
+.electron-logo-container {
+  text-align: center;
+  margin-bottom: 25px;
+  width: 350px;
+  height: 350px;
+}
+
+.electron-logo-container img {
+  width: 350px;
+}
+
+.electron-center-container {
+  max-width: 480px;
+  margin: auto;
+}
+
+.electron-info-container {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin-top: 25px;
+  /* font-family: "proxima-nova-soft-medium"; */
+  font-size: 20px;
+  display: inline-block;
+}
+
+.one {
+  margin-left: 8px;
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0s;
+}
+
+.two {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.2s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0.2s;
+}
+
+.three {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.3s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0.3s;
+}
+
+@-webkit-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #58c6f4;
+  width: 28px;
+  height: 28px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+#loader-container {
+  margin: auto;
+  width: 32px;
+  height: 23px;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.copyright {
+  display: flex;
+  justify-content: center;
+}
+
+.copyright span {
+  font-family: "DINNextLTPro-Medium";
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
+  color: #ffffff;
+}
+
+.disable {
+  cursor: not-allowed !important;
+}
+
+.blockInput div {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.block-user-name select {
+  margin: auto;
+  margin-left: 3%;
+  width: 50%;
+  margin-top: 19px;
+}
+
+.block-user-name label {
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 16px;
+  font-weight: 400;
+  color: #6a6a6a;
+}
+
+.img-user img {
+  max-width: 100%;
+}
+
+.img-user {
+  margin-bottom: 10px !important;
+  display: inline-block !important;
+  float: left;
+  width: 15%;
+}
+
+.button-disabled,
+.button-disabled:hover {
+  background-color: #72a1f3 !important;
+  cursor: not-allowed !important;
+}
+
+.content-sample {
+  -webkit-box-shadow: 0 13px 44px 0 rgba(0, 10, 56, 0.11);
+  box-shadow: 0 13px 44px 0 rgba(0, 10, 56, 0.11);
+  border-radius: 5px;
+  padding: 30px;
+  width: 470px;
+}
+
+.electron-message {
+  text-align: center;
+  color: #000938;
+  margin-top: 35px;
+  font-size: 16px;
+}
+
+.title {
+  font-size: 19px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.input-field  {
+  margin-top: 15px;
+  height: 50px;
+}
+
+.input-field input {
+  width: 92%;
+  border-bottom: 2px solid transparent;
+  border-top: 4px solid transparent;
+  border-left: none;
+  border-right: none;
+  font-size: 16px;
+  margin-bottom: 30px;
+  padding: 15px 4% 15px 4%;
+}
+
+.input-field input:focus {
+  border-bottom-color: #3e44fe;
+  box-shadow: none;
+  outline: none;
+}
+
+.button-demo {
+  text-align: left;
+  border: none !important;
+  font-size: 13px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+#join {
+  padding: 0 50px;
+  background-image: linear-gradient(225deg, #aa33ff, #3e44fe);
+  opacity: 0.85;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 20px;
+  border: none !important;
+  height: 50px;
+  width: 100%;
+
+  cursor: pointer;
+}
+
+#join:focus {
+  outline: none;
+}
+
+#conferenceName,
+#userName,
+#first_name,
+#last_name {
+  border-radius: 100px;
+  color: #000;
+  font-weight: 200;
+  font-size: 16px;
+  /* padding-top: 18px; */
+  font-family: "DINNextLTPro-Regular";
+}
+
+#join:hover {
+  background-color: #66b2f3;
+}
+
+.logo {
+  text-align: center;
+  margin-top: 0px;
+  padding-bottom: 70px;
+  display: inline-block;
+  width: 100%;
+}
+
+.logo h1 {
+  font-size: 55px;
+  margin: 25px 15px 30px 15px;
+  color: #fff;
+  font-weight: 300;
+  line-height: 70%;
+  display: inline-block;
+}
+
+.voxeet-logo {
+  width: 45px;
+}
+
+.blockButton {
+  text-align: center;
+  margin-top: 22px;
+}
+
+.dolby-container-logo {
+  text-align: center;
+  display: none;
+}
+
+.dolby-container-logo img {
+  width: 120px;
+  height: 140px;
+}
+
+.dolby-container-wrapper {
+  text-align: center;
+}
+
+.dolby-container-wrapper img {
+  width: 150px;
+  height: 170px;
+}
+
+/*Checkboxes styles*/
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-top: 5px;
+  padding-left: 40px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  /* font: 14px/20px "Open Sans", Arial, sans-serif; */
+  font: 18px "DINNextLTPro-Regular";
+  color: #fff;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child {
+  margin-bottom: 0;
+}
+
+input[type="checkbox"] + label:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  -webkit-transition: all 0.12s, border-color 0.08s;
+  transition: all 0.12s, border-color 0.08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #58c6f4;
+  width: 32px;
+  height: 32px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+#loader-container {
+  margin: auto;
+  width: 32px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 3600px) {
+  .electron-logo-container {
+    margin-bottom: 50px;
+    width: 750px;
+    height: 750px;
+  }
+
+  .electron-logo-container img {
+    width: 750px;
+  }
+
+  .electron-center-container {
+    max-width: 780px;
+  }
+
+  .electron-info-container {
+    font-size: 40px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .electron-info-container {
+    width: 100%;
+    margin: auto;
+  }
+  #loader-container {
+    margin: auto;
+    width: 32px;
+    height: 23px;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    display: block;
+  }
+  .voxeet-logo {
+    width: 50px;
+  }
+  .logo h1 {
+    display: block;
+    font-size: 30px;
+    margin: 0px 15px 0px 15px;
+  }
+  .input-field input {
+    font-size: 13px;
+  }
+  button {
+    font-size: 12px;
+    padding: 13px 50px;
+  }
+  .content-sample {
+    margin: auto;
+    padding: 10px;
+    width: auto;
+  }
+  .input-field input {
+    margin-bottom: 20px;
+  }
+  .content-sample .input-field input {
+    font-size: 12px !important;
+  }
+  .blockButton {
+    margin-top: 10px;
+  }
+  .blockButton button {
+    font-size: 12px !important;
+    padding: 14px !important;
+    height: auto !important;
+    margin-top: 5px !important;
+  }
+  .button-demo {
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 10px;
+  }
+  .electron-info-container {
+    width: 100%;
+    margin: auto;
+  }
+  #loader-container {
+    margin: auto;
+    width: 32px;
+    height: 23px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .dolby-container-logo {
+    display: inherit;
+  }
+
+  .dolby-container-wrapper {
+    display: none;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    font-size: 14px;
+    padding-top: 2px;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    margin-left: 20px;
+  }
+
+  input[type="checkbox"] + label:before {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    width: 5px;
+    top: -2px;
+    left: 4px;
+  }
+}
+
+@media screen and (max-width: 448px) {
+}
+
+@media screen and (min-height: 799px) {
+  /* .copyright {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+  } */
+}
+
+/* @media only screen and (min-resolution: 2dppx) and (max-width: 767px) {
+  body {
+    display: block;
+  }
+  .voxeet-logo {
+    width: 50px;
+  }
+  .logo h1 {
+    display: block;
+    font-size: 30px;
+    margin: 0px 15px 0px 15px;
+  }
+  .input-field input {
+    font-size: 13px;
+  }
+  button {
+    font-size: 12px;
+    padding: 13px 50px;
+  }
+  .content-sample {
+    margin: auto;
+    padding: 10px;
+    width: auto;
+  }
+  .input-field input {
+    margin-bottom: 20px;
+  }
+  .content-sample .input-field input {
+    font-size: 12px !important;
+  }
+  .blockButton {
+    margin-top: 10px;
+  }
+  .blockButton button {
+    font-size: 12px !important;
+    padding: 14px !important;
+    height: auto !important;
+    margin-top: 5px !important;
+  }
+  .button-demo {
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 10px;
+  }
+  .electron-info-container {
+    width: 100%;
+    margin: auto;
+  }
+  #loader-container {
+    margin: auto;
+    width: 32px;
+    height: 23px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .dolby-container-logo {
+    display: inherit;
+  }
+
+  .dolby-container-wrapper {
+    display: none;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  input[type="checkbox"] + label {
+    font-size: 14px;
+    padding-top: 2px;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    margin-left: 20px;
+  }
+
+  input[type="checkbox"] + label:before {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    width: 5px;
+    top: -2px;
+    left: 4px;
+  }
+
+  .copyright {
+    display: none;
+  }
+} */
+
+@media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (max-height: 699px) {
+  /* .copyright {
+    position: relative !important;
+    bottom: 0px !important;
+  } */
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (min-height: 700px) {
+  /* .copyright {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+  } */
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 4) and (max-width: 1200px) {
+  .dolby-container-logo {
+    display: inherit;
+  }
+
+  .dolby-container-wrapper {
+    display: none;
+  }
+
+  .logo {
+    display: none;
+  }
+}

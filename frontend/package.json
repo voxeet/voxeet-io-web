@@ -1,0 +1,139 @@
+{
+  "name": "voxeet-io",
+  "version": "1.0.4",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "dist": "npm run build:electron && ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true build",
+    "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
+    "start": "webpack-dev-server -d --hot --inline --content-base",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress -p",
+    "build:electron": "cross-env ELECTRON=true npm run build",
+    "get-version": "cross-env-shell echo ${npm_package_version}"
+  },
+  "author": "Voxeet",
+  "contributors": [
+    "MARTIN Valentin <vmartin@voxeet.com>",
+    "GOURGUES Thomas <tgourgues@voxeet.com>"
+  ],
+  "browserslist": [
+    "IE 11"
+  ],
+  "build": {
+    "appId": "io.voxeet.app",
+    "productName": "Voxeet",
+    "extends": null,
+    "files": [
+      "dist/*.svg",
+      "dist/*.ttf",
+      "dist/index.html",
+      "dist/renderer.js",
+      "dist/bundle.js",
+      "dist/images",
+      "src/main.js",
+      "node_modules/",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150
+        }
+      ]
+    },
+    "pkg": {
+      "allowCurrentUserHome": false,
+      "allowAnywhere": false
+    },
+    "mac": {
+      "target": [
+        "dmg", "zip"
+      ],
+      "icon": "public/icon.png",
+      "extraResources": [
+        "libraries"
+      ],
+      "publish": {
+        "provider": "s3",
+        "bucket": "voxeet-io-electron-ci",
+        "publishAutoUpdate": "true"
+      }
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.png",
+      "publish": {
+        "provider": "s3",
+        "bucket": "voxeet-io-electron-ci",
+        "publishAutoUpdate": "true"
+      }
+    },
+    "squirrelWindows": {
+      "iconUrl": "https://raw.githubusercontent.com/voxeet/voxeet-io-web/master/public/icon.png"
+    }
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.8.7",
+    "@trodi/electron-splashscreen": "^0.3.4",
+    "@voxeet/react-components": "2.1.0",
+    "@voxeet/voxeet-web-sdk": "2.3.1",
+    "axios": "^0.19.2",
+    "browserslist": "^4.5.2",
+    "core-js": "2",
+    "express": "^4.16.4",
+    "prettier": "^1.18.2",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-localization": "^1.0.14",
+    "react-redux": "7.1.1",
+    "react-router-dom": "5.0.1",
+    "redux": "4.0.4",
+    "redux-thunk": "2.3.0"
+  },
+  "resolutions": {
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^4.2.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^2.1.1",
+    "electron": "^5.0.7",
+    "electron-builder": "^22.6.0",
+    "electron-builder-squirrel-windows": "^22.6.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "prettier-webpack-plugin": "^1.2.0",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^1.1.5",
+    "url-loader": "^0.5.9",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "peerDependencies": {
+    "@voxeet/voxeet-web-sdk": "2.3.1",
+    "express": "^4.0.0"
+  },
+  "files": [
+    "../README.md",
+    "dist/"
+  ]
+}

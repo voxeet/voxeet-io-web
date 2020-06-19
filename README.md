@@ -1,59 +1,22 @@
-Voxeet Web ConferenceKit
+Dolby Interactivity APIs Web Showcase App
 =====================
 
 <p align="center">
-<img src="https://www.voxeet.com/wp-content/themes/wp-theme/assets/images/logo.svg" alt="Voxeet SDK logo" title="Voxeet SDK logo" width="100"/>
+<img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Voxeet SDK logo" width="200"/>
 </p>
 
-This is a sample application to show how the Voxeet Web ConferenceKit works.
+This is a showcase application that shows how to build a beautiful, fully functional, secure conference application using Dolby Interactivity APIs.
 
-  - Join a conference
-  - Customise Modes
+The application is comprised of two parts:
 
-## Table of contents
+- A node.js back end [token authentication server](backend)
+- A front end [Web application](frontend) that uses Dolby Interactivity APIs [UXKit](https://www.npmjs.com/package/@voxeet/react-components) and [SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk)
 
-  1. [Project setup](#project-setup)
-  1. [Initializing the sample](#initializing-the-sample)
-  1. [Running the sample](#running-the-sample)
-  1. [Customise the Sample](#customise-the-sample)
-  1. [Tech](#tech)
+Follow the instruction in each part to start the full stack app.
 
-## Project setup
 
- - Download the sample
- - Get your Voxeet consumerKey and consumerSecret on our portal. ([Developer Portal Voxeet](https://developer.voxeet.com))
- - Put your keys inside the ConferenceRoom
- - Enter a Conference alias inside the ConferenceRoom
+## Tools
+- [node.js](https://nodejs.org/en/download/)
+- [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
-## Initializing the sample
-
-```bash
-     $ yarn install
-```
-
-## Running the sample
-
-```bash
-    $ yarn start
-```
-
-## Building the sample (generate bundle file)
-
-```bash
-    $ yarn run build
-```
-
-The project is now running, go to : https://localhost:8080/
-
-## Customise the Sample
-
-  A lot of configuration are possible for this component.
-  All configurations and property are write inside the npm package, feel free to modify the ConferenceRoom inside the react-sample to see how it works !
-  ([Voxeet React Components](https://www.npmjs.com/package/@voxeet/react-components))
-
-## Tech
-
-  * [Voxeet React Components](https://www.npmjs.com/package/@voxeet/react-components) - The React Component Voxeet Widget
-  * [Voxeet Web SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk) - The WEB SDK Voxeet to communicate with Voxeet Servers
-
-© Voxeet, 2018
+© Dolby.io, 2020
