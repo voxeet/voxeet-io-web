@@ -1,11 +1,11 @@
-Dolby Interactivity APIs Web Showcase App - Frontend
+Dolby Interactivity APIs Web Showcase App - Front End
 =====================
 
 <p align="center">
 <img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
-This is a front end part of the showcase application, which acquires access token from the backend part of the showcase app to communicate with the Dolby Interactivity APIs platform. 
+This is a front end part of the showcase application, which acquires an access token from the backend part of the showcase app to communicate with the Dolby Interactivity APIs platform. 
 
 
 ## Initializing the app
@@ -23,15 +23,15 @@ This is a front end part of the showcase application, which acquires access toke
     $ yarn run build
 ```
 
-The project is now running, go to : https://localhost:8080/
+The project is now running. Go to: https://localhost:8080/
 
-## Customise the front end app
-  UI customization is supported through UXKit [ConferenceRoom](https://dolby.io/developers/interactivity-apis/client-ux-kit/uxkit-voxeet-react#uxkit-properties) object.
+## Customize the front end app
+  UI customization is supported through the UXKit [ConferenceRoom](https://dolby.io/developers/interactivity-apis/client-ux-kit/uxkit-voxeet-react#uxkit-properties) object.
   
 ## Dependencies
   * [Dolby Interactivity APIs Web UXKit](https://www.npmjs.com/package/@voxeet/react-components)
   * [Dolby Interactivity APIs Web SDK](https://www.npmjs.com/package/@voxeet/voxeet-web-sdk)
 
-Complete list of dependencies are available in the `package.json` file.
+A complete list of dependencies is available in the `package.json` file.
 
 © Dolby.io, 2020
