@@ -149,8 +149,8 @@ body {
 }
 
 .copyright {
-  display: table-cell;
-  vertical-align: bottom;
+  display: flex;
+  justify-content: center;
 }
 
 .copyright span {
