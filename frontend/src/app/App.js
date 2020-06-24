@@ -41,7 +41,7 @@ class App extends Component {
     super(props);
     this.state = {
       isSubmit: false,
-      simulcastMode: true,
+      simulcastMode: false,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
@@ -269,6 +269,16 @@ class App extends Component {
           />
           <label id="widgetModeLabel" htmlFor="widgetMode">
             Widget Mode
+          </label>
+
+          <input
+            type="checkbox"
+            id="simulcast"
+            checked={this.state.simulcastMode}
+            onChange={this.toggleSimulcastMode}
+          />
+          <label id="simulcastModeLabel" htmlFor="simulcast">
+            Simulcast
           </label>
 
           <input
