@@ -5,7 +5,7 @@ ARG NPM_TOKEN
 
 WORKDIR /app
 COPY . .
-RUN test -z "$WEB_SDK_DIST_TAG" || { cp .npmrc.nexus .npmrc; yarn add @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG; } && : \
+RUN test -z "$WEB_SDK_DIST_TAG" || { cp .npmrc.nexus .npmrc; yarn add -E @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG; } && : \
     && yarn install \
     && yarn build
 
