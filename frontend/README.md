@@ -19,7 +19,7 @@ By default, your frontend application will make REST API calls to the same hostn
 To change this behavior, set the environment variable `AUTH_SERVER` :
 
 ```bash
-    $ export AUTH_SERVER=http://localhost:3500
+    $ export AUTH_SERVER=https://localhost:3500
 ``` 
 
 ## Running the sample
