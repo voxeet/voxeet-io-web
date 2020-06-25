@@ -13,6 +13,15 @@ This is a front end part of the showcase application, which acquires an access t
      $ yarn install
 ```
 
+## Configuring the backend
+
+By default, your frontend application will make REST API calls to the same hostname and port where your frontend is available.
+To change this behavior, set the environment variable `AUTH_SERVER` :
+
+```bash
+    $ export AUTH_SERVER=https://localhost:3500
+``` 
+
 ## Running the sample
 ```bash
     $ yarn start
