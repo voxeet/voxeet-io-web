@@ -10,12 +10,12 @@ import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
   ConferenceRoom,
   VoxeetProvider,
-  reducer as voxeetReducer
+  reducer as voxeetReducer,
 } from "@voxeet/react-components";
 
 import "@voxeet/react-components/dist/voxeet-react-components.css";
 
-const AUTH_SERVER = process.env.AUTH_SERVER || '';
+const AUTH_SERVER = process.env.AUTH_SERVER || "";
 
 class VoxeetConference extends Component {
   componentDidMount() {
@@ -24,7 +24,7 @@ class VoxeetConference extends Component {
       .toLowerCase()
       .replace(/ /g, "");
     const settings = {
-      conferenceAlias: conferenceName
+      conferenceAlias: conferenceName,
     };
     const reducers = combineReducers({
       voxeet: voxeetReducer,
@@ -80,15 +80,15 @@ class VoxeetConference extends Component {
 
     const userInfo = {
       name: name,
-      avatarUrl: photoURL
+      avatarUrl: photoURL,
     };
     var constraints = {
       audio: true,
-      video: true
+      video: true,
     };
     var videoRatio = {
       width: 1280,
-      height: 720
+      height: 720,
     };
     const configureStore = () =>
       createStore(reducers, applyMiddleware(thunkMidleware));
@@ -101,21 +101,19 @@ class VoxeetConference extends Component {
     let accessToken, refreshToken;
 
     const doRefreshToken = () => {
-      return axios
-          .get(`${AUTH_SERVER}/api/token`, {})
-          .then(response => {
-            accessToken = response.data.access_token;
-            refreshToken = response.data.refresh_token;
+      return axios.get(`${AUTH_SERVER}/api/token`, {}).then((response) => {
+        accessToken = response.data.access_token;
+        refreshToken = response.data.refresh_token;
 
-            return accessToken;
-          });
-    }
+        return accessToken;
+      });
+    };
 
     try {
       let token = "";
       axios
         .get(`${AUTH_SERVER}/api/token`, {})
-        .then(response => {
+        .then((response) => {
           //console.log("TOKEN: ", response);
 
           accessToken = response.data.access_token;
@@ -135,6 +133,7 @@ class VoxeetConference extends Component {
                 }
                 isListener={this.props.isListener}
                 isDemo={this.props.isDemo}
+                rtcpMode={"max"}
                 liveRecordingEnabled
                 videoCodec={"H264"}
                 chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
@@ -153,7 +152,7 @@ class VoxeetConference extends Component {
             document.getElementById("voxeet-widget")
           );
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     } catch (e) {
@@ -177,12 +176,12 @@ VoxeetConference.propTypes = {
   widgetMode: PropTypes.bool,
   configuration: PropTypes.bool,
   userName: PropTypes.string,
-  handleOnLeave: PropTypes.func.isRequired
+  handleOnLeave: PropTypes.func.isRequired,
 };
 
 VoxeetConference.defaultProps = {
   conferenceName: "conference_name",
-  userName: "Guest " + Math.floor(Math.random() * 100 + 1)
+  userName: "Guest " + Math.floor(Math.random() * 100 + 1),
 };
 
 export default VoxeetConference;
