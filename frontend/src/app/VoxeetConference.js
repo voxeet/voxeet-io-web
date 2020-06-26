@@ -133,7 +133,7 @@ class VoxeetConference extends Component {
                 }
                 isListener={this.props.isListener}
                 isDemo={this.props.isDemo}
-                rtcpMode={"max"}
+                rtcpmode={"max"}
                 liveRecordingEnabled
                 videoCodec={"H264"}
                 chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
