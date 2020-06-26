@@ -20,3 +20,4 @@ Follow the instruction in each part to start the full stack app.
 - [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
 © Dolby.io, 2020
+
