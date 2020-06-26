@@ -48,6 +48,21 @@ jobs:
         secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
         region: ${{ secrets.AWS_REGION }}
 
+    - name: build and publish frontend Docker container for develop - alpha Web SDK
+      uses: elgohr/Publish-Docker-Github-Action@2.14
+      env:
+        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+        WEB_SDK_DIST_TAG: alpha-trial
+      with:
+        name: voxeet-io-web
+        dockerfile: Dockerfile
+        workdir: frontend
+        username: ${{ steps.ecr.outputs.username }}
+        password: ${{ steps.ecr.outputs.password }}
+        registry: ${{ steps.ecr.outputs.registry }}
+        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG
+        tags: ${{ env.WEB_SDK_DIST_TAG }}
+
     - name: build and publish frontend Docker container for master - staging Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
@@ -83,21 +98,6 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: develop-staging
-      with:
-        name: voxeet-io-web
-        dockerfile: Dockerfile
-        workdir: frontend
-        username: ${{ steps.ecr.outputs.username }}
-        password: ${{ steps.ecr.outputs.password }}
-        registry: ${{ steps.ecr.outputs.registry }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG
-        tags: ${{ env.WEB_SDK_DIST_TAG }}
-
-    - name: build and publish frontend Docker container for develop - alpha Web SDK
-      uses: elgohr/Publish-Docker-Github-Action@2.14
-      env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
-        WEB_SDK_DIST_TAG: alpha
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
