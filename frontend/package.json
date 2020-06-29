@@ -86,7 +86,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@trodi/electron-splashscreen": "^0.3.4",
-    "@voxeet/react-components": "2.1.0",
+    "@voxeet/react-components": "^2.1.0",
     "@voxeet/voxeet-web-sdk": "^2.4.1",
     "axios": "^0.19.2",
     "browserslist": "^4.5.2",
