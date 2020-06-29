@@ -53,6 +53,7 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: alpha
+        UX_KIT_DIST_TAG: alpha
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
