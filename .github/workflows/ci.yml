@@ -107,5 +107,5 @@ jobs:
         username: ${{ steps.ecr.outputs.username }}
         password: ${{ steps.ecr.outputs.password }}
         registry: ${{ steps.ecr.outputs.registry }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG
+        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
         tags: ${{ env.WEB_SDK_DIST_TAG }}
