@@ -209,6 +209,7 @@ class App extends Component {
             isDemo={this.state.isDemo}
             configuration={!this.state.useDefaultSettings}
             handleOnLeave={this.handleOnLeave.bind(this)}
+            getSources={this.props.getSources}
             userName={this.state.form.userName}
             photoURL={photoURL}
             conferenceName={this.state.form.conferenceName}
@@ -322,12 +323,14 @@ class App extends Component {
 
 App.propTypes = {
   handleJoin: PropTypes.func,
-  handleLeave: PropTypes.func
+  handleLeave: PropTypes.func,
+  getSources: PropTypes.func
 };
 
 App.defaultProps = {
   handleJoin: () => {},
-  handleLeave: () => {}
+  handleLeave: () => {},
+  getSources: () => Promise.resolve(null)
 };
 
 const mapStateToProps = (state, ownProps) => {

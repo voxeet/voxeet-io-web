@@ -54,7 +54,16 @@ app.on('window-all-close', () => {
 });
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({width: 1280, height: 720});
+
+  mainWindow = new BrowserWindow({
+      width: 1280,
+      height: 720,
+      webPreferences: {
+          nodeIntegration: false,
+          contextIsolation: true,
+          preload: path.join(__dirname, "preload.js")
+      }
+  });
   
   ipcMain.on('conferenceJoined', (e) => {
     console.error('conference joined');
@@ -74,11 +83,22 @@ app.on('ready', () => {
   if (isDevelopment) {
     mainWindow.loadURL(`https://localhost.voxeet.com:8081`);
   } else {
-    mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, '../dist', 'index.html'),
-      protocol: 'file:',
-      slashes: false
-    }));
+
+      indexPath = url.format({
+          protocol: 'file:',
+          pathname: path.join(__dirname, '..', 'dist', 'index.html'),
+          slashes: true
+      })
+
+      // Load the index.html
+      mainWindow.loadURL(indexPath)
+
+    // mainWindow.loadURL(`https://voxeet-io.dev.trydcc.com/staging`);
+   // mainWindow.loadURL(url.format({
+   //     pathname: path.join(__dirname, '../dist', 'index.html'),
+   //   protocol: 'file:',
+   //   slashes: false
+   // }));
   }
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));

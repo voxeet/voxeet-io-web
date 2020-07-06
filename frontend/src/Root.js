@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./app/App";
+const { electronOnJoined, electronOnLeft, getSources } = window.electron || {};
 
 const ASSET_PATH = process.env.ASSET_PATH || "/";
 
@@ -14,8 +15,9 @@ const Root = ({}) => (
         render={props => (
           <App
             {...props}
-            handleJoin={global.electronOnJoined}
-            handleLeave={global.electronOnLeft}
+            handleJoin={electronOnJoined}
+            handleLeave={electronOnLeft}
+            getSources={getSources}
           />
         )}
       />
@@ -24,8 +26,8 @@ const Root = ({}) => (
         render={props => (
           <App
             {...props}
-            handleJoin={global.electronOnJoined}
-            handleLeave={global.electronOnLeft}
+            handleJoin={electronOnJoined}
+            handleLeave={electronOnLeft}
           />
         )}
       />

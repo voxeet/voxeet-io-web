@@ -15,7 +15,9 @@ import {
 
 import "@voxeet/react-components/dist/voxeet-react-components.css";
 
-const AUTH_SERVER = process.env.AUTH_SERVER || "";
+const AUTH_SERVER = process.env.AUTH_SERVER || "https://127.0.0.1:3500";
+const SESSION_SERVER =
+  process.env.SESSION_SERVER || "https://session.voxeet.com";
 
 class VoxeetConference extends Component {
   componentDidMount() {
@@ -141,6 +143,7 @@ class VoxeetConference extends Component {
                 simulcast={this.props.simulcastMode}
                 videoRatio={videoRatio}
                 handleOnLeave={this.props.handleOnLeave}
+                getSources={this.props.getSources}
                 isWidget={this.props.widgetMode}
                 isElectron={VoxeetSdk.isElectron}
                 constraints={constraints}
@@ -177,6 +180,7 @@ VoxeetConference.propTypes = {
   configuration: PropTypes.bool,
   userName: PropTypes.string,
   handleOnLeave: PropTypes.func.isRequired,
+  getSources: PropTypes.func
 };
 
 VoxeetConference.defaultProps = {
