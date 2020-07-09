@@ -122,7 +122,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: "./public/index.html",
-      js: process.env.ELECTRON ? ["renderer.js"] : [],
+      js: /*process.env.ELECTRON ? ["preload.js"] :*/ [],
     }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],

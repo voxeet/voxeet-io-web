@@ -25,6 +25,14 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "",
   },
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all',
+      maxSize:3000000,
+      minSize:1000000,
+    }
+  },
   devServer: {
     port: 8080,
     https: true,
@@ -120,7 +128,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: "./public/index.html",
-      js: process.env.ELECTRON ? ["renderer.js"] : [],
+      js: /*process.env.ELECTRON ? ["preload.js"] : */[],
     }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
