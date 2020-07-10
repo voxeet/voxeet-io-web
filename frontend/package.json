@@ -8,7 +8,8 @@
     "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
     "start": "webpack-dev-server -d --hot --inline --content-base",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress -p",
-    "build:electron": "cross-env ELECTRON=true npm run build",
+    "builde": "cross-env NODE_ENV=development webpack --config webpack.config.electron.prod.js --progress",
+    "build:electron": "cross-env DEBUG=*,-babel ELECTRON=true npm run builde",
     "get-version": "cross-env-shell echo ${npm_package_version}"
   },
   "author": "Voxeet",
@@ -26,11 +27,12 @@
     "files": [
       "dist/*.svg",
       "dist/*.ttf",
+      "dist/sounds/*.mp3",
       "dist/index.html",
-      "dist/renderer.js",
       "dist/bundle.js",
       "dist/images",
       "src/main.js",
+      "src/preload.js",
       "node_modules/",
       "package.json"
     ],
@@ -52,7 +54,8 @@
     },
     "mac": {
       "target": [
-        "dmg", "zip"
+        "dmg",
+        "zip"
       ],
       "icon": "public/icon.png",
       "extraResources": [
@@ -86,8 +89,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@trodi/electron-splashscreen": "^0.3.4",
-    "@voxeet/react-components": "^2.1.0",
-    "@voxeet/voxeet-web-sdk": "^2.4.1",
+    "@voxeet/react-components": "^3.0.0",
+    "@voxeet/voxeet-web-sdk": "^3.0.0",
     "axios": "^0.19.2",
     "browserslist": "^4.5.2",
     "core-js": "2",
