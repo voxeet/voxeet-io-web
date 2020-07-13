@@ -15,9 +15,7 @@ import {
 
 import "@voxeet/react-components/dist/voxeet-react-components.css";
 
-const AUTH_SERVER = process.env.AUTH_SERVER || "https://127.0.0.1:3500";
-const SESSION_SERVER =
-  process.env.SESSION_SERVER || "https://session.voxeet.com";
+const AUTH_SERVER = process.env.AUTH_SERVER || "";
 
 class VoxeetConference extends Component {
   componentDidMount() {
