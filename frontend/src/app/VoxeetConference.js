@@ -88,10 +88,6 @@ class VoxeetConference extends Component {
       audio: true,
       video: true,
     };
-    var videoRatio = {
-      width: 1280,
-      height: 720,
-    };
     const configureStore = () =>
       createStore(reducers, applyMiddleware(thunkMidleware));
     let displayModes = ["tiles", "speaker"];
@@ -141,7 +137,6 @@ class VoxeetConference extends Component {
                 chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
                 displayModes={displayModes}
                 simulcast={this.props.simulcastMode}
-                videoRatio={videoRatio}
                 handleOnLeave={this.props.handleOnLeave}
                 getSources={this.props.getSources}
                 isWidget={this.props.widgetMode}
