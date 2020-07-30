@@ -20,7 +20,7 @@ let strings = new LocalizedStrings({
     conferenceJoined: "You're in the conference",
     copyright: " All Rights Reserved",
     next: "Next",
-    welcome: "Welcome"
+    welcome: "Welcome",
   },
   fr: {
     join: "Rejoindre la conférence",
@@ -32,8 +32,8 @@ let strings = new LocalizedStrings({
     conferenceJoined: "Vous êtes dans la conférence",
     copyright: "Tous Droits Réservés",
     next: "Next",
-    welcome: "Welcome"
-  }
+    welcome: "Welcome",
+  },
 });
 
 class App extends Component {
@@ -49,8 +49,8 @@ class App extends Component {
       isDemo: false,
       form: {
         conferenceName: "",
-        userName: ""
-      }
+        userName: "",
+      },
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
@@ -73,12 +73,12 @@ class App extends Component {
       if (c != null) {
         this.setState({
           isSubmit: true,
-          form: { conferenceName: conferenceName, userName: c }
+          form: { conferenceName: conferenceName, userName: c },
         });
       } else {
         this.setState({
           isJoiningFromUrl: true,
-          form: { conferenceName: conferenceName }
+          form: { conferenceName: conferenceName },
         });
       }
     }
@@ -112,7 +112,7 @@ class App extends Component {
 
   toggleConfiguration() {
     this.setState({
-      useDefaultSettings: !this.state.useDefaultSettings
+      useDefaultSettings: !this.state.useDefaultSettings,
     });
   }
 
@@ -126,19 +126,19 @@ class App extends Component {
 
   toggleChangeListener() {
     this.setState({
-      isListener: !this.state.isListener
+      isListener: !this.state.isListener,
     });
   }
 
   toggleWidgetMode() {
     this.setState({
-      widgetMode: !this.state.widgetMode
+      widgetMode: !this.state.widgetMode,
     });
   }
 
   toggleSimulcastMode() {
     this.setState({
-      simulcastMode: !this.state.simulcastMode
+      simulcastMode: !this.state.simulcastMode,
     });
   }
 
@@ -174,34 +174,6 @@ class App extends Component {
         "?s=200&d=identicon";
       return (
         <div>
-          <div>
-            <div className="electron-message-container">
-              <div className="electron-center-container">
-                <div className="electron-logo-container">
-                  <img src={logo} />
-                </div>
-                {!this.state.widgetMode ? (
-                  <Fragment>
-                    <div id="loader-container">
-                      <div className="loader"></div>
-                    </div>
-                    <div className="electron-info-container">
-                      {strings.electronmessage}
-                      <span className="one">.</span>
-                      <span className="two">.</span>
-                      <span className="three">.</span>
-                    </div>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <div className="electron-info-container">
-                      {strings.conferenceJoined}
-                    </div>
-                  </Fragment>
-                )}
-              </div>
-            </div>
-          </div>
           <VoxeetConference
             isListener={this.state.isListener}
             widgetMode={this.state.widgetMode}
@@ -209,6 +181,7 @@ class App extends Component {
             isDemo={this.state.isDemo}
             configuration={!this.state.useDefaultSettings}
             handleOnLeave={this.handleOnLeave.bind(this)}
+            getSources={this.props.getSources}
             userName={this.state.form.userName}
             photoURL={photoURL}
             conferenceName={this.state.form.conferenceName}
@@ -322,12 +295,14 @@ class App extends Component {
 
 App.propTypes = {
   handleJoin: PropTypes.func,
-  handleLeave: PropTypes.func
+  handleLeave: PropTypes.func,
+  getSources: PropTypes.func,
 };
 
 App.defaultProps = {
   handleJoin: () => {},
-  handleLeave: () => {}
+  handleLeave: () => {},
+  getSources: () => Promise.resolve(null),
 };
 
 const mapStateToProps = (state, ownProps) => {
