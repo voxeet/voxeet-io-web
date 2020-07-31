@@ -8,6 +8,12 @@ import Sdk from "../sdk";
 import VoxeetConference from "./VoxeetConference";
 // import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import LocalizedStrings from "react-localization";
+import Dexie from 'dexie';
+
+const db = new Dexie('voxeet-io');
+db.version(1).stores({
+  config: `&key, userName, conferenceName`
+});
 
 let strings = new LocalizedStrings({
   en: {
@@ -65,23 +71,33 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const { conferenceName } = this.props.match.params;
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var c = url.searchParams.get("name");
-    if (conferenceName) {
-      if (c != null) {
-        this.setState({
-          isSubmit: true,
-          form: { conferenceName: conferenceName, userName: c },
-        });
-      } else {
-        this.setState({
-          isJoiningFromUrl: true,
-          form: { conferenceName: conferenceName },
-        });
+    db.config.get('latest').then( latest => {
+      let { conferenceName } = this.props.match.params;
+      let url_string = window.location.href;
+      let url = new URL(url_string);
+      let userName = url.searchParams.get("name");
+      let isJoiningFromUrl = conferenceName && !userName;
+      let isSubmit =  conferenceName && userName
+      let new_state = {
+        isJoiningFromUrl,
+        isSubmit
+      };
+      let form = {}
+      if (!conferenceName) {
+        conferenceName = latest ? latest.conferenceName : null;
       }
+      if (!userName) {
+        userName = latest ? latest.userName : null;
+      }
+    if (conferenceName) {
+        form.conferenceName = conferenceName;
+      }
+      if (userName) {
+        form.userName = userName;
     }
+      new_state.form = form;
+      this.setState(new_state);
+    });
   }
 
   escFunction(event) {
@@ -144,6 +160,12 @@ class App extends Component {
 
   handleClick() {
     this.props.history.push("/" + this.state.form.conferenceName);
+
+    db.config.put({
+      key:'latest',
+      conferenceName : this.state.form.conferenceName,
+      userName : this.state.form.userName,
+    });
 
     /*if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
       navigator.attachMediaStream = function(element, stream) { // Shim for electron

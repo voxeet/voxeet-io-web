@@ -94,6 +94,7 @@
     "axios": "^0.19.2",
     "browserslist": "^4.5.2",
     "core-js": "2",
+    "dexie": "^3.0.1",
     "express": "^4.16.4",
     "prettier": "^1.18.2",
     "react": "16.9.0",
