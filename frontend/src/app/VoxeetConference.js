@@ -137,6 +137,7 @@ class VoxeetConference extends Component {
                 chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
                 displayModes={displayModes}
                 simulcast={this.props.simulcastMode}
+                dolbyVoice={this.props.dolbyVoice}
                 handleOnLeave={this.props.handleOnLeave}
                 getSources={this.props.getSources}
                 isWidget={this.props.widgetMode}
@@ -166,6 +167,7 @@ class VoxeetConference extends Component {
 VoxeetConference.propTypes = {
   conferenceName: PropTypes.string,
   simulcastMode: PropTypes.bool,
+  dolbyVoice: PropTypes.bool,
   photoURL: PropTypes.string,
   sdk: PropTypes.object,
   isDemo: PropTypes.bool,
