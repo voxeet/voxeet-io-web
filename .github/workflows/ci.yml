@@ -98,7 +98,8 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
         NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
-        WEB_SDK_DIST_TAG: develop-production
+        WEB_SDK_DIST_TAG: beta
+        UX_KIT_DIST_TAG: beta
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
