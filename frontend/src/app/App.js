@@ -200,7 +200,7 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <div className="content-wrapper">
         <div className="content-sample">
           <div className="logo">
             <h1>{strings.welcome}</h1>
