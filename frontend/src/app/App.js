@@ -42,6 +42,7 @@ class App extends Component {
     this.state = {
       isSubmit: false,
       simulcastMode: false,
+      dolbyVoice: true,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
@@ -61,6 +62,7 @@ class App extends Component {
     this.toggleChangeListener = this.toggleChangeListener.bind(this);
     this.toggleWidgetMode = this.toggleWidgetMode.bind(this);
     this.toggleSimulcastMode = this.toggleSimulcastMode.bind(this);
+    this.toggleDolbyVoice = this.toggleDolbyVoice.bind(this);
     this.toggleConfiguration = this.toggleConfiguration.bind(this);
   }
 
@@ -138,7 +140,13 @@ class App extends Component {
 
   toggleSimulcastMode() {
     this.setState({
-      simulcastMode: !this.state.simulcastMode,
+      simulcastMode: !this.state.simulcastMode
+    });
+  }
+
+  toggleDolbyVoice() {
+    this.setState({
+      dolbyVoice: !this.state.dolbyVoice
     });
   }
 
@@ -178,6 +186,7 @@ class App extends Component {
             isListener={this.state.isListener}
             widgetMode={this.state.widgetMode}
             simulcastMode={this.state.simulcastMode}
+            dolbyVoice={this.state.dolbyVoice}
             isDemo={this.state.isDemo}
             configuration={!this.state.useDefaultSettings}
             handleOnLeave={this.handleOnLeave.bind(this)}
@@ -191,7 +200,7 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <div className="content-wrapper">
         <div className="content-sample">
           <div className="logo">
             <h1>{strings.welcome}</h1>
@@ -252,6 +261,16 @@ class App extends Component {
           />
           <label id="simulcastModeLabel" htmlFor="simulcast">
             Simulcast
+          </label>
+
+          <input
+            type="checkbox"
+            id="dolbyvoice"
+            checked={this.state.dolbyVoice}
+            onChange={this.toggleDolbyVoice}
+          />
+          <label id="dolbyVoiceLabel" htmlFor="dolbyvoice">
+            Dolby Voice
           </label>
 
           <input
