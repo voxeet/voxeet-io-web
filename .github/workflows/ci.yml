@@ -40,6 +40,21 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: ${{ env.GITHUB_REF_SLUG }}
 
+    - name: build and publish frontend Docker container for beta - production Web SDK
+      uses: elgohr/Publish-Docker-Github-Action@2.14
+      env:
+        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
+        WEB_SDK_DIST_TAG: beta
+        UX_KIT_DIST_TAG: beta
+      with:
+        name: voxeet/voxeet-io-web
+        dockerfile: Dockerfile
+        workdir: frontend
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+        tags: ${{ env.WEB_SDK_DIST_TAG }}
+
     - name: Login to ECR
       id: ecr
       uses: elgohr/ecr-login-action@master
