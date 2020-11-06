@@ -17,18 +17,25 @@ jobs:
     - uses: actions/checkout@v2
     - uses: rlespinasse/github-slug-action@v3.x
 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+
+    - name: Set NPM token when logging to CodeArtifact
+      run: echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)" >> $GITHUB_ENV
+
     - name: build and publish auth server Docker container
       uses: elgohr/Publish-Docker-Github-Action@2.14
-      env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
       with:
         name: voxeet/voxeet-io-web-auth
         dockerfile: Dockerfile
         workdir: backend
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        buildargs: NPM_TOKEN
-        tags: ${{ env.GITHUB_REF_SLUG }}
+        tags: "${{ env.GITHUB_REF_SLUG }}"
 
     - name: build and publish frontend Docker container for master - production Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
@@ -38,22 +45,22 @@ jobs:
         workdir: frontend
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: ${{ env.GITHUB_REF_SLUG }}
+        tags: "${{ env.GITHUB_REF_SLUG }}"
 
     - name: build and publish frontend Docker container for beta - production Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: beta
         UX_KIT_DIST_TAG: beta
+        CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
       with:
         name: voxeet/voxeet-io-web
         dockerfile: Dockerfile
         workdir: frontend
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
-        tags: ${{ env.WEB_SDK_DIST_TAG }}
+        buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+        tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
     - name: Login to ECR
       id: ecr
@@ -66,9 +73,9 @@ jobs:
     - name: build and publish frontend Docker container for develop - alpha Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: alpha
         UX_KIT_DIST_TAG: alpha
+        CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
@@ -76,14 +83,14 @@ jobs:
         username: ${{ steps.ecr.outputs.username }}
         password: ${{ steps.ecr.outputs.password }}
         registry: ${{ steps.ecr.outputs.registry }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG
-        tags: ${{ env.WEB_SDK_DIST_TAG }}
+        buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+        tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
     - name: build and publish frontend Docker container for master - staging Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: master-staging
+        CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
@@ -91,14 +98,14 @@ jobs:
         username: ${{ steps.ecr.outputs.username }}
         password: ${{ steps.ecr.outputs.password }}
         registry: ${{ steps.ecr.outputs.registry }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG
-        tags: ${{ env.WEB_SDK_DIST_TAG }}
+        buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+        tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
     - name: build and publish frontend Docker container for develop - production Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: develop-production
+        CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
@@ -106,15 +113,15 @@ jobs:
         username: ${{ steps.ecr.outputs.username }}
         password: ${{ steps.ecr.outputs.password }}
         registry: ${{ steps.ecr.outputs.registry }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG
-        tags: ${{ env.WEB_SDK_DIST_TAG }}
+        buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+        tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
     - name: build and publish frontend Docker container for develop - staging Web SDK
       uses: elgohr/Publish-Docker-Github-Action@2.14
       env:
-        NPM_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
         WEB_SDK_DIST_TAG: develop-staging
         UX_KIT_DIST_TAG: develop
+        CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
       with:
         name: voxeet-io-web
         dockerfile: Dockerfile
@@ -122,5 +129,5 @@ jobs:
         username: ${{ steps.ecr.outputs.username }}
         password: ${{ steps.ecr.outputs.password }}
         registry: ${{ steps.ecr.outputs.registry }}
-        buildargs: NPM_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
-        tags: ${{ env.WEB_SDK_DIST_TAG }}
+        buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+        tags: "${{ env.WEB_SDK_DIST_TAG }}"
