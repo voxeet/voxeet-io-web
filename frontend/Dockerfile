@@ -2,12 +2,13 @@ FROM node:12 as build
 
 ARG WEB_SDK_DIST_TAG
 ARG UX_KIT_DIST_TAG
-ARG NPM_TOKEN
+ARG CUSTOM_REGISTRY_URL
+ARG CUSTOM_REGISTRY_TOKEN
 
 WORKDIR /app
 COPY . .
-RUN test -z "$WEB_SDK_DIST_TAG" || { cp .npmrc.nexus .npmrc; yarn add -E @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG; } && : \
-    && test -z "$UX_KIT_DIST_TAG" || { cp .npmrc.nexus .npmrc; yarn add -E @voxeet/react-components@$UX_KIT_DIST_TAG; } && : \
+RUN test -z "$WEB_SDK_DIST_TAG" || { npm config set registry="$CUSTOM_REGISTRY_URL" ; npm config set $CUSTOM_REGISTRY_TOKEN ; npm config set always-auth true ; yarn add -E @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG; } && : \
+    && test -z "$UX_KIT_DIST_TAG" || { npm config set registry="$CUSTOM_REGISTRY_URL" ; npm config set $CUSTOM_REGISTRY_TOKEN ; npm config set always-auth true ; yarn add -E @voxeet/react-components@$UX_KIT_DIST_TAG; } && : \
     && yarn install \
     && yarn build
 

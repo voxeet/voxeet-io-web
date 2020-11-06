@@ -1,3 +1,0 @@
-//stg-gke-eu.voxeet.net/nexus/repository/npm-group/:_authToken=${NPM_TOKEN}
-registry=http://stg-gke-eu.voxeet.net/nexus/repository/npm-group/
-always-auth=true
