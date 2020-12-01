@@ -61,6 +61,7 @@ class App extends Component {
       dolbyVoice: true,
       showOptions: false,
       isListener: false,
+      dvwc: true,
       widgetMode: false,
       isJoiningFromUrl: false,
       useDefaultSettings: true,
@@ -79,6 +80,7 @@ class App extends Component {
     this.toggleSimulcastMode = this.toggleSimulcastMode.bind(this);
     this.toggleDolbyVoice = this.toggleDolbyVoice.bind(this);
     this.toggleConfiguration = this.toggleConfiguration.bind(this);
+    this.toggleDvwc = this.toggleDvwc.bind(this)
   }
 
   componentDidMount() {
@@ -139,6 +141,12 @@ class App extends Component {
   toggleConfiguration() {
     this.setState({
       useDefaultSettings: !this.state.useDefaultSettings,
+    });
+  }
+
+  toggleDvwc() {
+    this.setState({
+      dvwc: !this.state.dvwc
     });
   }
 
@@ -213,6 +221,7 @@ class App extends Component {
             widgetMode={this.state.widgetMode}
             simulcastMode={this.state.simulcastMode}
             dolbyVoice={this.state.dolbyVoice}
+            dvwc={this.state.dvwc}
             isDemo={this.state.isDemo}
             configuration={!this.state.useDefaultSettings}
             handleOnLeave={this.handleOnLeave.bind(this)}
@@ -304,6 +313,16 @@ class App extends Component {
             />
             <label id="dolbyVoiceLabel" htmlFor="dolbyvoice">
               {strings.dolbyVoice}
+            </label>
+
+            <input
+              type="checkbox"
+              id="dvwc"
+              checked={this.state.dvwc}
+              onChange={this.toggleDvwc}
+            />
+            <label id="dvwcLabel" htmlFor="dvwc">
+              DVWC
             </label>
 
             <input
