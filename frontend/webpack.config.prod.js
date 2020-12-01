@@ -119,6 +119,7 @@ module.exports = {
       { from: "./src/static", ignore: ["*.html"] },
       "./public/manifest.json",
     ]),
+    new CopyWebpackPlugin([{ from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc_impl.wasm"}]),
     new HtmlWebpackPlugin({
       inject: true,
       template: "./public/index.html",
