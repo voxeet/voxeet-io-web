@@ -108,7 +108,7 @@ jobs:
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
-  build_frontend_hotfix-3.0:
+  build_frontend_hotfix-3_0:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
