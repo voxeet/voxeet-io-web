@@ -53,13 +53,6 @@ const requests = {
       grant_type: 'client_credentials'
     }
   },
-  refresh: {
-    method: "POST",
-    url: `${server}/v1/oauth2/refresh`,
-    headers: {
-      'Authorization': authHeader
-    }
-  },
   invalidate: {
     method: "POST",
     url: `${server}/v1/oauth2/invalidate`,
@@ -123,25 +116,6 @@ app.get("/api/token", (req, res, next) => {
            console.error('Could not get token', requests.token, e.message/*, e*/);
            res.status(401).send('invalid token...');
          });
-});
-
-app.get("/api/refresh", (req, res, next) => {
-  let refreshToken = req.params.refresh_token;
-  let request = Object.assign({}, requests.refresh);
-  request.data = {
-    'refresh_token': refreshToken
-  };
-
-  return axios(request)
-           .then(r => {
-             accessToken = r.data.access_token;
-             refreshToken = r.data.refresh_token;
-             return res.json(r.data);
-           })
-           .catch(e => {
-             console.error('Could not refresh token', requests.refresh, e.message/*, e*/);
-             res.status(401).send('invalid token...');
-           });
 });
 
 app.get("/api/invalidate", (req, res, next) => {
