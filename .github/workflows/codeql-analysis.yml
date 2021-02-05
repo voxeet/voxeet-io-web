@@ -17,8 +17,9 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ develop ]
-  schedule:
-    - cron: '50 15 * * 3'
+  #schedule:
+  #  - cron: '50 15 * * 3'
+    
 
 jobs:
   analyze:
@@ -36,7 +37,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
+    # checkout the head of the pull request (instead of the merge commit)
+    # if this run was triggered by a pull request event
+    - run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
+      
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
