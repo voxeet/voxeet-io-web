@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/dvwc
+  workflow_dispatch:
   schedule:
     - cron:  '0 2 * * *'
 
