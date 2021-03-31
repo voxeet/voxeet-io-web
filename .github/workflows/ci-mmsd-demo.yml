@@ -1,0 +1,50 @@
+name: CI build mmsd-demo
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  schedule:
+    - cron:  '0 2 * * *'
+  repository_dispatch:
+    types: [ uxkit-mmsd-demo ]
+
+jobs:
+  build_frontend_mmsd_demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+      - name: Set NPM token when logging to CodeArtifact
+        run: |
+          CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
+          echo "::add-mask::$CODEARTIFACT_TOKEN"
+          echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
+      - name: Login to ECR
+        id: ecr
+        uses: elgohr/ecr-login-action@master
+        with:
+          access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+      - name: build and publish frontend Docker container for develop-staging Web SDK and mmsd-demo UX kit
+        uses: elgohr/Publish-Docker-Github-Action@2.22
+        env:
+          WEB_SDK_DIST_TAG: develop-staging
+          UX_KIT_DIST_TAG: mmsd-demo
+          CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
+        with:
+          name: voxeet-io-web
+          dockerfile: Dockerfile
+          workdir: frontend
+          username: ${{ steps.ecr.outputs.username }}
+          password: ${{ steps.ecr.outputs.password }}
+          registry: ${{ steps.ecr.outputs.registry }}
+          buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          tags: "mmsd-demo"
