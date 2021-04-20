@@ -122,6 +122,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc_impl.wasm" },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc-worker.js" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc-worklet.js" },
     ]),
     new HtmlWebpackPlugin({
       inject: true,
