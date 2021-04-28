@@ -6,6 +6,23 @@ const { electronOnJoined, electronOnLeft, getSources } = window.electron || {};
 
 const ASSET_PATH = process.env.ASSET_PATH || "/";
 
+let fullScreenId = null;
+getSources({ types: ["window", "screen"] }).then(async sources => {
+  for (const source of sources) {
+    if (source.name === "Entire Screen") {
+      console.log("About to set fullScreenId", source.id);
+      fullScreenId = source.id;
+      return;
+    } else {
+      console.log("Found source", source.name);
+    }
+  }
+});
+window.getScreenSourceId = () => {
+  console.log("About to return fullScreenId", fullScreenId);
+  return fullScreenId;
+};
+
 const Root = ({}) => (
   <Router basename={ASSET_PATH}>
     <Switch>

@@ -10,8 +10,10 @@ import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
   ConferenceRoom,
   VoxeetProvider,
-  reducer as voxeetReducer,
+  reducer as voxeetReducer
 } from "@voxeet/react-components";
+
+window.VoxeetSdk = VoxeetSdk;
 
 import "@voxeet/react-components/dist/voxeet-react-components.css";
 
@@ -26,10 +28,10 @@ class VoxeetConference extends Component {
       .toLowerCase()
       .replace(/ /g, "");
     const settings = {
-      conferenceAlias: conferenceName,
+      conferenceAlias: conferenceName
     };
     const reducers = combineReducers({
-      voxeet: voxeetReducer,
+      voxeet: voxeetReducer
     });
 
     let name = this.props.userName;
@@ -82,11 +84,11 @@ class VoxeetConference extends Component {
 
     const userInfo = {
       name: name,
-      avatarUrl: photoURL,
+      avatarUrl: photoURL
     };
     var constraints = {
       audio: true,
-      video: true,
+      video: true
     };
     const configureStore = () =>
       createStore(reducers, applyMiddleware(thunkMidleware));
@@ -99,7 +101,7 @@ class VoxeetConference extends Component {
     let accessToken, refreshToken;
 
     const doRefreshToken = () => {
-      return axios.get(`${AUTH_SERVER}/api/token`, {}).then((response) => {
+      return axios.get(`${AUTH_SERVER}/api/token`, {}).then(response => {
         accessToken = response.data.access_token;
         refreshToken = response.data.refresh_token;
 
@@ -111,7 +113,7 @@ class VoxeetConference extends Component {
       let token = "";
       axios
         .get(`${AUTH_SERVER}/api/token`, {})
-        .then((response) => {
+        .then(response => {
           //console.log("TOKEN: ", response);
 
           accessToken = response.data.access_token;
@@ -151,7 +153,7 @@ class VoxeetConference extends Component {
             document.getElementById("voxeet-widget")
           );
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     } catch (e) {
@@ -182,7 +184,7 @@ VoxeetConference.propTypes = {
 
 VoxeetConference.defaultProps = {
   conferenceName: "conference_name",
-  userName: "Guest " + Math.floor(Math.random() * 100 + 1),
+  userName: "Guest " + Math.floor(Math.random() * 100 + 1)
 };
 
 export default VoxeetConference;

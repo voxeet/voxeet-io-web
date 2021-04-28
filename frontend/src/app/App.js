@@ -8,6 +8,7 @@ import Sdk from "../sdk";
 import VoxeetConference from "./VoxeetConference";
 // import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import LocalizedStrings from "react-localization";
+let ls = window.localStorage;
 
 let strings = new LocalizedStrings({
   en: {
@@ -20,7 +21,7 @@ let strings = new LocalizedStrings({
     conferenceJoined: "You're in the conference",
     copyright: " All Rights Reserved",
     next: "Next",
-    welcome: "Welcome",
+    welcome: "Welcome"
   },
   fr: {
     join: "Rejoindre la conférence",
@@ -32,8 +33,8 @@ let strings = new LocalizedStrings({
     conferenceJoined: "Vous êtes dans la conférence",
     copyright: "Tous Droits Réservés",
     next: "Next",
-    welcome: "Welcome",
-  },
+    welcome: "Welcome"
+  }
 });
 
 class App extends Component {
@@ -49,9 +50,9 @@ class App extends Component {
       useDefaultSettings: true,
       isDemo: false,
       form: {
-        conferenceName: "",
-        userName: "",
-      },
+        conferenceName: ls ? ls.getItem("conferenceName") || "" : "",
+        userName: ls ? ls.getItem("userName") || "" : ""
+      }
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
@@ -75,12 +76,12 @@ class App extends Component {
       if (c != null) {
         this.setState({
           isSubmit: true,
-          form: { conferenceName: conferenceName, userName: c },
+          form: { conferenceName: conferenceName, userName: c }
         });
       } else {
         this.setState({
           isJoiningFromUrl: true,
-          form: { conferenceName: conferenceName },
+          form: { conferenceName: conferenceName }
         });
       }
     }
@@ -114,7 +115,7 @@ class App extends Component {
 
   toggleConfiguration() {
     this.setState({
-      useDefaultSettings: !this.state.useDefaultSettings,
+      useDefaultSettings: !this.state.useDefaultSettings
     });
   }
 
@@ -128,13 +129,13 @@ class App extends Component {
 
   toggleChangeListener() {
     this.setState({
-      isListener: !this.state.isListener,
+      isListener: !this.state.isListener
     });
   }
 
   toggleWidgetMode() {
     this.setState({
-      widgetMode: !this.state.widgetMode,
+      widgetMode: !this.state.widgetMode
     });
   }
 
@@ -151,6 +152,10 @@ class App extends Component {
   }
 
   handleClick() {
+    if (ls) {
+      ls.setItem("userName", this.state.form.userName);
+      ls.setItem("conferenceName", this.state.form.conferenceName);
+    }
     this.props.history.push("/" + this.state.form.conferenceName);
 
     /*if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
@@ -315,13 +320,13 @@ class App extends Component {
 App.propTypes = {
   handleJoin: PropTypes.func,
   handleLeave: PropTypes.func,
-  getSources: PropTypes.func,
+  getSources: PropTypes.func
 };
 
 App.defaultProps = {
   handleJoin: () => {},
   handleLeave: () => {},
-  getSources: () => Promise.resolve(null),
+  getSources: () => Promise.resolve(null)
 };
 
 const mapStateToProps = (state, ownProps) => {

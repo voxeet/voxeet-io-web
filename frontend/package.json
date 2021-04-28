@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress -p",
     "builde": "cross-env NODE_ENV=development webpack --config webpack.config.electron.prod.js --progress",
     "build:electron": "cross-env DEBUG=*,-babel ELECTRON=true npm run builde",
+    "builde:debug": "cross-env NODE_ENV=development DEBUG=*,-babel ELECTRON=true webpack --config webpack.config.electron.prod.js --progress",
     "get-version": "cross-env-shell echo ${npm_package_version}"
   },
   "author": "Voxeet",
@@ -53,13 +54,36 @@
       "allowAnywhere": false
     },
     "mac": {
+      "entitlements": "entitlements.mac.plist",
+      "extendInfo": {
+        "NSCameraUsageDescription": "This app requires camera access to record video.",
+        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
+      },
       "target": [
         "dmg",
         "zip"
       ],
       "icon": "public/icon.png",
       "extraResources": [
-        "libraries"
+        "libraries",
+        {
+          "from": "vsl_model/",
+          "to": "vsl_model",
+          "filter": [
+            "**/*"
+          ]
+        },
+        {
+          "from": "lensnet.bin",
+          "to": "lensnet.bin",
+          "filter": [
+            "**/*"
+          ]
+        }
+      ],
+      "extraFiles": [],
+      "binaries": [
+        "lensnet.bin"
       ],
       "publish": {
         "provider": "s3",
@@ -116,9 +140,9 @@
     "copy-webpack-plugin": "^4.2.0",
     "cross-env": "^7.0.2",
     "css-loader": "^2.1.1",
-    "electron": "^5.0.7",
-    "electron-builder": "^22.6.0",
-    "electron-builder-squirrel-windows": "^22.6.1",
+    "electron": "^9.4.4",
+    "electron-builder": "^22.10.5",
+    "electron-builder-squirrel-windows": "^22.10.5",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",

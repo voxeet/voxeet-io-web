@@ -1,10 +1,11 @@
-const { app, BrowserWindow, Menu, ipcMain, powerSaveBlocker } = require('electron');
+const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, dialog} = require('electron');
 //const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+app.commandLine.appendSwitch("enable-logging", 'true');
 app.commandLine.appendSwitch("enable-accelerated-mjpeg-decoder", 'true');
 app.commandLine.appendSwitch("enable-accelerated-video", 'true');
 app.commandLine.appendSwitch("enable-gpu-rasterization", 'true');
@@ -17,6 +18,8 @@ app.commandLine.appendSwitch('num-raster-threads', 2)
 app.commandLine.appendSwitch('enable-zero-copy', 'true');
 app.commandLine.appendSwitch('enable-gpu-memory-buffer-compositor-resources', 'true');
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
+app.commandLine.appendSwitch('no-sandbox', 'true');
+app.commandLine.appendSwitch('segmentation-model', path.join(process.resourcesPath, 'vsl_model/segment_person_160x256_v2.xml'));
 
 if (process.platform === 'darwin') {
   const env = {}
@@ -48,12 +51,36 @@ const template = [{
 let mainWindow;
 let powerId = null;
 
+async function askForMediaAccess(media) {
+    try {
+        console.log('process.platform', process.platform)
+        if (process.platform !== "darwin") { return true; }
+        const status = await systemPreferences.getMediaAccessStatus(media);
+        console.log(`Current ${media} access status:`, status);
+
+        if (status === "not-determined") {
+            const success = await systemPreferences.askForMediaAccess(media);
+            console.log(`Current ${media} access status:`, success.valueOf() ? "granted" : "denied");
+            return success.valueOf();
+        }
+
+        return status === "granted";
+    } catch (error) {
+        dialog.showMessageBox(null, { message: "Could not get " + media + " permission: " + error.message });
+    }
+
+    return false;
+}
+
 app.on('window-all-close', () => {
   mainWindow.close();
   app.quit();
 });
 
-app.on('ready', () => {
+app.on('ready', async () => {
+
+  await askForMediaAccess("microphone");
+  await askForMediaAccess("camera");
 
   mainWindow = new BrowserWindow({
       width: 1280,
@@ -104,9 +131,24 @@ app.on('ready', () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   
   // Debugging purpose
-  if (process.env.DEBUG) {
+  if (1||process.env.DEBUG) {
     mainWindow.webContents.openDevTools();
   }
+
+
+  const createWindow =(filePath) => {
+        const win = new BrowserWindow({
+            width: 800,
+            height: 600,
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
+        })
+
+        win.loadURL(filePath)
+    }
+
+  createWindow('chrome://webrtc-internals')
 
   mainWindow.on('closed', () => {
     mainWindow = null;
