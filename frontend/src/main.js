@@ -5,7 +5,6 @@ const url = require('url');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-app.commandLine.appendSwitch("enable-logging", 'true');
 app.commandLine.appendSwitch("enable-accelerated-mjpeg-decoder", 'true');
 app.commandLine.appendSwitch("enable-accelerated-video", 'true');
 app.commandLine.appendSwitch("enable-gpu-rasterization", 'true');
@@ -18,8 +17,9 @@ app.commandLine.appendSwitch('num-raster-threads', 2)
 app.commandLine.appendSwitch('enable-zero-copy', 'true');
 app.commandLine.appendSwitch('enable-gpu-memory-buffer-compositor-resources', 'true');
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
-app.commandLine.appendSwitch('no-sandbox', 'true');
+//app.commandLine.appendSwitch('no-sandbox', 'false');
 app.commandLine.appendSwitch('segmentation-model', path.join(process.resourcesPath, 'vsl_model/segment_person_160x256_v2.xml'));
+//app.enableSandbox()
 
 if (process.platform === 'darwin') {
   const env = {}
@@ -149,6 +149,8 @@ app.on('ready', async () => {
     }
 
   createWindow('chrome://webrtc-internals')
+  // createWindow('chrome://sandbox')
+  createWindow('chrome://tracing')
 
   mainWindow.on('closed', () => {
     mainWindow = null;
