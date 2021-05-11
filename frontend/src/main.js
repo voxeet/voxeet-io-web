@@ -2,8 +2,10 @@ const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, d
 //const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
+var arguments = process.argv;
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = arguments && arguments.indexOf('debug')!==-1;
+// const isDevelopment = process.env.NODE_ENV === 'development';
 
 app.commandLine.appendSwitch("enable-accelerated-mjpeg-decoder", 'true');
 app.commandLine.appendSwitch("enable-accelerated-video", 'true');
@@ -58,7 +60,7 @@ async function askForMediaAccess(media) {
         const status = await systemPreferences.getMediaAccessStatus(media);
         console.log(`Current ${media} access status:`, status);
 
-        if (status === "not-determined") {
+        if (status !== "granted") {
             const success = await systemPreferences.askForMediaAccess(media);
             console.log(`Current ${media} access status:`, success.valueOf() ? "granted" : "denied");
             return success.valueOf();
@@ -107,10 +109,6 @@ app.on('ready', async () => {
     app.quit();
   });
 
-  if (isDevelopment) {
-    mainWindow.loadURL(`https://localhost.voxeet.com:8081`);
-  } else {
-
       indexPath = url.format({
           protocol: 'file:',
           pathname: path.join(__dirname, '..', 'dist', 'index.html'),
@@ -120,37 +118,41 @@ app.on('ready', async () => {
       // Load the index.html
       mainWindow.loadURL(indexPath)
 
+    //  mainWindow.loadURL(`https://localhost.voxeet.com:8081`);
     // mainWindow.loadURL(`https://voxeet-io.dev.trydcc.com/staging`);
    // mainWindow.loadURL(url.format({
    //     pathname: path.join(__dirname, '../dist', 'index.html'),
    //   protocol: 'file:',
    //   slashes: false
    // }));
-  }
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
-  
-  // Debugging purpose
-  if (1||process.env.DEBUG) {
-    mainWindow.webContents.openDevTools();
-  }
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
+    if (isDevelopment) {
 
-  const createWindow =(filePath) => {
-        const win = new BrowserWindow({
-            width: 800,
-            height: 600,
-            webPreferences: {
-                preload: path.join(__dirname, 'preload.js')
-            }
-        })
+        // Debugging purpose
+        // if (1||process.env.DEBUG) {
+        mainWindow.webContents.openDevTools();
+        // }
 
-        win.loadURL(filePath)
+        const createWindow =(filePath) => {
+            const win = new BrowserWindow({
+                width: 800,
+                height: 600,
+                webPreferences: {
+                    preload: path.join(__dirname, 'preload.js')
+                }
+            })
+
+            win.loadURL(filePath)
+        }
+
+        createWindow('chrome://webrtc-internals')
+        // createWindow('chrome://sandbox')
+        createWindow('chrome://tracing')
+    } else {
+
     }
-
-  createWindow('chrome://webrtc-internals')
-  // createWindow('chrome://sandbox')
-  createWindow('chrome://tracing')
 
   mainWindow.on('closed', () => {
     mainWindow = null;
