@@ -117,6 +117,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "process.env": {
+        DEBUG: JSON.stringify("*,-babel,-babel:*,snapdragon:*"),
         NODE_ENV: `""`,
         AUTH_SERVER: JSON.stringify(AUTH_SERVER),
       },
@@ -130,6 +131,6 @@ module.exports = {
       template: "./public/index.html",
       js: /*process.env.ELECTRON ? ["preload.js"] : */[],
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
   ],
 };
