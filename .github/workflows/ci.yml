@@ -23,6 +23,7 @@ jobs:
           workdir: backend
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+          buildoptions: "--pull"
           tags: "${{ env.GITHUB_REF_SLUG }}"
 
   build_frontend_master_production:
@@ -38,6 +39,7 @@ jobs:
           workdir: frontend
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+          buildoptions: "--pull"
           tags: "${{ env.GITHUB_REF_SLUG }}"
 
   build_frontend_beta:
@@ -68,6 +70,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
   build_frontend_alpha:
@@ -106,6 +109,7 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
   build_frontend_master_staging:
@@ -143,6 +147,7 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
   build_frontend_develop_production:
@@ -180,6 +185,7 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
   build_frontend_develop_staging:
@@ -218,4 +224,5 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
