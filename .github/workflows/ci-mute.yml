@@ -47,4 +47,5 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
           tags: "mute"
