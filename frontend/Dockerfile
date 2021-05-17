@@ -1,4 +1,4 @@
-FROM node:12 as build
+FROM node:14 as build
 
 ARG WEB_SDK_DIST_TAG
 ARG UX_KIT_DIST_TAG
