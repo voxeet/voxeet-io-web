@@ -25,7 +25,27 @@ jobs:
           buildoptions: "--pull"
           tags: "${{ env.GITHUB_REF_SLUG }}"
 
+<<<<<<< HEAD
   build_frontend_hotfix-3_0_docker_image:
+=======
+  build_frontend_master_production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rlespinasse/github-slug-action@v3.x
+      - name: build and publish frontend Docker container for master - production Web SDK
+        uses: elgohr/Publish-Docker-Github-Action@2.22
+        with:
+          name: voxeet/voxeet-io-web
+          dockerfile: Dockerfile
+          workdir: frontend
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          buildoptions: "--pull"
+          tags: "${{ env.GITHUB_REF_SLUG }}"
+
+  build_frontend_beta:
+>>>>>>> Bump frontend container node version from 12 to 14
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -91,6 +111,7 @@ jobs:
           UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
         with:
+<<<<<<< HEAD
           node-version: "16.9.1"
       - run: |
           npm config set registry=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}
@@ -98,6 +119,17 @@ jobs:
           npm config set always-auth true
           yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
           yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
+=======
+          name: voxeet-io-web
+          dockerfile: Dockerfile
+          workdir: frontend
+          username: ${{ steps.ecr.outputs.username }}
+          password: ${{ steps.ecr.outputs.password }}
+          registry: ${{ steps.ecr.outputs.registry }}
+          buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
+          tags: "${{ env.WEB_SDK_DIST_TAG }}"
+>>>>>>> Bump frontend container node version from 12 to 14
 
           yarn install
           yarn build
