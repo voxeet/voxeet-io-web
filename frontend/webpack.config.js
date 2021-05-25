@@ -77,6 +77,10 @@ module.exports = {
         },
       },
       {
+        test: /\.wasm$/,
+        loader: "url-loader?mimetype=application/wasm",
+      },
+      {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         loader: "url-loader?limit=10000&mimetype=application/font-woff",
         options: {
