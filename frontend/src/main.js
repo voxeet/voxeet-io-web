@@ -7,19 +7,21 @@ var arguments = process.argv;
 const isDevelopment = arguments && arguments.indexOf('debug')!==-1;
 // const isDevelopment = process.env.NODE_ENV === 'development';
 
+if (isDevelopment) {
+//  app.commandLine.appendSwitch('no-sandbox', 'false');
+    app.commandLine.appendSwitch('enable-logging', 'true');
+}
 app.commandLine.appendSwitch("enable-accelerated-mjpeg-decoder", 'true');
 app.commandLine.appendSwitch("enable-accelerated-video", 'true');
 app.commandLine.appendSwitch("enable-gpu-rasterization", 'true');
 app.commandLine.appendSwitch("enable-native-gpu-memory-buffers", 'true');
 app.commandLine.appendSwitch("ignore-gpu-blacklist", 'true');
 app.commandLine.appendSwitch('usegl', 'egl');
-app.commandLine.appendSwitch('enable-logging', 'true');
 app.commandLine.appendSwitch('v','1');
 app.commandLine.appendSwitch('num-raster-threads', 2)
 app.commandLine.appendSwitch('enable-zero-copy', 'true');
 app.commandLine.appendSwitch('enable-gpu-memory-buffer-compositor-resources', 'true');
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
-//app.commandLine.appendSwitch('no-sandbox', 'false');
 app.commandLine.appendSwitch('segmentation-model', path.join(process.resourcesPath, 'vsl_model/segment_person_160x256_v2.xml'));
 //app.enableSandbox()
 
