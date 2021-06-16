@@ -48,8 +48,10 @@ class App extends Component {
       isJoiningFromUrl: false,
       useDefaultSettings: true,
       isDemo: false,
-      conferenceName: "",
-      userName: ""
+      form: {
+        conferenceName: "",
+        userName: "",
+      },
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
