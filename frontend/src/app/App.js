@@ -67,7 +67,7 @@ class App extends Component {
     this.toggleConfiguration = this.toggleConfiguration.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { conferenceName } = this.props.match.params;
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -310,7 +310,7 @@ class App extends Component {
           </div>
         </div>
         <div className="copyright">
-          <span>Copyright © 2020 Dolby — {strings.copyright}</span>
+          <span>Copyright © 2021 Dolby — {strings.copyright}</span>
         </div>
       </div>
     );
