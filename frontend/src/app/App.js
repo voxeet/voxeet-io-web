@@ -67,6 +67,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
     const { conferenceName } = this.props.match.params;
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -90,10 +91,6 @@ class App extends Component {
     if (event.keyCode === 13 && !this.state.isSubmit) {
       this.handleClick();
     }
-  }
-
-  componentDidMount() {
-    document.addEventListener("keydown", this.escFunction, false);
   }
 
   componentWillUnmount() {
@@ -140,13 +137,13 @@ class App extends Component {
 
   toggleSimulcastMode() {
     this.setState({
-      simulcastMode: !this.state.simulcastMode
+      simulcastMode: !this.state.simulcastMode,
     });
   }
 
   toggleDolbyVoice() {
     this.setState({
-      dolbyVoice: !this.state.dolbyVoice
+      dolbyVoice: !this.state.dolbyVoice,
     });
   }
 
