@@ -67,7 +67,6 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
-    //console.log('About to get conf params');
     const { conferenceName } = this.props.match.params;
     let url_string = window.location.href;
     let url = new URL(url_string);
@@ -149,13 +148,13 @@ class App extends Component {
 
   toggleSimulcastMode() {
     this.setState({
-      simulcastMode: !this.state.simulcastMode
+      simulcastMode: !this.state.simulcastMode,
     });
   }
 
   toggleDolbyVoice() {
     this.setState({
-      dolbyVoice: !this.state.dolbyVoice
+      dolbyVoice: !this.state.dolbyVoice,
     });
   }
 
