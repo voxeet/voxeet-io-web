@@ -22,7 +22,6 @@ app.commandLine.appendSwitch('num-raster-threads', 2)
 app.commandLine.appendSwitch('enable-zero-copy', 'true');
 app.commandLine.appendSwitch('enable-gpu-memory-buffer-compositor-resources', 'true');
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
-app.commandLine.appendSwitch('segmentation-model', path.join(process.resourcesPath, 'vsl_model/segment_person_160x256_v2.xml'));
 //app.enableSandbox()
 
 if (process.platform === 'darwin') {

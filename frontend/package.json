@@ -41,23 +41,6 @@
       "node_modules/",
       "package.json"
     ],
-    "extraResources": [
-      "libraries",
-      {
-        "from": "vsl_model/",
-        "to": "vsl_model",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
-        "from": "lensnet.bin",
-        "to": "lensnet.bin",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
     "extraFiles": [],
     "dmg": {
       "background": null,
