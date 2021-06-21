@@ -87,8 +87,8 @@ class App extends Component {
     }
     if (showOptions !== null) {
       if (
-          typeof showOptions === 'string' &&
-          ['false', '0', 'no'].indexOf(showOptions.toLowerCase()) !== -1
+        typeof showOptions === 'string' &&
+        ['false', '0', 'no'].indexOf(showOptions.toLowerCase()) !== -1
       ) {
         newState.showOptions = false;
       }
@@ -184,6 +184,8 @@ class App extends Component {
   }
 
   render() {
+    const { showOptions } = this.state;
+
     if (this.state.isSubmit) {
       const photoURL =
         "https://gravatar.com/avatar/" +
@@ -241,62 +243,59 @@ class App extends Component {
               className="validate"
             />
           </div>
-          {!this.state.showOptions && <a href="#"
-                                        onClick={()=>this.setState({showOptions:true})}
+          <div
+            className="advanced-options"
+            onClick={() => this.setState({ showOptions: !showOptions })}
           >
-            Show advanced options
-          </a>}
+            {`${showOptions ? 'Hide' : 'Show'} advanced options`}
+            <div className={showOptions ? 'arrow-up' : 'arrow-down'} />
+          </div>
           {this.state.showOptions && <React.Fragment>
-            <a href="#"
-              onClick={()=>this.setState({showOptions:false})}
-            >
-              Hide advanced options
-            </a>
             <input
-                type="checkbox"
-                id="isListener"
-                checked={this.state.isListener}
-                onChange={this.toggleChangeListener}
+              type="checkbox"
+              id="isListener"
+              checked={this.state.isListener}
+              onChange={this.toggleChangeListener}
             />
             <label id="isListenerLabel" htmlFor="isListener">
               Join as a listener
             </label>
 
             <input
-                type="checkbox"
-                id="widgetMode"
-                checked={this.state.widgetMode}
-                onChange={this.toggleWidgetMode}
+              type="checkbox"
+              id="widgetMode"
+              checked={this.state.widgetMode}
+              onChange={this.toggleWidgetMode}
             />
             <label id="widgetModeLabel" htmlFor="widgetMode">
               Widget Mode
             </label>
 
             <input
-                type="checkbox"
-                id="simulcast"
-                checked={this.state.simulcastMode}
-                onChange={this.toggleSimulcastMode}
+              type="checkbox"
+              id="simulcast"
+              checked={this.state.simulcastMode}
+              onChange={this.toggleSimulcastMode}
             />
             <label id="simulcastModeLabel" htmlFor="simulcast">
               Simulcast
             </label>
 
             <input
-                type="checkbox"
-                id="dolbyvoice"
-                checked={this.state.dolbyVoice}
-                onChange={this.toggleDolbyVoice}
+              type="checkbox"
+              id="dolbyvoice"
+              checked={this.state.dolbyVoice}
+              onChange={this.toggleDolbyVoice}
             />
             <label id="dolbyVoiceLabel" htmlFor="dolbyvoice">
               Dolby Voice
             </label>
 
             <input
-                type="checkbox"
-                id="configuration"
-                checked={this.state.useDefaultSettings}
-                onChange={this.toggleConfiguration}
+              type="checkbox"
+              id="configuration"
+              checked={this.state.useDefaultSettings}
+              onChange={this.toggleConfiguration}
             />
             <label id="configurationLabel" htmlFor="configuration">
               Connect using default settings
@@ -337,8 +336,8 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  handleJoin: () => {},
-  handleLeave: () => {},
+  handleJoin: () => { },
+  handleLeave: () => { },
   getSources: () => Promise.resolve(null),
 };
 
