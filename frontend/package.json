@@ -1,6 +1,6 @@
 {
   "name": "voxeet-io",
-  "version": "1.0.7-DesktopSDK-fc0b9314-v9.2.0-osx-WebSDK-8667a031-UXKitReact-04422f1-VoxeetIoWeb-08b8c63",
+  "version": "1.0.8",
   "private": true,
   "main": "src/main.js",
   "scripts": {
@@ -80,10 +80,7 @@
         "provider": "s3",
         "bucket": "voxeet-io-electron-ci",
         "publishAutoUpdate": "true"
-      },
-      "binaries": [
-        "lensnet.bin"
-      ]
+      }
     },
     "linux": {
       "target": [
@@ -94,8 +91,8 @@
     "win": {
       "target": "nsis",
       "icon": "dist/icon.png",
-      "certificateFile": "./code_signing.pfx",
-      "certificatePassword": "1234",
+      "certificateFile": "/Users/dolbyvoice/cert_win/code_signing.pfx",
+      "certificatePassword": "",
       "publish": {
         "provider": "s3",
         "bucket": "voxeet-io-electron-ci",
