@@ -14,25 +14,41 @@ let strings = new LocalizedStrings({
     join: "Join call",
     name: "Your Name",
     admin: "Admin",
-    conferencename: "Your conference name",
-    joinDemo: "or experience Voxeet demo",
-    electronmessage: "Voxeet is loading, please wait",
+    conferenceName: "Your conference name",
+    joinDemo: "or experience Dolby.io demo",
+    electronMessage: "Dolby.io is loading, please wait",
     conferenceJoined: "You're in the conference",
     copyright: " All Rights Reserved",
     next: "Next",
     welcome: "Welcome",
+    joinAsListener: "Join as a listener",
+    widgetMode: "Widget mode",
+    simulcast: "Simulcast",
+    dolbyVoice: "Dolby Voice",
+    defaultSettings: "Connect using default settings",
+    advancedOptions: "advanced options",
+    show: "Show",
+    hide: "Hide"
   },
   fr: {
     join: "Rejoindre la conférence",
-    name: "Nom",
+    name: "Nom d'utilisateur",
     admin: "Administrateur",
-    joinDemo: "ou tester Voxeet demo",
-    conferencename: "Nom de la conférence",
-    electronmessage: "Le client Voxeet va démarrer, veuillez patienter",
+    joinDemo: "ou tester Dolby.io demo",
+    conferenceName: "Nom de la conférence",
+    electronMessage: "Le client Dolby.io va démarrer, veuillez patienter",
     conferenceJoined: "Vous êtes dans la conférence",
-    copyright: "Tous Droits Réservés",
-    next: "Next",
-    welcome: "Welcome",
+    copyright: " Tous droits réservés",
+    next: "Suivant",
+    welcome: "Bienvenue",
+    joinAsListener: "Rejoindre en tant qu'auditeur",
+    widgetMode: "Mode Widget",
+    simulcast: "Simulcast",
+    dolbyVoice: "Dolby Voice",
+    defaultSettings: "Se connecter avec les paramètres par défaut",
+    advancedOptions: "les options avancées",
+    show: "Afficher",
+    hide: "Masquer"
   },
 });
 
@@ -216,13 +232,13 @@ class App extends Component {
             <h1>{strings.welcome}</h1>
           </div>
           <div className="dolby-container-logo">
-            <img src={dolbyLogo} />
+            <img src={dolbyLogo} alt="Dolby logo" />
           </div>
           {!this.state.isJoiningFromUrl && (
             <div className="input-field">
               <input
                 name="conferenceName"
-                placeholder={strings.conferencename}
+                placeholder={strings.conferenceName}
                 value={this.state.conferenceName}
                 onChange={this.handleChangeConferenceName}
                 id="conferenceName"
@@ -246,7 +262,7 @@ class App extends Component {
             className="advanced-options"
             onClick={() => this.setState({ showOptions: !showOptions })}
           >
-            {`${showOptions ? 'Hide' : 'Show'} advanced options`}
+            {`${showOptions ? strings.hide : strings.show} ${strings.advancedOptions}`}
             <div className={showOptions ? 'arrow-up' : 'arrow-down'} />
           </div>
           {this.state.showOptions && <React.Fragment>
@@ -257,7 +273,7 @@ class App extends Component {
               onChange={this.toggleChangeListener}
             />
             <label id="isListenerLabel" htmlFor="isListener">
-              Join as a listener
+              {strings.joinAsListener}
             </label>
 
             <input
@@ -267,7 +283,7 @@ class App extends Component {
               onChange={this.toggleWidgetMode}
             />
             <label id="widgetModeLabel" htmlFor="widgetMode">
-              Widget Mode
+              {strings.widgetMode}
             </label>
 
             <input
@@ -277,7 +293,7 @@ class App extends Component {
               onChange={this.toggleSimulcastMode}
             />
             <label id="simulcastModeLabel" htmlFor="simulcast">
-              Simulcast
+              {strings.simulcast}
             </label>
 
             <input
@@ -287,7 +303,7 @@ class App extends Component {
               onChange={this.toggleDolbyVoice}
             />
             <label id="dolbyVoiceLabel" htmlFor="dolbyvoice">
-              Dolby Voice
+              {strings.dolbyVoice}
             </label>
 
             <input
@@ -297,7 +313,7 @@ class App extends Component {
               onChange={this.toggleConfiguration}
             />
             <label id="configurationLabel" htmlFor="configuration">
-              Connect using default settings
+              {strings.defaultSettings}
             </label>
           </React.Fragment>}
 
@@ -305,9 +321,9 @@ class App extends Component {
             <button
               id="join"
               type="button"
-              disabled={this.state.conferenceName.length == 0 ? true : false}
+              disabled={this.state.conferenceName.length === 0}
               className={
-                this.state.conferenceName.length == 0
+                this.state.conferenceName.length === 0
                   ? "waves-effect waves-light disable"
                   : "waves-effect waves-light"
               }
@@ -321,7 +337,7 @@ class App extends Component {
           </div>
         </div>
         <div className="copyright">
-          <span>Copyright © 2021 Dolby — {strings.copyright}</span>
+          <span>Copyright © {new Date().getFullYear()} Dolby — {strings.copyright}</span>
         </div>
       </div>
     );
