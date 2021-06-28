@@ -8,10 +8,17 @@
     "bootstrap": "yarn link @voxeet/voxeet-web-sdk && yarn link @voxeet/media-engine && yarn link @voxeet/react-components",
     "start": "webpack-dev-server -d --hot --inline --content-base",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress -p",
-    "builde": "cross-env NODE_ENV=development webpack --config webpack.config.electron.prod.js --progress",
-    "build:electron": "cross-env DEBUG=*,-babel ELECTRON=true npm run builde",
-    "builde:debug": "cross-env NODE_ENV=development DEBUG=*,-babel ELECTRON=true webpack --config webpack.config.electron.prod.js --progress",
-    "get-version": "cross-env-shell echo ${npm_package_version}"
+    "get-version": "cross-env-shell echo ${npm_package_version}",
+    "builde": "cross-env webpack --config webpack.config.electron.js --progress",
+    "builde:prod": "cross-env DEBUG=true NODE_ENV=production yarn builde",
+    "builde:staging": "cross-env DEBUG=true NODE_ENV=staging yarn builde",
+    "builde:bin": "cross-env yarn run electron-builder -c.electronDist=${NDS_RUNTIME:-../../DesktopSDK} -c.buildVersion=${CI_PIPELINE_ID:-local}",
+    "builde:bin:osx": "yarn builde:bin -- --macos --x64",
+    "builde:bin:win": "yarn builde:bin -- --windows --x64",
+    "builde:prod:bin:osx": "yarn builde:bin:osx -- '-c.productName=Voxeet'",
+    "builde:prod:bin:win": "yarn builde:bin:win -- '-c.productName=Voxeet'",
+    "builde:staging:bin:osx": "yarn builde:bin:osx -- '-c.productName=Voxeet(staging)'",
+    "builde:staging:bin:win": "yarn builde:bin:win -- '-c.productName=Voxeet(staging)'"
   },
   "author": "Voxeet",
   "contributors": [
@@ -21,93 +28,11 @@
   "browserslist": [
     "IE 11"
   ],
-  "build": {
-    "appId": "io.voxeet.app",
-    "productName": "Voxeet",
-    "extends": null,
-    "electronVersion": "9.2.0",
-    "extraMetadata": {
-      "description": "DesktopSDK_fc0b9314_v9.2.0_osx_202105102222"
-    },
-    "files": [
-      "dist/*.svg",
-      "dist/*.ttf",
-      "dist/sounds/*.mp3",
-      "dist/index.html",
-      "dist/bundle.js",
-      "dist/images",
-      "src/main.js",
-      "src/preload.js",
-      "node_modules/",
-      "package.json"
-    ],
-    "extraFiles": [],
-    "dmg": {
-      "background": null,
-      "backgroundColor": "#ffffff",
-      "window": {
-        "width": "400",
-        "height": "300"
-      },
-      "contents": [
-        {
-          "x": 100,
-          "y": 100
-        },
-        {
-          "x": 300,
-          "y": 100,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "pkg": {
-      "allowCurrentUserHome": false,
-      "allowAnywhere": false
-    },
-    "mac": {
-      "entitlements": "entitlements.mac.plist",
-      "extendInfo": {
-        "NSCameraUsageDescription": "This app requires camera access to record video.",
-        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
-      },
-      "target": [
-        "dmg"
-      ],
-      "icon": "public/icon.png",
-      "publish": {
-        "provider": "s3",
-        "bucket": "voxeet-io-electron-ci",
-        "publishAutoUpdate": "true"
-      }
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "dist/icon.png",
-      "certificateFile": "/Users/dolbyvoice/cert_win/code_signing.pfx",
-      "certificatePassword": "",
-      "publish": {
-        "provider": "s3",
-        "bucket": "voxeet-io-electron-ci",
-        "publishAutoUpdate": "true"
-      }
-    },
-    "squirrelWindows": {
-      "iconUrl": "https://raw.githubusercontent.com/voxeet/voxeet-io-web/master/public/icon.png"
-    }
-  },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@trodi/electron-splashscreen": "^0.3.4",
-    "@voxeet/react-components": "file:./../../voxeet-uxkit-react/",
-    "@voxeet/voxeet-web-sdk": "file:./../../voxeet-web-sdk/",
+    "@voxeet/react-components": "file:../../voxeet-uxkit-react/",
+    "@voxeet/voxeet-web-sdk": "file:../../voxeet-sdk/packages/voxeet-web-sdk",
     "axios": "^0.19.2",
     "browserslist": "^4.5.2",
     "core-js": "2",

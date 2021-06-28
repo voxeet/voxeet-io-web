@@ -1,0 +1,67 @@
+appId: io.voxeet.app
+productName: Voxeet
+buildVersion: local
+extends: null
+electronVersion: 9.2.0
+
+extraMetadata:
+  description: DesktopSDK_0bb26b73_v9.2.0
+
+files:
+  - dist/*.svg
+  - dist/*.ttf
+  - dist/sounds/*.mp3
+  - dist/index.html
+  - dist/bundle.js
+  - dist/images
+  - src/main.js
+  - src/preload.js
+  - node_modules/
+  - package.json
+
+extraFiles: []
+
+dmg:
+  background: null
+  backgroundColor: '#ffffff'
+  window:
+    width: '400'
+    height: '300'
+  contents:
+    - x: 100
+      'y': 100
+    - x: 300
+      'y': 100
+      type: link
+      path: /Applications
+
+pkg:
+  allowCurrentUserHome: false
+  allowAnywhere: false
+
+mac:
+  entitlements: entitlements.mac.plist
+  extendInfo:
+    NSCameraUsageDescription: This app requires camera access to record video.
+    NSMicrophoneUsageDescription: This app requires microphone access to record audio.
+  target:
+    - dmg
+  icon: public/icon.png
+  publish:
+    provider: s3
+    bucket: voxeet-io-electron-ci
+    publishAutoUpdate: 'true'
+
+win:
+  target: nsis
+  icon: dist/icon.png
+  certificateFile: /Users/dolbyvoice/cert_win/code_signing.pfx
+  certificatePassword: ''
+  publish:
+    provider: s3
+    bucket: voxeet-io-electron-ci
+    publishAutoUpdate: 'true'
+
+squirrelWindows:
+  iconUrl: >-
+    https://raw.githubusercontent.com/voxeet/voxeet-io-web/master/public/icon.png
