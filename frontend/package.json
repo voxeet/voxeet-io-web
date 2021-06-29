@@ -1,6 +1,6 @@
 {
   "name": "voxeet-io",
-  "version": "1.0.8",
+  "version": "0.8.0",
   "private": true,
   "main": "src/main.js",
   "scripts": {
