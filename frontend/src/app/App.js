@@ -68,10 +68,10 @@ class App extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
     const { conferenceName } = this.props.match.params;
-    let url_string = window.location.href;
-    let url = new URL(url_string);
-    let name = url.searchParams.get("name");
-    let showOptions = url.searchParams.get("options");
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const name = url.searchParams.get("name");
+    const showOptions = url.searchParams.get("options");
 
     let newState = {};
 
@@ -79,7 +79,7 @@ class App extends Component {
       newState.conferenceName = conferenceName;
       if (name !== null) {
         newState.isSubmit = true;
-        newState.serName = name;
+        newState.userName = name;
       } else {
         newState.isJoiningFromUrl = true;
       }
