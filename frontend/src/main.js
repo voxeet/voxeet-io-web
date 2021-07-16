@@ -2,7 +2,9 @@ const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, d
 //const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
-var arguments = process.argv;
+const windowStateKeeper = require('electron-window-state');
+
+let arguments = process.argv;
 
 const isDevelopment = arguments && arguments.indexOf('debug')!==-1;
 // const isDevelopment = process.env.NODE_ENV === 'development';
@@ -85,9 +87,19 @@ app.on('ready', async () => {
   await askForMediaAccess("microphone");
   await askForMediaAccess("camera");
 
+    // const winBounds = win.getBounds();
+    // const distScreen = screen.getDisplayNearestPoint({x: winBounds.x, y: winBounds.y})
+  // Load the previous state with fallback to defaults
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1440,
+    defaultHeight: 960
+  });
+
   mainWindow = new BrowserWindow({
-      width: 1280,
-      height: 720,
+      x: mainWindowState.x,
+      y: mainWindowState.y,
+      width: mainWindowState.width,
+      height: mainWindowState.height,
       webPreferences: {
           nodeIntegration: false,
           contextIsolation: true,
@@ -110,14 +122,14 @@ app.on('ready', async () => {
     app.quit();
   });
 
-      indexPath = url.format({
-          protocol: 'file:',
-          pathname: path.join(__dirname, '..', 'dist', 'index.html'),
-          slashes: true
-      })
+  indexPath = url.format({
+      protocol: 'file:',
+      pathname: path.join(__dirname, '..', 'dist', 'index.html'),
+      slashes: true
+  })
 
-      // Load the index.html
-      mainWindow.loadURL(indexPath)
+  // Load the index.html
+  mainWindow.loadURL(indexPath)
 
     //  mainWindow.loadURL(`https://localhost.voxeet.com:8081`);
     // mainWindow.loadURL(`https://voxeet-io.dev.trydcc.com/staging`);
@@ -159,4 +171,9 @@ app.on('ready', async () => {
     mainWindow = null;
     app.quit();
   });
+
+  // Let us register listeners on the window, so we can update the state
+  // automatically (the listeners will be removed when the window is closed)
+  // and restore the maximized or full screen state
+  mainWindowState.manage(mainWindow);
 });
