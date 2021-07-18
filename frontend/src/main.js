@@ -110,14 +110,14 @@ app.on('ready', async () => {
     app.quit();
   });
 
-      indexPath = url.format({
-          protocol: 'file:',
-          pathname: path.join(__dirname, '..', 'dist', 'index.html'),
-          slashes: true
-      })
+  indexPath = url.format({
+      protocol: 'file:',
+      pathname: path.join(__dirname, '..', 'dist', 'index.html'),
+      slashes: true
+  })
 
-      // Load the index.html
-      mainWindow.loadURL(indexPath)
+  // Load the index.html
+  mainWindow.loadURL(indexPath)
 
     //  mainWindow.loadURL(`https://localhost.voxeet.com:8081`);
     // mainWindow.loadURL(`https://voxeet-io.dev.trydcc.com/staging`);
