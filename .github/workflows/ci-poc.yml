@@ -47,3 +47,4 @@ jobs:
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
+          
