@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, dialog, webContents, shell} = require('electron');
+const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, dialog, shell} = require('electron');
 //const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
