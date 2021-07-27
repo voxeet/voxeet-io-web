@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, dialog} = require('electron');
+const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, dialog, webContents, shell} = require('electron');
 //const Splahscreen =  require("@trodi/electron-splashscreen");
 const path = require('path');
 const url = require('url');
@@ -154,6 +154,15 @@ app.on('ready', async () => {
     } else {
 
     }
+
+  var handleRedirect = (e, url) => {
+    if (url != mainWindow.webContents.getURL()) {
+      e.preventDefault()
+      shell.openExternal(url)
+    }
+  }
+  mainWindow.webContents.on('new-window', handleRedirect)
+  mainWindow.webContents.on('will-navigate', handleRedirect)
 
   mainWindow.on('closed', () => {
     mainWindow = null;
