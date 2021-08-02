@@ -55,9 +55,7 @@ class App extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
-    this.handleChangeConferenceName = this.handleChangeConferenceName.bind(
-      this
-    );
+    this.handleChangeConferenceName = this.handleChangeConferenceName.bind(this);
     this.escFunction = this.escFunction.bind(this);
     this.toggleChangeListener = this.toggleChangeListener.bind(this);
     this.toggleWidgetMode = this.toggleWidgetMode.bind(this);
@@ -81,7 +79,7 @@ class App extends Component {
       } else {
         this.setState({
           isJoiningFromUrl: true,
-          form: { conferenceName: conferenceName },
+          form: { conferenceName: conferenceName, userName: '' },
         });
       }
     }
