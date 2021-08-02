@@ -17,6 +17,12 @@ const getConfig = environment => {
         auth_server: "https://staging.voxeet.io",
         environment: environment
       };
+    case "dev-staging":
+      return {
+        asset_path: "./",
+        auth_server: "https://dev-staging.voxeet.io",
+        environment: environment
+      };
   }
 };
 
@@ -26,7 +32,7 @@ module.exports = env => {
   // 3- if not yet defined in two preview steps, then use production as default.
   const currentEnvironment = process.env.NODE_ENV || env;
 
-  const selectedEnv = ["production", "staging"];
+  const selectedEnv = ["production", "staging", "dev-staging"];
   const environment = selectedEnv.includes(currentEnvironment)
     ? currentEnvironment
     : "production";
