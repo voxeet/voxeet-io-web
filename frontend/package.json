@@ -1,6 +1,6 @@
 {
-  "name": "voxeet-io",
-  "version": "0.9.3",
+  "name": "dolby-io",
+  "version": "1.0.0-alpha.1",
   "private": true,
   "main": "src/main.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "builde:dev-staging:bin:osx": "yarn builde:bin:osx -- '-c.productName=Voxeet(dev-staging)'",
     "builde:dev-staging:bin:win": "yarn builde:bin:win -- '-c.productName=Voxeet(dev-staging)'"
   },
-  "author": "Voxeet",
+  "author": "Dolby",
   "contributors": [
     "MARTIN Valentin <vmartin@voxeet.com>",
     "GOURGUES Thomas <tgourgues@voxeet.com>"
