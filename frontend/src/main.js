@@ -109,7 +109,7 @@ app.on('ready', async () => {
   
   ipcMain.on('conferenceJoined', (e) => {
     console.error('conference joined');
-    powerId = powerSaveBlocker.start("prevent-display-sleep");
+    //powerId = powerSaveBlocker.start("prevent-display-sleep"); CCS-1857
   });
 
   ipcMain.on('conferenceLeft', (e) => {
