@@ -90,7 +90,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -129,7 +129,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -167,7 +167,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -205,7 +205,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
