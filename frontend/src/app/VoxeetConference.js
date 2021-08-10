@@ -149,7 +149,8 @@ class VoxeetConference extends Component {
 
           ReactDOM.render(
             <Provider store={createStoreApp()} context={contextApp}>
-              <Provider store={configureStoreUxKit()} context={getUxKitContext()}>
+              <VoxeetProvider store={createStoreUxKit()} >
+              {/*<Provider store={configureStoreUxKit()} context={getUxKitContext()}>*/} {/*Alternative to previous line*/}
                 <ConferenceRoom
                   autoJoin
                   userInfo={userInfo}
@@ -179,7 +180,8 @@ class VoxeetConference extends Component {
                   conferenceAlias={settings.conferenceAlias}
                   context
                 />
-              </Provider>
+              {/*</Provider>*/}
+              </VoxeetProvider>
             </Provider>,
             document.getElementById("voxeet-widget")
           );
