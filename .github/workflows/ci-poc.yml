@@ -1,7 +1,7 @@
 name: CI build
 
 on:
-  push:
+  push: 
     branches:
       - feature/dvwc
   workflow_dispatch:
