@@ -46,7 +46,7 @@ mac:
     NSMicrophoneUsageDescription: This app requires microphone access to record audio.
   target:
     - dmg
-  icon: public/icon.png
+  icon: dist/icon.png
 
 win:
   target: nsis
