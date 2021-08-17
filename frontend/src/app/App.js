@@ -14,25 +14,41 @@ let strings = new LocalizedStrings({
     join: "Join call",
     name: "Your Name",
     admin: "Admin",
-    conferencename: "Your conference name",
-    joinDemo: "or experience Voxeet demo",
-    electronmessage: "Voxeet is loading, please wait",
+    conferenceName: "Your conference name",
+    joinDemo: "or experience Dolby.io demo",
+    electronMessage: "Dolby.io is loading, please wait",
     conferenceJoined: "You're in the conference",
     copyright: " All Rights Reserved",
     next: "Next",
     welcome: "Welcome",
+    joinAsListener: "Join as a listener",
+    widgetMode: "Widget mode",
+    simulcast: "Simulcast",
+    dolbyVoice: "Dolby Voice",
+    defaultSettings: "Connect using default settings",
+    advancedOptions: "advanced options",
+    show: "Show",
+    hide: "Hide"
   },
   fr: {
     join: "Rejoindre la conférence",
-    name: "Nom",
+    name: "Nom d'utilisateur",
     admin: "Administrateur",
-    joinDemo: "ou tester Voxeet demo",
-    conferencename: "Nom de la conférence",
-    electronmessage: "Le client Voxeet va démarrer, veuillez patienter",
+    joinDemo: "ou tester Dolby.io demo",
+    conferenceName: "Nom de la conférence",
+    electronMessage: "Le client Dolby.io va démarrer, veuillez patienter",
     conferenceJoined: "Vous êtes dans la conférence",
-    copyright: "Tous Droits Réservés",
-    next: "Next",
-    welcome: "Welcome",
+    copyright: " Tous droits réservés",
+    next: "Suivant",
+    welcome: "Bienvenue",
+    joinAsListener: "Rejoindre en tant qu'auditeur",
+    widgetMode: "Mode Widget",
+    simulcast: "Simulcast",
+    dolbyVoice: "Dolby Voice",
+    defaultSettings: "Se connecter avec les paramètres par défaut",
+    advancedOptions: "les options avancées",
+    show: "Afficher",
+    hide: "Masquer"
   },
 });
 
@@ -43,15 +59,14 @@ class App extends Component {
       isSubmit: false,
       simulcastMode: false,
       dolbyVoice: true,
+      showOptions: false,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
       useDefaultSettings: true,
       isDemo: false,
-      form: {
-        conferenceName: "",
-        userName: "",
-      },
+      conferenceName: "",
+      userName: "",
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
@@ -67,22 +82,36 @@ class App extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
     const { conferenceName } = this.props.match.params;
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var c = url.searchParams.get("name");
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const name = url.searchParams.get("name");
+    const showOptions = url.searchParams.get("options");
+
+    let newState = {};
+
     if (conferenceName) {
-      if (c != null) {
-        this.setState({
-          isSubmit: true,
-          form: { conferenceName: conferenceName, userName: c },
-        });
+      newState.conferenceName = conferenceName;
+      if (name !== null) {
+        newState.isSubmit = true;
+        newState.userName = name;
       } else {
-        this.setState({
-          isJoiningFromUrl: true,
-          form: { conferenceName: conferenceName, userName: '' },
-        });
+        newState.isJoiningFromUrl = true;
       }
     }
+    if (showOptions !== null) {
+      if (
+        typeof showOptions === 'string' &&
+        ['false', '0', 'no'].indexOf(showOptions.toLowerCase()) !== -1
+      ) {
+        newState.showOptions = false;
+      }
+      else {
+        newState.showOptions = true;
+      }
+    } else {
+      newState.showOptions = false;
+    }
+    this.setState(newState);
   }
 
   escFunction(event) {
@@ -96,15 +125,13 @@ class App extends Component {
   }
 
   handleChangeConferenceName(e) {
-    const { form } = this.state;
-    form["conferenceName"] = e.target.value;
-    this.setState({ form });
+    let conferenceName = e.target.value;
+    this.setState({ conferenceName });
   }
 
   handleChangeUserName(e) {
-    const { form } = this.state;
-    form["userName"] = e.target.value;
-    this.setState({ form });
+    let userName = e.target.value;
+    this.setState({ userName });
   }
 
   toggleConfiguration() {
@@ -115,7 +142,7 @@ class App extends Component {
 
   handleOnLeave() {
     /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
-    const oldConferenceName = this.state.form.conferenceName*/
+    const oldConferenceName = this.state.conferenceName*/
     this.setState({ isSubmit: false, isDemo: false });
     /*this.props.history.push('/')
     window.location.reload()*/
@@ -146,7 +173,7 @@ class App extends Component {
   }
 
   handleClick() {
-    this.props.history.push("/" + this.state.form.conferenceName);
+    this.props.history.push("/" + this.state.conferenceName);
 
     /*if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
       navigator.attachMediaStream = function(element, stream) { // Shim for electron
@@ -170,6 +197,8 @@ class App extends Component {
   }
 
   render() {
+    const { showOptions } = this.state;
+
     if (this.state.isSubmit) {
       const photoURL =
         "https://gravatar.com/avatar/" +
@@ -186,9 +215,9 @@ class App extends Component {
             configuration={!this.state.useDefaultSettings}
             handleOnLeave={this.handleOnLeave.bind(this)}
             getSources={this.props.getSources}
-            userName={this.state.form.userName}
+            userName={this.state.userName}
             photoURL={photoURL}
-            conferenceName={this.state.form.conferenceName}
+            conferenceName={this.state.conferenceName}
           />
         </div>
       );
@@ -201,14 +230,14 @@ class App extends Component {
             <h1>{strings.welcome}</h1>
           </div>
           <div className="dolby-container-logo">
-            <img src={dolbyLogo} />
+            <img src={dolbyLogo} alt="Dolby logo" />
           </div>
           {!this.state.isJoiningFromUrl && (
             <div className="input-field">
               <input
                 name="conferenceName"
-                placeholder={strings.conferencename}
-                value={this.state.form.conferenceName}
+                placeholder={strings.conferenceName}
+                value={this.state.conferenceName}
                 onChange={this.handleChangeConferenceName}
                 id="conferenceName"
                 type="text"
@@ -220,73 +249,79 @@ class App extends Component {
             <input
               name="userName"
               placeholder={strings.name}
-              value={this.state.form.userName}
+              value={this.state.userName}
               onChange={this.handleChangeUserName}
               id="userName"
               type="text"
               className="validate"
             />
           </div>
+          <div
+            className="advanced-options"
+            onClick={() => this.setState({ showOptions: !showOptions })}
+          >
+            {`${showOptions ? strings.hide : strings.show} ${strings.advancedOptions}`}
+            <div className={showOptions ? 'arrow-up' : 'arrow-down'} />
+          </div>
+          {this.state.showOptions && <React.Fragment>
+            <input
+              type="checkbox"
+              id="isListener"
+              checked={this.state.isListener}
+              onChange={this.toggleChangeListener}
+            />
+            <label id="isListenerLabel" htmlFor="isListener">
+              {strings.joinAsListener}
+            </label>
 
-          <input
-            type="checkbox"
-            id="isListener"
-            checked={this.state.isListener}
-            onChange={this.toggleChangeListener}
-          />
-          <label id="isListenerLabel" htmlFor="isListener">
-            Join as a listener
-          </label>
+            <input
+              type="checkbox"
+              id="widgetMode"
+              checked={this.state.widgetMode}
+              onChange={this.toggleWidgetMode}
+            />
+            <label id="widgetModeLabel" htmlFor="widgetMode">
+              {strings.widgetMode}
+            </label>
 
-          <input
-            type="checkbox"
-            id="widgetMode"
-            checked={this.state.widgetMode}
-            onChange={this.toggleWidgetMode}
-          />
-          <label id="widgetModeLabel" htmlFor="widgetMode">
-            Widget Mode
-          </label>
+            <input
+              type="checkbox"
+              id="simulcast"
+              checked={this.state.simulcastMode}
+              onChange={this.toggleSimulcastMode}
+            />
+            <label id="simulcastModeLabel" htmlFor="simulcast">
+              {strings.simulcast}
+            </label>
 
-          <input
-            type="checkbox"
-            id="simulcast"
-            checked={this.state.simulcastMode}
-            onChange={this.toggleSimulcastMode}
-          />
-          <label id="simulcastModeLabel" htmlFor="simulcast">
-            Simulcast
-          </label>
+            <input
+              type="checkbox"
+              id="dolbyvoice"
+              checked={this.state.dolbyVoice}
+              onChange={this.toggleDolbyVoice}
+            />
+            <label id="dolbyVoiceLabel" htmlFor="dolbyvoice">
+              {strings.dolbyVoice}
+            </label>
 
-          <input
-            type="checkbox"
-            id="dolbyvoice"
-            checked={this.state.dolbyVoice}
-            onChange={this.toggleDolbyVoice}
-          />
-          <label id="dolbyVoiceLabel" htmlFor="dolbyvoice">
-            Dolby Voice
-          </label>
-
-          <input
-            type="checkbox"
-            id="configuration"
-            checked={this.state.useDefaultSettings}
-            onChange={this.toggleConfiguration}
-          />
-          <label id="configurationLabel" htmlFor="configuration">
-            Connect using default settings
-          </label>
+            <input
+              type="checkbox"
+              id="configuration"
+              checked={this.state.useDefaultSettings}
+              onChange={this.toggleConfiguration}
+            />
+            <label id="configurationLabel" htmlFor="configuration">
+              {strings.defaultSettings}
+            </label>
+          </React.Fragment>}
 
           <div className="blockButton">
             <button
               id="join"
               type="button"
-              disabled={
-                this.state.form.conferenceName.length == 0 ? true : false
-              }
+              disabled={this.state.conferenceName.length === 0}
               className={
-                this.state.form.conferenceName.length == 0
+                this.state.conferenceName.length === 0
                   ? "waves-effect waves-light disable"
                   : "waves-effect waves-light"
               }
@@ -300,7 +335,7 @@ class App extends Component {
           </div>
         </div>
         <div className="copyright">
-          <span>Copyright © 2021 Dolby — {strings.copyright}</span>
+          <span>Copyright © {new Date().getFullYear()} Dolby — {strings.copyright}</span>
         </div>
       </div>
     );
@@ -314,8 +349,8 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  handleJoin: () => {},
-  handleLeave: () => {},
+  handleJoin: () => { },
+  handleLeave: () => { },
   getSources: () => Promise.resolve(null),
 };
 

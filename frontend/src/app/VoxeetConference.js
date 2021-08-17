@@ -62,7 +62,7 @@ class VoxeetConference extends Component {
 
     let name = this.props.userName;
     let photoURL = this.props.photoURL;
-    if (this.props.userName.length == 0) {
+    if (this.props.userName.length === 0) {
       name = "Guest " + Math.floor(Math.random() * 100 + 1);
     }
 
@@ -105,6 +105,10 @@ class VoxeetConference extends Component {
       case "fabienvoxeet":
         name = "Fabien";
         photoURL = "https://s3.amazonaws.com/voxeet-cdn/avatars/fabien.png";
+        break;
+      case "arthurvoxeet":
+        name = "Arthur";
+        photoURL = "https://bokoblin.github.io/portfolio/images/ajoli.png";
         break;
     }
 
@@ -156,10 +160,8 @@ class VoxeetConference extends Component {
                   userInfo={userInfo}
                   preConfig={
                     this.props.configuration
-                      ? this.props.widgetMode
-                        ? false
-                        : true
-                      : false
+                        ? !this.props.widgetMode
+                        : false
                   }
                   isListener={this.props.isListener}
                   isDemo={this.props.isDemo}
