@@ -1,9 +1,8 @@
-name: CI build
+name: CI build develop
 
 on:
   push:
     branches:
-      - master
       - develop
   schedule:
     - cron:  '0 2 * * *'
@@ -23,21 +22,7 @@ jobs:
           workdir: backend
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: "${{ env.GITHUB_REF_SLUG }}"
-
-  build_frontend_master_production:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: rlespinasse/github-slug-action@v3.x
-      - name: build and publish frontend Docker container for master - production Web SDK
-        uses: elgohr/Publish-Docker-Github-Action@2.22
-        with:
-          name: voxeet/voxeet-io-web
-          dockerfile: Dockerfile
-          workdir: frontend
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          buildoptions: "--pull"
           tags: "${{ env.GITHUB_REF_SLUG }}"
 
   build_frontend_hotfix-3_0:
@@ -57,7 +42,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -76,43 +61,7 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
-          tags: "${{ env.WEB_SDK_DIST_TAG }}"
-
-  build_frontend_master_staging:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
-      - name: Set NPM token when logging to CodeArtifact
-        run: |
-          CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
-          echo "::add-mask::$CODEARTIFACT_TOKEN"
-          echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
-      - name: Login to ECR
-        id: ecr
-        uses: elgohr/ecr-login-action@master
-        with:
-          access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
-          region: ${{ secrets.AWS_REGION }}
-      - name: build and publish frontend Docker container for master - staging Web SDK
-        uses: elgohr/Publish-Docker-Github-Action@2.22
-        env:
-          WEB_SDK_DIST_TAG: master-staging
-          CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
-        with:
-          name: voxeet-io-web
-          dockerfile: Dockerfile
-          workdir: frontend
-          username: ${{ steps.ecr.outputs.username }}
-          password: ${{ steps.ecr.outputs.password }}
-          registry: ${{ steps.ecr.outputs.registry }}
-          buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
   build_frontend_develop_production:
@@ -132,7 +81,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -150,6 +99,7 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
   build_frontend_develop_staging:
@@ -169,7 +119,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@master
+        uses: elgohr/ecr-login-action@1.0.1
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -188,4 +138,5 @@ jobs:
           password: ${{ steps.ecr.outputs.password }}
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
