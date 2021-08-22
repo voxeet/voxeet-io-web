@@ -1,21 +1,47 @@
 import React, { Component } from "react";
-import "core-js/es6/";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import thunkMidleware from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 import axios from "axios";
-
 import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import {
   ConferenceRoom,
   VoxeetProvider,
+  getUxKitContext,
+  setUxKitContext,
   reducer as voxeetReducer
 } from "@voxeet/react-components";
-
-window.VoxeetSdk = VoxeetSdk;
-
 import "@voxeet/react-components/dist/voxeet-react-components.css";
+
+// a naive example
+const contextApp = React.createContext();
+const reducerApp =  (state = {}, action) => {
+  switch (action.type) {
+    default: {
+      return state;
+    }
+  }
+};
+
+console.log('uxkit', ConferenceRoom,
+    VoxeetProvider,
+    getUxKitContext);
+
+const reducers = combineReducers({
+  voxeet: voxeetReducer,
+});
+
+const middlewaresApp = [], middlewaresUxKit = [];
+middlewaresApp.push(thunkMidleware);
+middlewaresUxKit.push(thunkMidleware);
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`);
+
+  //middlewaresApp.push(logger);
+  //middlewaresApp.push(logger);
+}
 
 const AUTH_SERVER = process.env.AUTH_SERVER || "";
 const SESSION_SERVER =
@@ -28,10 +54,10 @@ class VoxeetConference extends Component {
       .toLowerCase()
       .replace(/ /g, "");
     const settings = {
-      conferenceAlias: conferenceName
+      conferenceAlias: conferenceName,
     };
     const reducers = combineReducers({
-      voxeet: voxeetReducer
+      voxeet: voxeetReducer,
     });
 
     let name = this.props.userName;
@@ -88,14 +114,16 @@ class VoxeetConference extends Component {
 
     const userInfo = {
       name: name,
-      avatarUrl: photoURL
+      avatarUrl: photoURL,
     };
     var constraints = {
       audio: true,
-      video: true
+      video: true,
     };
-    const configureStore = () =>
-      createStore(reducers, applyMiddleware(thunkMidleware));
+    const createStoreUxKit = () =>
+      createStore(reducers, applyMiddleware(...middlewaresApp));
+    const createStoreApp = () =>
+      createStore(reducerApp, applyMiddleware(...middlewaresUxKit));
     let displayModes = ["tiles", "speaker"];
     if (this.props.isDemo && VoxeetSdk.isElectron) {
       displayModes = ["list", "tiles", "speaker"];
@@ -105,7 +133,7 @@ class VoxeetConference extends Component {
     let accessToken, refreshToken;
 
     const doRefreshToken = () => {
-      return axios.get(`${AUTH_SERVER}/api/token`, {}).then(response => {
+      return axios.get(`${AUTH_SERVER}/api/token`, {}).then((response) => {
         accessToken = response.data.access_token;
         refreshToken = response.data.refresh_token;
 
@@ -117,45 +145,50 @@ class VoxeetConference extends Component {
       let token = "";
       axios
         .get(`${AUTH_SERVER}/api/token`, {})
-        .then(response => {
+        .then((response) => {
           //console.log("TOKEN: ", response);
 
           accessToken = response.data.access_token;
           refreshToken = response.data.refresh_token;
 
           ReactDOM.render(
-            <VoxeetProvider store={configureStore()}>
-              <ConferenceRoom
-                autoJoin
-                userInfo={userInfo}
-                preConfig={
-                  this.props.configuration
-                    ? !this.props.widgetMode
-                    : false
-                }
-                isListener={this.props.isListener}
-                isDemo={this.props.isDemo}
-                rtcpmode={"max"}
-                liveRecordingEnabled
-                videoCodec={"H264"}
-                chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
-                displayModes={displayModes}
-                simulcast={this.props.simulcastMode}
-                dolbyVoice={this.props.dolbyVoice}
-                handleOnLeave={this.props.handleOnLeave}
-                getSources={this.props.getSources}
-                isWidget={this.props.widgetMode}
-                isElectron={VoxeetSdk.isElectron}
-                constraints={constraints}
-                oauthToken={accessToken}
-                refreshTokenCallback={doRefreshToken}
-                conferenceAlias={settings.conferenceAlias}
-              />
-            </VoxeetProvider>,
+            <Provider store={createStoreApp()} context={contextApp}>
+              <VoxeetProvider store={createStoreUxKit()} >
+              {/*<Provider store={createStoreUxKit()} context={getUxKitContext()}>*/} {/*Alternative to previous line*/}
+                <ConferenceRoom
+                  autoJoin
+                  userInfo={userInfo}
+                  preConfig={
+                    this.props.configuration
+                        ? !this.props.widgetMode
+                        : false
+                  }
+                  isListener={this.props.isListener}
+                  isDemo={this.props.isDemo}
+                  rtcpmode={"max"}
+                  liveRecordingEnabled
+                  videoCodec={"H264"}
+                  chromeExtensionId={"efdjhmbmjlhomjhnnmpeeillhpnldoje"}
+                  displayModes={displayModes}
+                  simulcast={this.props.simulcastMode}
+                  dolbyVoice={this.props.dolbyVoice}
+                  handleOnLeave={this.props.handleOnLeave}
+                  getSources={this.props.getSources}
+                  isWidget={this.props.widgetMode}
+                  isElectron={VoxeetSdk.isElectron}
+                  constraints={constraints}
+                  oauthToken={accessToken}
+                  refreshTokenCallback={doRefreshToken}
+                  conferenceAlias={settings.conferenceAlias}
+                  context
+                />
+              {/*</Provider>*/}
+              </VoxeetProvider>
+            </Provider>,
             document.getElementById("voxeet-widget")
           );
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     } catch (e) {
@@ -186,7 +219,7 @@ VoxeetConference.propTypes = {
 
 VoxeetConference.defaultProps = {
   conferenceName: "conference_name",
-  userName: "Guest " + Math.floor(Math.random() * 100 + 1)
+  userName: "Guest " + Math.floor(Math.random() * 100 + 1),
 };
 
 export default VoxeetConference;
