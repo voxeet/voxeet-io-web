@@ -34,8 +34,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@trodi/electron-splashscreen": "^1.0.0",
-    "@voxeet/react-components": "file:../../uxkit",
-    "@voxeet/voxeet-web-sdk": "file:./../../voxeet-sdk/packages/voxeet-web-sdk/",
+    "@voxeet/react-components": "^3.2.1",
+    "@voxeet/voxeet-web-sdk": "^3.3.0-beta.2",
     "axios": "^0.21.1",
     "browserslist": "^4.16.6",
     "core-js": "^3.15.2",
