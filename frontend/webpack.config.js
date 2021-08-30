@@ -24,7 +24,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     chunkFilename: '[id].[chunkhash].js',
-    publicPath: "",
+    publicPath: "/",
   },
   optimization: {
     minimize: false,
