@@ -25,10 +25,6 @@ const reducerApp =  (state = {}, action) => {
   }
 };
 
-console.log('uxkit', ConferenceRoom,
-    VoxeetProvider,
-    getUxKitContext);
-
 const reducers = combineReducers({
   voxeet: voxeetReducer,
 });
