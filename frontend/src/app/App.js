@@ -339,7 +339,7 @@ class App extends Component {
           </div>
         </div>
         <div className="copyright">
-          <span>Copyright © {new Date().getFullYear()} Dolby — {strings.copyright}</span>
+          <span>Copyright © {new Date().getFullYear()} Dolby -— {strings.copyright}</span>
         </div>
       </div>
     );

@@ -21,7 +21,8 @@ module.exports = {
   entry: ["@babel/polyfill", "./src/index.js"],
   output: {
     path: path.join(__dirname, "dist"),
-    chunkFilename: '[id].[chunkhash].js',
+    filename: '[name].bundle.js',
+    // chunkFilename: '[id].[chunkhash].js',
     publicPath: ASSET_PATH,
   },
   mode: 'production',
@@ -29,8 +30,15 @@ module.exports = {
     splitChunks: {
       // include all types of chunks
       chunks: 'all',
-      maxSize:3000000,
+      maxSize:5000000,
       minSize:1000000,
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+          chunks: "initial",
+        },
+      },
     },
     minimize: true,
     minimizer: [
