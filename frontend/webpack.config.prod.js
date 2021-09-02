@@ -160,6 +160,6 @@ module.exports = {
       template: "./public/index.html",
       js: /*process.env.ELECTRON ? ["preload.js"] :*/ [],
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
   ],
 };
