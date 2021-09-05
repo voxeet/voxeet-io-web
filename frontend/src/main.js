@@ -108,16 +108,18 @@ app.on('ready', async () => {
   });
   
   ipcMain.on('conferenceJoined', (e) => {
-    console.error('conference joined');
-    //powerId = powerSaveBlocker.start("prevent-display-sleep"); CCS-1857
+    console.error('ipcMain.onConferenceJoined: conference joined');
+    powerId = powerSaveBlocker.start("prevent-display-sleep"); //CCS-1857
   });
 
   ipcMain.on('conferenceLeft', (e) => {
+    console.error('ipcMain.onConferenceLeft: conference left');
     powerSaveBlocker.stop(powerId);
     powerId = null;
   });
 
   ipcMain.on('leave', (e) => {
+    console.error('ipcMain.onConferenceLeave: conference leave');
     mainWindow.close();
     app.quit();
   });
