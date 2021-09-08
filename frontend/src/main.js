@@ -6,7 +6,7 @@ const windowStateKeeper = require('electron-window-state');
 
 let arguments = process.argv;
 
-const isDevelopment = arguments && arguments.indexOf('debug')!==-1;
+const isDevelopment = arguments && arguments.indexOf('debug') !== -1;
 // const isDevelopment = process.env.NODE_ENV === 'development';
 
 if (isDevelopment) {
@@ -19,7 +19,7 @@ app.commandLine.appendSwitch("enable-gpu-rasterization", 'true');
 app.commandLine.appendSwitch("enable-native-gpu-memory-buffers", 'true');
 app.commandLine.appendSwitch("ignore-gpu-blacklist", 'true');
 app.commandLine.appendSwitch('usegl', 'egl');
-app.commandLine.appendSwitch('v','1');
+app.commandLine.appendSwitch('v', '1');
 app.commandLine.appendSwitch('num-raster-threads', 2)
 app.commandLine.appendSwitch('enable-zero-copy', 'true');
 app.commandLine.appendSwitch('enable-gpu-memory-buffer-compositor-resources', 'true');
@@ -106,16 +106,27 @@ app.on('ready', async () => {
           preload: path.join(__dirname, "preload.js")
       }
   });
-  
-  ipcMain.on('conferenceJoined', (e) => {
-    console.error('conference joined');
-    //powerId = powerSaveBlocker.start("prevent-display-sleep"); CCS-1857
-  });
 
-  ipcMain.on('conferenceLeft', (e) => {
-    powerSaveBlocker.stop(powerId);
-    powerId = null;
-  });
+    ipcMain.on('conferenceJoined', (e) => {
+        // console.log('conference joined');
+        try {
+            powerId = powerSaveBlocker.start("prevent-display-sleep"); // CCS-1857
+        } catch(e) {
+            console.error('Could not start power save blocker', e.message);
+        }
+    });
+
+    ipcMain.on('conferenceLeft', (e) => {
+        // console.log('conference left');
+        try {
+            if (powerId !== null) {
+                powerSaveBlocker.stop(powerId);
+            }
+            powerId = null;
+        } catch(e) {
+            console.error('Could not stop power save blocker', e.message);
+        }
+    });
 
   ipcMain.on('leave', (e) => {
     mainWindow.close();
