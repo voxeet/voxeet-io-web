@@ -147,6 +147,9 @@ class App extends Component {
     /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.conferenceName*/
     this.setState({ isSubmit: false, isDemo: false });
+    if(this.props.handleLeave) {
+      this.props.handleLeave();
+    }
     /*this.props.history.push('/')
     window.location.reload()*/
   }
