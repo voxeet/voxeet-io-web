@@ -63,7 +63,7 @@ module.exports = configuration => {
             // use: "url-loader?limit=10000&mimetype=application/font-woff",
             type: 'asset/resource',
             generator: {
-              filename: "fonts/[name].[ext]",
+              filename: "fonts/[name][ext]",
             },
           },
           {
@@ -71,7 +71,7 @@ module.exports = configuration => {
             // use: "url-loader?limit=10000&mimetype=application/font-woff",
             type: 'asset/resource',
             generator: {
-              filename: "fonts/[name].[ext]",
+              filename: "fonts/[name][ext]",
             },
           },
           {
@@ -79,7 +79,7 @@ module.exports = configuration => {
             // use: "url-loader?limit=10000&mimetype=application/octet-stream",
             type: 'asset/resource',
             generator: {
-              filename: "fonts/[name].[ext]",
+              filename: "fonts/[name][ext]",
             },
           },
           {
@@ -87,7 +87,7 @@ module.exports = configuration => {
             // use: "file-loader",
             type: 'asset/resource',
             generator: {
-              filename: "fonts/[name].[ext]",
+              filename: "fonts/[name][ext]",
             },
           },
           {
@@ -95,14 +95,14 @@ module.exports = configuration => {
             // use: "url-loader?limit=10000&mimetype=image/svg+xml",
             type: 'asset/resource',
             generator: {
-              filename: "images/[name].[ext]",
+              filename: "images/[name][ext]",
             },
           },
           {
             test: /\.(jpg|jpeg|gif|png)$/,
             type: 'asset/resource',
             generator: {
-              filename: "images/[name].[ext]",
+              filename: "images/[name][ext]",
             },
             // use: "url-loader?limit=65000&name=images/[name].[ext]",
           },
@@ -111,7 +111,7 @@ module.exports = configuration => {
             // use: "url-loader?limit=10000&mimetype=application/octet-stream",
             type: 'asset/resource',
             generator: {
-              filename: "fonts/[name].[ext]",
+              filename: "fonts/[name][ext]",
             },
           },
         ],
@@ -129,9 +129,6 @@ module.exports = configuration => {
             { from: "./public/favicon.ico"},
             { from: "./public/icon.png"},
             { from: "./src/static"},
-            { from: "./node_modules/@voxeet/react-components/dist/fonts", to:'./fonts'},
-            { from: "./node_modules/@voxeet/react-components/dist/images", to:'./images'},
-            { from: "./node_modules/@voxeet/react-components/dist/sounds", to:'./sounds'},
             "./public/manifest.json",
           ]
         }),

@@ -17,6 +17,7 @@ files:
   - dist/index.html
   - dist/bundle.js
   - dist/images
+  - dist/fonts
   - src/main.js
   - src/preload.js
   - node_modules/
