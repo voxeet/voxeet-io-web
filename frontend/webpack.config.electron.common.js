@@ -126,6 +126,8 @@ module.exports = configuration => {
         }),
         new CopyPlugin({
           patterns: [
+            { from: "./public/favicon.ico"},
+            { from: "./public/icon.png"},
             { from: "./src/static"},
             { from: "./node_modules/@voxeet/react-components/dist/fonts", to:'./fonts'},
             { from: "./node_modules/@voxeet/react-components/dist/images", to:'./images'},

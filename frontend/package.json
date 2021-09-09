@@ -1,5 +1,6 @@
 {
-  "name": "voxeet-io",
+  "name": "dolby-io",
+  "description": "Dolby Interactivity API Desktop Showcase App",
   "version": "1.0.0-beta.1",
   "private": true,
   "main": "src/main.js",
@@ -16,12 +17,12 @@
     "builde:bin": "cross-env yarn run electron-builder -c.electronDist=${NDS_RUNTIME:-../../NDS} -c.buildVersion=${CI_PIPELINE_ID:-local} --publish=never",
     "builde:bin:osx": "yarn builde:bin -- --macos --x64",
     "builde:bin:win": "yarn builde:bin -- --windows --x64",
-    "builde:prod:bin:osx": "yarn builde:bin:osx -- '-c.productName=Voxeet'",
-    "builde:prod:bin:win": "yarn builde:bin:win -- '-c.productName=Voxeet'",
-    "builde:staging:bin:osx": "yarn builde:bin:osx -- '-c.productName=Voxeet(staging)'",
-    "builde:staging:bin:win": "yarn builde:bin:win -- '-c.productName=Voxeet(staging)'",
-    "builde:dev-staging:bin:osx": "yarn builde:bin:osx -- '-c.productName=Voxeet(dev-staging)'",
-    "builde:dev-staging:bin:win": "yarn builde:bin:win -- '-c.productName=Voxeet(dev-staging)'"
+    "builde:prod:bin:osx": "yarn builde:bin:osx -- '-c.productName=dolby-io'",
+    "builde:prod:bin:win": "yarn builde:bin:win -- '-c.productName=dolby-io'",
+    "builde:staging:bin:osx": "yarn builde:bin:osx -- '-c.productName=dolby-io(staging)'",
+    "builde:staging:bin:win": "yarn builde:bin:win -- '-c.productName=dolby-io(staging)'",
+    "builde:dev-staging:bin:osx": "yarn builde:bin:osx -- '-c.productName=dolby-io(dev-staging)'",
+    "builde:dev-staging:bin:win": "yarn builde:bin:win -- '-c.productName=dolby-io(dev-staging)'"
   },
   "author": "Dolby",
   "contributors": [
@@ -36,6 +37,7 @@
     "@trodi/electron-splashscreen": "^1.0.0",
     "@voxeet/react-components": "^3.2.1",
     "@voxeet/voxeet-web-sdk": "^3.3.0-beta.2",
+    "about-window": "^1.14.0",
     "axios": "^0.21.1",
     "browserslist": "^4.16.6",
     "core-js": "^3.15.2",
@@ -80,6 +82,8 @@
   "files": [
     "../README.md",
     "dist/",
-    "src/preload.js"
+    "src/preload.js",
+    "public/icon.png",
+    "public/favicon.ico"
   ]
 }
