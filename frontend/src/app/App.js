@@ -78,6 +78,7 @@ class App extends Component {
     this.toggleSimulcastMode = this.toggleSimulcastMode.bind(this);
     this.toggleDolbyVoice = this.toggleDolbyVoice.bind(this);
     this.toggleConfiguration = this.toggleConfiguration.bind(this);
+    this.title = document.title;
   }
 
   componentDidMount() {
@@ -145,6 +146,7 @@ class App extends Component {
     /*ReactDOM.unmountComponentAtNode(document.getElementById('voxeet-widget'));
     const oldConferenceName = this.state.conferenceName*/
     this.setState({ isSubmit: false, isDemo: false });
+    document.title=`${this.title}`;
     if(this.props.handleLeave) {
       this.props.handleLeave();
     }
@@ -177,6 +179,7 @@ class App extends Component {
   }
 
   handleClick() {
+    document.title=`${this.title} - ${this.state.conferenceName}`;
     this.props.history.push("/" + this.state.conferenceName);
 
     /*if (VoxeetSdk.isElectron) { // TODO: Check if possible to integrate into the SDK
