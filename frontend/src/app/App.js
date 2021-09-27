@@ -8,9 +8,7 @@ import Sdk from "../sdk";
 import VoxeetConference from "./VoxeetConference";
 // import VoxeetSdk from "@voxeet/voxeet-web-sdk";
 import LocalizedStrings from "react-localization";
-import VoxeetSdk from "@voxeet/voxeet-web-sdk";
-let localStorage = window.localStorage;
-import {getAllKeys, getAccessToken} from './Credentials';
+let ls = window.localStorage;
 
 let strings = new LocalizedStrings({
   en: {
@@ -62,7 +60,7 @@ class App extends Component {
       isSubmit: false,
       simulcastMode: false,
       dolbyVoice: true,
-      showOptions: true,
+      showOptions: false,
       isListener: false,
       widgetMode: false,
       isJoiningFromUrl: false,
@@ -70,8 +68,6 @@ class App extends Component {
       isDemo: false,
       conferenceName: "",
       userName: "",
-      authKeys: null,
-      selectedAuthKey: localStorage.getItem(`${VoxeetSdk.flavor}AuthKey`)||undefined,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
@@ -82,12 +78,10 @@ class App extends Component {
     this.toggleSimulcastMode = this.toggleSimulcastMode.bind(this);
     this.toggleDolbyVoice = this.toggleDolbyVoice.bind(this);
     this.toggleConfiguration = this.toggleConfiguration.bind(this);
-    this.setSelectedAuthKey = this.setSelectedAuthKey.bind(this);
     this.title = document.title;
   }
 
   componentDidMount() {
-    console.log('Flavor:', VoxeetSdk.flavor);
     document.addEventListener("keydown", this.escFunction, false);
     const { conferenceName } = this.props.match.params;
     const url_string = window.location.href;
@@ -117,13 +111,9 @@ class App extends Component {
         newState.showOptions = true;
       }
     } else {
-      newState.showOptions = true;
+      newState.showOptions = false;
     }
-    getAllKeys(VoxeetSdk.flavor).then((keys) => {
-      newState.authKeys = keys;
-      console.log('Got keys', keys);
-      this.setState(newState);
-    });
+    this.setState(newState);
   }
 
   escFunction(event) {
@@ -188,16 +178,6 @@ class App extends Component {
     });
   }
 
-
-  setSelectedAuthKey(val) {
-    this.setState({
-      selectedAuthKey: val,
-    }, ()=>{
-      localStorage.setItem(`${VoxeetSdk.flavor}AuthKey`, val);
-      console.log('new state', this.state);
-    });
-  }
-
   handleClick() {
     document.title=`${this.title} - ${this.state.conferenceName}`;
     this.props.history.push("/" + this.state.conferenceName);
@@ -245,7 +225,6 @@ class App extends Component {
             userName={this.state.userName}
             photoURL={photoURL}
             conferenceName={this.state.conferenceName}
-            getToken={()=> {return getAccessToken(VoxeetSdk.flavor, this.state.selectedAuthKey)}}
           />
         </div>
       );
@@ -292,25 +271,6 @@ class App extends Component {
             <div className={showOptions ? 'arrow-up' : 'arrow-down'} />
           </div>
           {this.state.showOptions && <React.Fragment>
-            {
-              this.state.authKeys &&
-              <div className='select-wrapper'>
-                <select
-                    id="isAuthorizationKey"
-                    value={this.state.selectedAuthKey}
-                    onChange={(e) => this.setSelectedAuthKey(e.target.value)}
-                >
-                  {Object.entries(this.state.authKeys).map(([key, name]) => (
-                      <option key={key} value={key}>
-                        {name}
-                      </option>
-                  ))}
-                </select>
-                <label id="isAuthorizationKey" htmlFor="isAuthorizationKey">
-                  Authorization key
-                </label>
-              </div>
-            }
             <input
               type="checkbox"
               id="isListener"

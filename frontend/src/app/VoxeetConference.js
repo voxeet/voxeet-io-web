@@ -129,37 +129,23 @@ class VoxeetConference extends Component {
     let accessToken, refreshToken;
 
     const doRefreshToken = () => {
-      console.log('About to get a token');
-      if(this.props.getToken)
-        return this.props.getToken()
-            .catch(function (error) {
-              accessToken = null;
-              refreshToken = null;
-              console.log(error.toJSON());
-              return null;
-            });
-      return axios.get(`${AUTH_SERVER}/api/token`, {})
-          .then((response) => {
-            console.log('Got response', response)
+      return axios.get(`${AUTH_SERVER}/api/token`, {}).then((response) => {
+        accessToken = response.data.access_token;
+        refreshToken = response.data.refresh_token;
 
-            accessToken = response.data.access_token;
-            refreshToken = response.data.refresh_token;
-
-            return accessToken;
-          })
-          .catch(function (error) {
-            accessToken = null;
-            refreshToken = null;
-            console.log(error.toJSON());
-            return null;
-          });
+        return accessToken;
+      });
     };
 
     try {
       let token = "";
-      doRefreshToken()
-        .then((accessToken) => {
-          console.log("Got token: ", accessToken);
+      axios
+        .get(`${AUTH_SERVER}/api/token`, {})
+        .then((response) => {
+          //console.log("TOKEN: ", response);
+
+          accessToken = response.data.access_token;
+          refreshToken = response.data.refresh_token;
 
           ReactDOM.render(
             <Provider store={createStoreApp()} context={contextApp}>
@@ -224,8 +210,7 @@ VoxeetConference.propTypes = {
   configuration: PropTypes.bool,
   userName: PropTypes.string,
   handleOnLeave: PropTypes.func.isRequired,
-  getSources: PropTypes.func,
-  getToken: PropTypes.func,
+  getSources: PropTypes.func
 };
 
 VoxeetConference.defaultProps = {
