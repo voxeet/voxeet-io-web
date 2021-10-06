@@ -66,9 +66,17 @@ jobs:
           aws-region: ${{ secrets.VOXEET_AWS_REGION }}
       - name: build frontend for develop - alpha Web SDK
         uses: actions/setup-node@v2
+        env:
+          WEB_SDK_DIST_TAG: alpha
+          UX_KIT_DIST_TAG: alpha
         with:
           node-version: "16.9.1"
       - run: |
+          npm config set registry="$CUSTOM_REGISTRY_URL"
+          npm config set $CUSTOM_REGISTRY_TOKEN
+          npm config set always-auth true
+          yarn add -E @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG;
+          yarn add -E @voxeet/react-components@$UX_KIT_DIST_TAG
           yarn install
           yarn build
       - name: publish frontend for develop - alpha Web SDK
