@@ -84,5 +84,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
-          SOURCE_DIR: "dist"
+          SOURCE_DIR: "frontend/dist"
           DEST_DIR: beta
