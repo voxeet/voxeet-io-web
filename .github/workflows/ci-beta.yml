@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - pczaj/CCP-2582/1
   schedule:
     - cron:  '0 2 * * *'
   repository_dispatch:
@@ -40,4 +41,40 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           buildoptions: "--pull"
-          tags: "${{ env.WEB_SDK_DIST_TAG }}"
+          tags: "${{ env.WEB_SDK_DIST_TAG }}"       
+  build_frontend_beta_without_docker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+      - name: build frontend for develop - beta Web SDK
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.9.1"
+      - run: |
+          npm config set registry="$CUSTOM_REGISTRY_URL"
+          npm config set $CUSTOM_REGISTRY_TOKEN
+          npm config set always-auth true
+          yarn add -E @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG;
+          yarn add -E @voxeet/react-components@$UX_KIT_DIST_TAG
+          yarn install
+          yarn build
+      - name: publish frontend for develop - beta Web SDK
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: dlb-capi-showcase 
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          SOURCE_DIR: "./dist"
+          DEST_DIR: beta
