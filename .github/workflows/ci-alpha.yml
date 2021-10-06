@@ -71,7 +71,7 @@ jobs:
           UX_KIT_DIST_TAG: alpha
         with:
           node-version: "16.9.1"
-        run: |
+      - run: |
           npm config set registry="$CUSTOM_REGISTRY_URL"
           npm config set $CUSTOM_REGISTRY_TOKEN
           npm config set always-auth true
