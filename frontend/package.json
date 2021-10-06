@@ -35,7 +35,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@trodi/electron-splashscreen": "^1.0.0",
-    "@voxeet/react-components": "^3.2.1",
+    "@voxeet/react-components": "mmsd-demo",
     "@voxeet/voxeet-web-sdk": "^3.3.0-beta.4",
     "about-window": "^1.14.0",
     "axios": "^0.21.1",
