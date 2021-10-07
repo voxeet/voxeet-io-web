@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-      - pczaj/CCP-2582
   schedule:
     - cron:  '0 2 * * *'
   repository_dispatch:
@@ -72,9 +71,6 @@ jobs:
           yarn add -E @voxeet/react-components@$UX_KIT_DIST_TAG
           yarn install
           yarn build
-      - name: List files in the repository
-        run: |
-          ls ${{ env.working-directory }}
       - name: publish frontend for develop - beta Web SDK
         uses: jakejarvis/s3-sync-action@master
         with:
