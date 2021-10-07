@@ -73,10 +73,8 @@ jobs:
           yarn build
       - name: publish frontend for develop - beta Web SDK
         uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase 
+          AWS_S3_BUCKET: dlb-capi-showcase  # this should likely go to secrets
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
