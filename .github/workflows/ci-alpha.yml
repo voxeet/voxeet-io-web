@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - mbonowski/CCP-2582/2
   schedule:
     - cron: "0 2 * * *"
   repository_dispatch:
@@ -86,9 +87,17 @@ jobs:
       - name: publish frontend for develop - alpha Web SDK
         uses: jakejarvis/s3-sync-action@master
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase # this should likely go to secrets
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
           SOURCE_DIR: "frontend/dist"
           DEST_DIR: "alpha"
+      - name: invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: E5A6FYRYTC8IV
+          PATHS: "/alpha/*"
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
