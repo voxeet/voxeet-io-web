@@ -68,8 +68,8 @@ jobs:
           npm config set registry=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
           npm config set $CUSTOM_REGISTRY_TOKEN
           npm config set always-auth true
-          yarn add -E @voxeet/voxeet-web-sdk@${{ WEB_SDK_DIST_TAG }}
-          yarn add -E @voxeet/react-components@${{ UX_KIT_DIST_TAG }}
+          yarn add -E @voxeet/voxeet-web-sdk@$WEB_SDK_DIST_TAG
+          yarn add -E @voxeet/react-components@$UX_KIT_DIST_TAG
           yarn install
           yarn build
       - name: publish frontend for develop - beta Web SDK
