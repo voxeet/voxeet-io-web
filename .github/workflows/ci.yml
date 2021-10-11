@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - pczaj/CCP-2582
   schedule:
     - cron:  '0 2 * * *'
 
@@ -25,7 +26,7 @@ jobs:
           buildoptions: "--pull"
           tags: "${{ env.GITHUB_REF_SLUG }}"
 
-  build_frontend_hotfix-3_0:
+  build_frontend_hotfix-3_0_docker_image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -64,7 +65,7 @@ jobs:
           buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
-  build_frontend_develop_production:
+  build_frontend_develop_production_docker_image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
