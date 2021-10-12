@@ -127,7 +127,7 @@ jobs:
       - name: build and publish frontend Docker container for develop - staging Web SDK
         uses: elgohr/Publish-Docker-Github-Action@2.22
         env:
-          WEB_SDK_DIST_TAG: develop-staging
+          WEB_SDK_DIST_TAG: develop
           UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
         with:
