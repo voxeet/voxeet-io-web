@@ -1,6 +1,6 @@
 name: CI build 
 
-on:
+on: 
   push: 
     branches:
       - feature/dvwc
