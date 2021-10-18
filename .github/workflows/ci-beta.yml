@@ -84,12 +84,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
           SOURCE_DIR: "frontend/dist"
-          DEST_DIR: "${{CLOUDFRONT_DESTINATION_PATH}}"
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
         uses: chetan/invalidate-cloudfront-action@v2
         env:
           DISTRIBUTION: E5A6FYRYTC8IV
-          PATHS: /${{env.CLOUDFRONT_DESTINATION_PATH}}/*
+          PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
