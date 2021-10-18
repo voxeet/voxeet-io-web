@@ -57,7 +57,7 @@ jobs:
           CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_RELEASES_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
-      - name: build frontend for develop - frontend master_staging Web SDK
+      - name: build frontend for  master - production Web SDK
         uses: actions/setup-node@v2
         env:
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_RELEASES_REPOSITORY_URL }}
