@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - pczaj/CCP-2582
 
 jobs:
 
