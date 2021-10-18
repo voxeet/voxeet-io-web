@@ -73,6 +73,7 @@ jobs:
         env:
           WEB_SDK_DIST_TAG: alpha
           UX_KIT_DIST_TAG: alpha
+          CLOUDFRONT_DESTINATION_PATH: beta
         with:
           node-version: "16.9.1"
       - run: |
@@ -91,12 +92,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
           SOURCE_DIR: "frontend/dist"
-          DEST_DIR: "alpha"
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
           DISTRIBUTION: E5A6FYRYTC8IV
-          PATHS: "/alpha/*"
+          PATHS: "/${{ env.CLOUDFRONT_DESTINATION_PATH }}//*"
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
