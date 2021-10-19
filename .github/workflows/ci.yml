@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - pczaj/CCP-2582-2
   schedule:
     - cron:  '0 2 * * *'
 
@@ -86,6 +87,7 @@ jobs:
         uses: actions/setup-node@v2
         env:
           WEB_SDK_DIST_TAG: hotfix-3-0-latest
+          UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
           CLOUDFRONT_DESTINATION_PATH: hotfix-3-0-latest
         with:
@@ -95,6 +97,8 @@ jobs:
           npm config set $CUSTOM_REGISTRY_TOKEN
           npm config set always-auth true
           yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
+
           yarn install
           yarn build
       - name: publish frontend for develop - hotfix-3.0 Web SDK - develop ux kit
@@ -265,6 +269,7 @@ jobs:
         uses: actions/setup-node@v2
         env:
           WEB_SDK_DIST_TAG: develop-staging
+          UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
           CLOUDFRONT_DESTINATION_PATH: develop-staging
         with:
@@ -274,6 +279,7 @@ jobs:
           npm config set $CUSTOM_REGISTRY_TOKEN
           npm config set always-auth true
           yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
           yarn install
           yarn build
       - name:  build frontend for develop - production Web SDK
