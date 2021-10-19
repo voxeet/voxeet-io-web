@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - pczaj/CCP-2582-2
   schedule:
     - cron:  '0 2 * * *'
 
