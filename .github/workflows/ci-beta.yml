@@ -40,12 +40,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           buildoptions: "--pull"
-          tags: "${{ env.WEB_SDK_DIST_TAG }}"       
+          tags: "${{ env.WEB_SDK_DIST_TAG }}"
   build_frontend_beta:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: beta
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -64,7 +66,6 @@ jobs:
         env:
           WEB_SDK_DIST_TAG: beta
           UX_KIT_DIST_TAG: beta
-          CLOUDFRONT_DESTINATION_PATH: beta
         with:
           node-version: "16.9.1"
       - run: |
@@ -78,7 +79,7 @@ jobs:
       - name: publish frontend for develop - beta Web SDK
         uses: jakejarvis/s3-sync-action@master
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase  
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}

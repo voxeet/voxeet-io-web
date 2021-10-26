@@ -43,6 +43,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: "master"
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -60,7 +62,6 @@ jobs:
         uses: actions/setup-node@v2
         env:
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_RELEASES_REPOSITORY_URL }}
-
         with:
           node-version: "16.9.1"
       - run: |
@@ -73,12 +74,12 @@ jobs:
       - name: publish frontend for frontend master Web SDK
         uses: jakejarvis/s3-sync-action@master
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase  
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
           SOURCE_DIR: "frontend/dist"
-          DEST_DIR: ${{ env.GITHUB_REF_SLUG }}
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
         uses: chetan/invalidate-cloudfront-action@v2
         env:
@@ -131,6 +132,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: staging
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -161,12 +164,12 @@ jobs:
       - name: publish frontend for frontend master_staging Web SDK
         uses: jakejarvis/s3-sync-action@master
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase  
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
           SOURCE_DIR: "frontend/dist"
-          DEST_DIR: ${{ env.WEB_SDK_DIST_TAG }}
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
         uses: chetan/invalidate-cloudfront-action@v2
         env:

@@ -55,6 +55,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: alpha
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -73,7 +75,6 @@ jobs:
         env:
           WEB_SDK_DIST_TAG: alpha
           UX_KIT_DIST_TAG: alpha
-          CLOUDFRONT_DESTINATION_PATH: alpha
         with:
           node-version: "16.9.1"
       - run: |
