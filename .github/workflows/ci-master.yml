@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - master
-
+  schedule:
+    - cron:  '0 2 * * *'
 jobs:
 
   build_backend:
@@ -115,6 +116,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@2.22
         env:
           WEB_SDK_DIST_TAG: master-staging
+          UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_RELEASES_REPOSITORY_URL }}
         with:
           name: voxeet-io-web
@@ -151,6 +153,7 @@ jobs:
         uses: actions/setup-node@v2
         env:
           WEB_SDK_DIST_TAG: master-staging
+          UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_RELEASES_REPOSITORY_URL }}
         with:
           node-version: "16.9.1"
