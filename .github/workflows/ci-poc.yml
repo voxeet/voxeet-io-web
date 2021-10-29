@@ -35,6 +35,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@2.22
         env:
           WEB_SDK_DIST_TAG: develop-staging
+          IO_WEB_DIST_TAG: poc
           UX_KIT_DIST_TAG: poc
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
         with:
@@ -46,5 +47,5 @@ jobs:
           registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           buildoptions: "--pull"
-          tags: "${{ env.WEB_SDK_DIST_TAG }}"
+          tags: "${{ env.IO_WEB_DIST_TAG }}"
           
