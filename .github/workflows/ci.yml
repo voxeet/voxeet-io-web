@@ -103,7 +103,7 @@ jobs:
           yarn build
       - name: publish frontend for develop - hotfix-3.0 Web SDK - develop ux kit
         uses: jakejarvis/s3-sync-action@master
-          with:
+        with:
           args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase
@@ -195,7 +195,7 @@ jobs:
           yarn build
       - name:  build frontend for develop - production Web SDK
         uses: jakejarvis/s3-sync-action@master
-          with:
+        with:
           args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase
@@ -290,7 +290,7 @@ jobs:
           yarn build
       - name:  build frontend for develop - production Web SDK
         uses: jakejarvis/s3-sync-action@master
-          with:
+        with:
           args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase

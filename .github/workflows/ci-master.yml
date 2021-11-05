@@ -73,7 +73,7 @@ jobs:
           yarn build
       - name: publish frontend for frontend master Web SDK
         uses: jakejarvis/s3-sync-action@master
-          with:
+        with:
           args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase
@@ -165,7 +165,7 @@ jobs:
           yarn build
       - name: publish frontend for frontend master_staging Web SDK
         uses: jakejarvis/s3-sync-action@master
-          with:
+        with:
           args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase
