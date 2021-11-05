@@ -73,6 +73,8 @@ jobs:
           yarn build
       - name: publish frontend for frontend master Web SDK
         uses: jakejarvis/s3-sync-action@master
+          with:
+          args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
@@ -163,6 +165,8 @@ jobs:
           yarn build
       - name: publish frontend for frontend master_staging Web SDK
         uses: jakejarvis/s3-sync-action@master
+          with:
+          args: --acl public-read
         env:
           AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
