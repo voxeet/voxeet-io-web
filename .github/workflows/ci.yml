@@ -25,7 +25,7 @@ jobs:
           buildoptions: "--pull"
           tags: "${{ env.GITHUB_REF_SLUG }}"
 
-  build_frontend_hotfix-3_0:
+  build_frontend_hotfix-3_0_docker_image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -64,7 +64,64 @@ jobs:
           buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
-  build_frontend_develop_production:
+  build_frontend_hotfix-3_0:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: hotfix-3-0-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+      - name: Set NPM token when logging to CodeArtifact
+        run: |
+          CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
+          echo "::add-mask::$CODEARTIFACT_TOKEN"
+          echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
+      - name: build frontend for develop - hotfix-3.0 Web SDK - develop ux kit
+        uses: actions/setup-node@v2
+        env:
+          WEB_SDK_DIST_TAG: hotfix-3-0-latest
+          UX_KIT_DIST_TAG: develop
+          CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
+        with:
+          node-version: "16.9.1"
+      - run: |
+          npm config set registry=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}
+          npm config set $CUSTOM_REGISTRY_TOKEN
+          npm config set always-auth true
+          yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
+
+          yarn install
+          yarn build
+      - name: publish frontend for develop - hotfix-3.0 Web SDK - develop ux kit
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read
+        env:
+          AWS_S3_BUCKET: dlb-capi-showcase
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          SOURCE_DIR: "frontend/dist"
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
+      - name: invalidate cloudfront distribution paths
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: E5A6FYRYTC8IV
+          PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+
+  build_frontend_develop_production_docker_image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -102,7 +159,61 @@ jobs:
           buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
 
-  build_frontend_develop_staging:
+  build_frontend_develop_production:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+      - name: Set NPM token when logging to CodeArtifact
+        run: |
+          CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
+          echo "::add-mask::$CODEARTIFACT_TOKEN"
+          echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
+      - name: build frontend for  develop - production Web SDK
+        uses: actions/setup-node@v2
+        env:
+          WEB_SDK_DIST_TAG: develop-production
+          CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
+        with:
+          node-version: "16.9.1"
+      - run: |
+          npm config set registry=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}
+          npm config set $CUSTOM_REGISTRY_TOKEN
+          npm config set always-auth true
+          yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn install
+          yarn build
+      - name:  build frontend for develop - production Web SDK
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read
+        env:
+          AWS_S3_BUCKET: dlb-capi-showcase
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          SOURCE_DIR: "frontend/dist"
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
+      - name: invalidate cloudfront distribution paths
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: E5A6FYRYTC8IV
+          PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+
+  build_frontend_develop_staging_docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -140,3 +251,59 @@ jobs:
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           buildoptions: "--pull"
           tags: "${{ env.WEB_SDK_DIST_TAG }}"
+
+  build_frontend_develop_staging:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: dev-staging
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+      - name: Set NPM token when logging to CodeArtifact
+        run: |
+          CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
+          echo "::add-mask::$CODEARTIFACT_TOKEN"
+          echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
+      - name: build frontend for develop - staging Web SDK
+        uses: actions/setup-node@v2
+        env:
+          WEB_SDK_DIST_TAG: develop-staging
+          UX_KIT_DIST_TAG: develop
+          CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
+        with:
+          node-version: "16.9.1"
+      - run: |
+          npm config set registry=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}
+          npm config set $CUSTOM_REGISTRY_TOKEN
+          npm config set always-auth true
+          yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
+          yarn install
+          yarn build
+      - name:  build frontend for develop - production Web SDK
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read
+        env:
+          AWS_S3_BUCKET: dlb-capi-showcase
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          SOURCE_DIR: "frontend/dist"
+          DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
+      - name: invalidate cloudfront distribution paths
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: E5A6FYRYTC8IV
+          PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
+          AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
