@@ -69,6 +69,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: hotfix-3-0-latest
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -86,8 +88,8 @@ jobs:
         uses: actions/setup-node@v2
         env:
           WEB_SDK_DIST_TAG: hotfix-3-0-latest
+          UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
-          CLOUDFRONT_DESTINATION_PATH: hotfix-3-0-latest
         with:
           node-version: "16.9.1"
       - run: |
@@ -95,12 +97,16 @@ jobs:
           npm config set $CUSTOM_REGISTRY_TOKEN
           npm config set always-auth true
           yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
+
           yarn install
           yarn build
       - name: publish frontend for develop - hotfix-3.0 Web SDK - develop ux kit
         uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase  
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
@@ -158,6 +164,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: dev
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -176,7 +184,6 @@ jobs:
         env:
           WEB_SDK_DIST_TAG: develop-production
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
-          CLOUDFRONT_DESTINATION_PATH: develop-production
         with:
           node-version: "16.9.1"
       - run: |
@@ -188,8 +195,10 @@ jobs:
           yarn build
       - name:  build frontend for develop - production Web SDK
         uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase  
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
@@ -248,6 +257,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    env:
+      CLOUDFRONT_DESTINATION_PATH: dev-staging
     steps:
       - uses: actions/checkout@v2
       - name: Configure AWS Credentials
@@ -265,8 +276,8 @@ jobs:
         uses: actions/setup-node@v2
         env:
           WEB_SDK_DIST_TAG: develop-staging
+          UX_KIT_DIST_TAG: develop
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
-          CLOUDFRONT_DESTINATION_PATH: develop-staging
         with:
           node-version: "16.9.1"
       - run: |
@@ -274,12 +285,15 @@ jobs:
           npm config set $CUSTOM_REGISTRY_TOKEN
           npm config set always-auth true
           yarn add -E @voxeet/voxeet-web-sdk@${{ env.WEB_SDK_DIST_TAG }}
+          yarn add -E @voxeet/react-components@${{ env.UX_KIT_DIST_TAG }}
           yarn install
           yarn build
       - name:  build frontend for develop - production Web SDK
         uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read
         env:
-          AWS_S3_BUCKET: dlb-capi-showcase  
+          AWS_S3_BUCKET: dlb-capi-showcase
           AWS_ACCESS_KEY_ID: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.VOXEET_AWS_REGION }}
