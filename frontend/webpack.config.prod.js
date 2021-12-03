@@ -6,9 +6,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrettierPlugin = require("prettier-webpack-plugin");
 
 // Try the environment variable, otherwise use root
-const ASSET_PATH = process.env.ASSET_PATH || '';
+const ASSET_PATH = process.env.ASSET_PATH || "";
 // Try the environment variable, otherwise use localhost
-const AUTH_SERVER = process.env.AUTH_SERVER || '';
+const AUTH_SERVER = process.env.AUTH_SERVER || "";
 
 try {
   require("os").networkInterfaces();
@@ -26,10 +26,10 @@ module.exports = {
   optimization: {
     splitChunks: {
       // include all types of chunks
-      chunks: 'all',
-      maxSize:3000000,
-      minSize:1000000,
-    }
+      chunks: "all",
+      maxSize: 3000000,
+      minSize: 1000000,
+    },
   },
   module: {
     rules: [
@@ -71,6 +71,10 @@ module.exports = {
         options: {
           name: "fonts/[name].[ext]",
         },
+      },
+      {
+        test: /\.wasm$/,
+        loader: "url-loader?mimetype=application/wasm",
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -118,6 +122,11 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: "./src/static", ignore: ["*.html"] },
       "./public/manifest.json",
+    ]),
+    new CopyWebpackPlugin([
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc_impl.wasm" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-dvwc-worker.js" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-worklet.js" },
     ]),
     new HtmlWebpackPlugin({
       inject: true,

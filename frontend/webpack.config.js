@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 // Try the environment variable, otherwise use localhost
-const AUTH_SERVER = process.env.AUTH_SERVER || '';
+const AUTH_SERVER = process.env.AUTH_SERVER || "";
 
 try {
   require("os").networkInterfaces();
@@ -28,10 +28,10 @@ module.exports = {
   optimization: {
     splitChunks: {
       // include all types of chunks
-      chunks: 'all',
-      maxSize:3000000,
-      minSize:1000000,
-    }
+      chunks: "all",
+      maxSize: 3000000,
+      minSize: 1000000,
+    },
   },
   devServer: {
     port: 8080,
@@ -75,6 +75,10 @@ module.exports = {
         options: {
           name: "fonts/[name].[ext]",
         },
+      },
+      {
+        test: /\.wasm$/,
+        loader: "url-loader?mimetype=application/wasm",
       },
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
@@ -125,10 +129,17 @@ module.exports = {
       { from: "./src/static", ignore: ["*.html"] },
       "./public/manifest.json",
     ]),
+    new CopyWebpackPlugin([
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc_impl.wasm" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-dvwc-worker.js" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-worklet.js" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-dvwc-worker.js.map" },
+      { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-worklet.js.map" },
+    ]),
     new HtmlWebpackPlugin({
       inject: true,
       template: "./public/index.html",
-      js: /*process.env.ELECTRON ? ["preload.js"] : */[],
+      js: /*process.env.ELECTRON ? ["preload.js"] : */ [],
     }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
