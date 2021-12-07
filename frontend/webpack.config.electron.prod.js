@@ -121,13 +121,13 @@ module.exports = {
       },
     }),
     new PrettierPlugin(),
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin({ patterns: [
       { from: "./src/static", ignore: ["*.html"] },
       // "./public/index.html",
       "./public/favicon.ico",
       "./public/icon.png",
       "./public/manifest.json",
-    ]),
+    ]}),
     new HtmlWebpackPlugin({
       // inject: 'head',
       cache: false,

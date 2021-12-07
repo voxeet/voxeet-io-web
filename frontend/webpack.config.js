@@ -125,17 +125,17 @@ module.exports = {
         AUTH_SERVER: JSON.stringify(AUTH_SERVER),
       },
     }),
-    new CopyWebpackPlugin([
-      { from: "./src/static", ignore: ["*.html"] },
+    new CopyWebpackPlugin({ patterns: [
+      { from: "./src/static", globOptions: { ignore: ["**/*.html"] }},
       "./public/manifest.json",
-    ]),
-    new CopyWebpackPlugin([
+    ]}),
+    new CopyWebpackPlugin({ patterns: [
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc_impl.wasm", noErrorOnMissing: true },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-dvwc-worker.js", noErrorOnMissing: true },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-worklet.js", noErrorOnMissing: true },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-dvwc-worker.js.map", noErrorOnMissing: true },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-worklet.js.map", noErrorOnMissing: true },
-    ]),
+    ]}),
     new HtmlWebpackPlugin({
       inject: true,
       template: "./public/index.html",
