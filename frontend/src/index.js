@@ -4,6 +4,6 @@ import Root from "./Root";
 
 ReactDOM.render(<Root />, document.getElementById("root"));
 
-if (module.hot) {
+if (module && module.hot) {
     module.hot.accept();
 }

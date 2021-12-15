@@ -3,6 +3,7 @@ const {app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, systemPreferences, d
 const path = require('path');
 const url = require('url');
 const windowStateKeeper = require('electron-window-state');
+const openAboutWindow = require('about-window').default;
 
 let arguments = process.argv;
 
@@ -37,7 +38,23 @@ if (process.platform === 'darwin') {
 const template = [{
   label: "Application",
   submenu: [
-      { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
+        //{label: "About Application", selector: "orderFrontStandardAboutPanel:"},
+        {
+            label: "About Application", click: function () {
+                openAboutWindow({
+                    icon_path: path.join(__dirname, '..', 'dist', 'icon.png'),
+                    adjust_window_size: true,
+                    copyright: 'Copyright (c) 2021 Dolby',
+                    product_name: 'Dolby.io',
+                    description: 'Dolby Interactivity API Desktop Showcase App',
+                    // package_json_dir: __dirname,
+                    // use_version_info: [
+                    //     ['my version entry 1', 'a.b.c'],
+                    //     ['my version entry 2', 'x.y.z'],
+                    // ],
+                });
+            }
+        },
       { type: "separator" },
       { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
   ]}, {
@@ -100,6 +117,7 @@ app.on('ready', async () => {
       y: mainWindowState.y,
       width: mainWindowState.width,
       height: mainWindowState.height,
+      title: app.getName(),
       webPreferences: {
           nodeIntegration: false,
           contextIsolation: true,
@@ -108,13 +126,24 @@ app.on('ready', async () => {
   });
   
   ipcMain.on('conferenceJoined', (e) => {
-    console.error('conference joined');
-    //powerId = powerSaveBlocker.start("prevent-display-sleep"); CCS-1857
+        // console.log('conference joined');
+        try {
+    powerId = powerSaveBlocker.start("prevent-display-sleep"); //CCS-1857
+        } catch(e) {
+            console.error('Could not start power save blocker', e.message);
+        }
   });
 
   ipcMain.on('conferenceLeft', (e) => {
-    powerSaveBlocker.stop(powerId);
+        // console.log('conference left');
+        try {
+            if (powerId !== null) {
+                powerSaveBlocker.stop(powerId);
+            }
     powerId = null;
+        } catch(e) {
+            console.error('Could not stop power save blocker', e.message);
+        }
   });
 
   ipcMain.on('leave', (e) => {

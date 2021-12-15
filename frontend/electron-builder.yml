@@ -1,19 +1,23 @@
-appId: io.voxeet.app
-productName: Voxeet
+appId: io.dolby.app
+productName: Dolby.io
 buildVersion: local
 extends: null
 electronVersion: 9.2.0
+artifactName: ${productName}-${version}.${ext}
 
 extraMetadata:
   description: DesktopSDK_0bb26b73_v9.2.0
 
 files:
+  - dist/*.png
+  - dist/*.ico
   - dist/*.svg
   - dist/*.ttf
   - dist/sounds/*.mp3
   - dist/index.html
   - dist/bundle.js
   - dist/images
+  - dist/fonts
   - src/main.js
   - src/preload.js
   - node_modules/
@@ -50,10 +54,11 @@ mac:
 
 win:
   target: nsis
-  icon: dist/icon.png
+  icon: dist/favicon.ico
   certificateFile: /Users/dolbyvoice/cert_win/code_signing.pfx
   certificatePassword: ''
 
 squirrelWindows:
+  artifactName: ${productName}-${version}.${ext}
   iconUrl: >-
     https://raw.githubusercontent.com/voxeet/voxeet-io-web/master/public/icon.png
