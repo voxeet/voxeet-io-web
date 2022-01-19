@@ -1,13 +1,45 @@
 name: CI build spatial
 
-#on:
-#  push:
-#    branches:
-#      - develop
+on:
+  push:
+    branches:
+      - CCP-3170
 #  schedule:
 #    - cron: "0 2 * * *"
 
 jobs:
+
+  build_frontend_spatial-placement_docker_image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.VOXEET_AWS_REGION }}
+      - name: Set NPM token when logging to CodeArtifact
+        run: |
+          CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
+          echo "::add-mask::$CODEARTIFACT_TOKEN"
+          echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
+      - name: build and publish frontend Docker container for beta - production Web SDK
+        uses: elgohr/Publish-Docker-Github-Action@2.22
+        env:
+          WEB_SDK_DIST_TAG: 3.4.0-beta.1-feature-spatial-placement-d1bc08a5-production
+          UX_KIT_DIST_TAG: v3.2.1-8ce0c33fb825a1ba5fd081bfef72cfe5ff8d64a5
+          CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
+        with:
+          name: voxeet/voxeet-io-web
+          dockerfile: Dockerfile
+          workdir: frontend
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
+          buildoptions: "--pull"
+          tags: "spatial-staging"
+
   build_frontend_spatial-placement:
     runs-on: ubuntu-latest
     defaults:
