@@ -3,7 +3,7 @@ name: CI build spatial
 on:
   push:
     branches:
-      - CCP-3170
+      - develop
 #  schedule:
 #    - cron: "0 2 * * *"
 
