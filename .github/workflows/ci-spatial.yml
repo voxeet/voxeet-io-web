@@ -9,6 +9,7 @@ on:
 
 jobs:
 
+
   build_frontend_spatial-placement_docker_image:
     runs-on: ubuntu-latest
     steps:
@@ -24,18 +25,26 @@ jobs:
           CODEARTIFACT_TOKEN=$(/usr/local/bin/aws codeartifact get-authorization-token --duration-seconds 1800 --domain ${{ secrets.CODEARTIFACT_DOMAIN }} --domain-owner ${{ secrets.CODEARTIFACT_DOMAIN_OWNER }} --region ${{ secrets.AWS_REGION }} --output text --query authorizationToken)
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
-      - name: build and publish frontend Docker container for beta - production Web SDK
+      - name: Login to ECR
+        id: ecr
+        uses: elgohr/ecr-login-action@1.0.1
+        with:
+          access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+      - name: build and publish frontend Docker container for spatial staging Web SDK
         uses: elgohr/Publish-Docker-Github-Action@2.22
         env:
           WEB_SDK_DIST_TAG: 3.4.0-beta.1-feature-spatial-placement-d1bc08a5-production
           UX_KIT_DIST_TAG: v3.2.1-8ce0c33fb825a1ba5fd081bfef72cfe5ff8d64a5
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
         with:
-          name: voxeet/voxeet-io-web
+          name: voxeet-io-web
           dockerfile: Dockerfile
           workdir: frontend
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ steps.ecr.outputs.username }}
+          password: ${{ steps.ecr.outputs.password }}
+          registry: ${{ steps.ecr.outputs.registry }}
           buildargs: CUSTOM_REGISTRY_URL,CUSTOM_REGISTRY_TOKEN,WEB_SDK_DIST_TAG,UX_KIT_DIST_TAG
           buildoptions: "--pull"
           tags: "spatial-staging"
