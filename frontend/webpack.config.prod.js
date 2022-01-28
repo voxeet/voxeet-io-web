@@ -127,6 +127,9 @@ module.exports = {
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/dvwc_impl.wasm", noErrorOnMissing: true, },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-dvwc-worker.js", noErrorOnMissing: true },
       { from: "./node_modules/@voxeet/voxeet-web-sdk/dist/voxeet-worklet.js", noErrorOnMissing: true },
+      { from: "./node_modules/@voxeet/react-components/dist/fonts", to:'./fonts'},
+      { from: "./node_modules/@voxeet/react-components/dist/images", to:'./images'},
+      { from: "./node_modules/@voxeet/react-components/dist/sounds", to:'./sounds'},
     ]}),
     new HtmlWebpackPlugin({
       inject: true,
