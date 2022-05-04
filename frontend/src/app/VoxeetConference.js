@@ -102,6 +102,62 @@ class VoxeetConference extends Component {
     }
     let accessToken, refreshToken;
 
+    if ('mediaSession' in navigator) {
+      /////////////////////////////////////////////////////////////////////////
+      /// PIP Controls (Chromium-only: Chrome 91+, Edge 91+)
+      ///
+      /// Documentation: https://w3c.github.io/mediasession
+      /// Notes: These actions are not supported yet on Media Session GMC UI
+      /////////////////////////////////////////////////////////////////////////
+
+      let isMicrophoneActive = constraints.audio;
+      let isCameraActive = constraints.video;
+      const enablePipActions = navigator.mediaSession
+          && navigator.mediaSession.setActionHandler
+          && navigator.mediaSession.setMicrophoneActive
+          && navigator.mediaSession.setCameraActive
+          && document.exitPictureInPicture;
+
+      if (enablePipActions) {
+        console.log("Pip actions are available!")
+        navigator.mediaSession.setMicrophoneActive(isMicrophoneActive);
+        navigator.mediaSession.setCameraActive(isCameraActive);
+
+        try {
+          navigator.mediaSession.setActionHandler('togglemicrophone', () => {
+            isMicrophoneActive = !isMicrophoneActive;
+            //FIXME: Use react component like Buttons.ToggleMicrophoneButton.toggle() instead of query selector
+            document.querySelector('[data-for=toggle-mute]').click()
+            navigator.mediaSession.setMicrophoneActive(isMicrophoneActive);
+          });
+        } catch(error) {
+          console.warn('"togglemicrophone" media session action is not supported.');
+        }
+
+        try {
+          navigator.mediaSession.setActionHandler('togglecamera', () => {
+            isCameraActive = !isCameraActive;
+            //FIXME: Use react component like Buttons.ToggleVideoButton.toggle() instead of query selector
+            document.querySelector('[data-for=toggle-video]').click()
+            navigator.mediaSession.setCameraActive(isCameraActive);
+          });
+        } catch(error) {
+          console.warn('"togglecamera" media session action is not supported.');
+        }
+
+        try {
+          navigator.mediaSession.setActionHandler("hangup", () => {
+            document.exitPictureInPicture();
+            navigator.mediaSession.playbackState = "none";
+            //FIXME: Use react component like Buttons.HangupButton.leave() instead of query selector
+            document.querySelector('[data-for=leave]').click()
+          });
+        } catch (error) {
+          console.warn('"hangup" media session action is not supported.');
+        }
+      }
+    }
+
     const doRefreshToken = () => {
       return axios.get(`${AUTH_SERVER}/api/token`, {}).then((response) => {
         accessToken = response.data.access_token;
