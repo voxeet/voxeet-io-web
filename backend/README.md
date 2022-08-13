@@ -1,11 +1,11 @@
-Dolby Interactivity APIs Showcase App - Back End Token Auth Server
+Dolby Communications API Showcase App - Back End Token Auth Server
 =====================
 
 <p align="center">
 <img src="https://avatars.githubusercontent.com/u/18720732?s=400&u=45d941e2da8503d7e226d1b868accdc132327652" alt="Dolby.io SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
-This is the back end part of the showcase app. The back end token authentication server uses [Authentication API](https://dolby.io/developers/interactivity-apis/rest-apis/authentication#operation/postOAuthToken) to retrieve an access token on behalf of the front end app, and passes the access token to the front end app. For more information regarding token authentication, refer to this [document](https://dolby.io/developers/interactivity-apis/client-sdk/initializing).
+This is the back end part of the showcase app. The backend token authentication server uses [Authentication API](https://dolby.io/developers/interactivity-apis/rest-apis/authentication#operation/postOAuthToken) to retrieve an access token on behalf of the front end app, and passes the access token to the front end app. For more information regarding token authentication, refer to this [document](https://dolby.io/developers/interactivity-apis/client-sdk/initializing).
 
 You can choose to run the server either on your local machine using `yarn start`, or using `docker`.
 
