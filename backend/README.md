@@ -1,17 +1,17 @@
-Dolby Interactivity APIs Showcase App - Back End Token Auth Server
+Dolby.io Communications APIs Showcase App - Back End Token Auth Server
 =====================
 
 <p align="center">
 <img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
-This is the back end part of the showcase app. The back end token authentication server uses [Authentication API](https://dolby.io/developers/interactivity-apis/rest-apis/authentication#operation/postOAuthToken) to retrieve an access token on behalf of the front end app, and passes the access token to the front end app. For more information regarding token authentication, refer to this [document](https://dolby.io/developers/interactivity-apis/client-sdk/initializing).
+This is the back end part of the showcase app. The back end token authentication server uses the [Authentication API](https://docs.dolby.io/communications-apis/reference/authentication-api) to retrieve an access token on behalf of the front end app, and passes the access token to the front end app. For more information regarding token authentication, refer to this [document](https://docs.dolby.io/communications-apis/docs/guides-client-authentication#initialize-the-sdk-with-secure-authentication).
 
 You can choose to run the server either on your local machine using `yarn start`, or using `docker`.
 
 ## Project setup
 
-- Get your Dolby Interactivity APIs consumerKey and consumerSecret on [Dolby.io developer portal](https://dolby.io/developers/interactivity-apis/client-sdk/initializing).
+- Get your Dolby Communications APIs Key and Secret on the [Dolby.io developer dashboard](https://dashboard.dolby.io/).
 - Create a localhost certificate using [mkcert](https://github.com/FiloSottile/mkcert).
 ```
 $ mkcert 127.0.0.1
@@ -35,8 +35,8 @@ $ export CA_PATH=127.0.0.1.pem
  For quick, local setup on your computer, use this procedure.
  - **Set up the environment variables**
  ```
-$ export CKEY={Your Consumer Key}
-$ export CSEC={Your Consumer Secret}
+$ export CKEY={Your Key}
+$ export CSEC={Your Secret}
  ```
  - **Install dependencies**
  ```
@@ -50,7 +50,7 @@ $ export CSEC={Your Consumer Secret}
 
 ## Running inside a container
 
- - Enter the consumerKey and consumerSecret inside the [ckey.txt](./certs/ckey.txt) and [csec.txt](./certs/csec.txt), respectively.
+ - Enter the Key and Secret inside the [ckey.txt](./certs/ckey.txt) and [csec.txt](./certs/csec.txt), respectively.
  - Copy the certificate and the key files generated earlier to [ca.pem](./certs/ca.pem), [key.pem](./certs/key.pem), [cert.pem](./certs/cert.pem).
  - Edit the local host IP and the Port in [docker-compose.yml](./docker-compose.yml).
 
@@ -78,9 +78,9 @@ Environment variables as defined in [app.js](src/app.js), allow developers to cu
 
 | Variable   | Default  | Description     |
 |----------  | -------- | --------    |
-| CKEY       |      | ConsumerKey |
-| CKEY_PATH  | ./certs/ckey.txt | ConsumerKey file path, if CKEY exists this is ignored | 
-| CSEC       |      | ConsumerSecret|
+| CKEY       |      | Key |
+| CKEY_PATH  | ./certs/ckey.txt | Key file path, if CKEY exists this is ignored | 
+| CSEC       |      | Secret|
 | CSEC_PATH  | ./certs/csec.txt | ConsumeSecret file path, if CSEC exists this is ignored| 
 | LOCAL_PORT | 3500 | Local listen port | 
 | LOCAL_HOST | https://127.0.0.1:3500 | Full URL of the server|
