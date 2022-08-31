@@ -2,7 +2,7 @@ Dolby Interactivity APIs Web Showcase App - Front End
 =====================
 
 <p align="center">
-<img src="https://cdn.dolby.io/wp-content/uploads/2020/05/Dolbyio-white-horizontal-e1589344433251.jpg" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
+<img src="https://avatars.githubusercontent.com/u/18720732?s=400&u=45d941e2da8503d7e226d1b868accdc132327652" alt="Voxeet SDK logo" title="Dolby.io logo" width="200"/>
 </p>
 
 This is a front end part of the showcase application, which acquires an access token from the backend part of the showcase app to communicate with the Dolby Interactivity APIs platform. 
