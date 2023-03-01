@@ -13,9 +13,9 @@ jobs:
   build_frontend_spatial-placement_docker_image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -27,13 +27,13 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@1.0.1
+        uses: ./.github/actions/ecr-login-action-3
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
       - name: build and publish frontend Docker container for spatial staging Web SDK
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: ./.github/actions/Publish-Docker-Github-Action-5
         env:
           WEB_SDK_DIST_TAG: 3.4.0-beta.1-feature-spatial-placement-d1bc08a5-production
           UX_KIT_DIST_TAG: v3.2.1-8ce0c33fb825a1ba5fd081bfef72cfe5ff8d64a5

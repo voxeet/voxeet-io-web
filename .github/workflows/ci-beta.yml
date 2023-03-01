@@ -14,9 +14,9 @@ jobs:
   build_frontend_beta_docker_image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -27,7 +27,7 @@ jobs:
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: build and publish frontend Docker container for beta - production Web SDK
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: ./.github/actions/Publish-Docker-Github-Action-5
         env:
           WEB_SDK_DIST_TAG: beta
           UX_KIT_DIST_TAG: beta
@@ -49,9 +49,9 @@ jobs:
     env:
       CLOUDFRONT_DESTINATION_PATH: beta
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -62,7 +62,7 @@ jobs:
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: build frontend for develop - beta Web SDK
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         env:
           WEB_SDK_DIST_TAG: beta
           UX_KIT_DIST_TAG: beta
@@ -77,7 +77,7 @@ jobs:
           yarn install
           yarn build
       - name: publish frontend for develop - beta Web SDK
-        uses: jakejarvis/s3-sync-action@master
+        uses: ./.github/actions/s3-sync-action-0.5.1
         with:
           args: --acl public-read
         env:
@@ -88,7 +88,7 @@ jobs:
           SOURCE_DIR: "frontend/dist"
           DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
-        uses: chetan/invalidate-cloudfront-action@v2
+        uses: ./.github/actions/invalidate-cloudfront-action-2.4
         env:
           DISTRIBUTION: E5A6FYRYTC8IV
           PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*

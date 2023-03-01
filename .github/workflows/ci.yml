@@ -12,10 +12,10 @@ jobs:
   build_backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: rlespinasse/github-slug-action@v3.x
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/github-slug-action-3.7.1
       - name: build and publish auth server Docker container
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: ./.github/actions/Publish-Docker-Github-Action-5
         with:
           name: voxeet/voxeet-io-web-auth
           dockerfile: Dockerfile
@@ -28,9 +28,9 @@ jobs:
   build_frontend_hotfix-3_0_docker_image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -42,13 +42,13 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@1.0.1
+        uses: ./.github/actions/ecr-login-action-3
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
       - name: build and publish frontend Docker container for develop - hotfix-3.0 Web SDK - develop ux kit
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: ./.github/actions/Publish-Docker-Github-Action-5
         env:
           WEB_SDK_DIST_TAG: hotfix-3-0-latest
           UX_KIT_DIST_TAG: develop
@@ -72,9 +72,9 @@ jobs:
     env:
       CLOUDFRONT_DESTINATION_PATH: hotfix-3-0-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -85,7 +85,7 @@ jobs:
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: build frontend for develop - hotfix-3.0 Web SDK - develop ux kit
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         env:
           WEB_SDK_DIST_TAG: hotfix-3-0-latest
           UX_KIT_DIST_TAG: develop
@@ -102,7 +102,7 @@ jobs:
           yarn install
           yarn build
       - name: publish frontend for develop - hotfix-3.0 Web SDK - develop ux kit
-        uses: jakejarvis/s3-sync-action@master
+        uses: ./.github/actions/s3-sync-action-0.5.1
         with:
           args: --acl public-read
         env:
@@ -113,7 +113,7 @@ jobs:
           SOURCE_DIR: "frontend/dist"
           DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
-        uses: chetan/invalidate-cloudfront-action@v2
+        uses: ./.github/actions/invalidate-cloudfront-action-2.4
         env:
           DISTRIBUTION: E5A6FYRYTC8IV
           PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
@@ -124,9 +124,9 @@ jobs:
   build_frontend_develop_production_docker_image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -138,13 +138,13 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@1.0.1
+        uses:  ./.github/actions/ecr-login-action-3
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
       - name: build and publish frontend Docker container for develop - production Web SDK
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: ./.github/actions/Publish-Docker-Github-Action-5
         env:
           WEB_SDK_DIST_TAG: develop-production
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
@@ -167,9 +167,9 @@ jobs:
     env:
       CLOUDFRONT_DESTINATION_PATH: dev
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -180,7 +180,7 @@ jobs:
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: build frontend for  develop - production Web SDK
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         env:
           WEB_SDK_DIST_TAG: develop-production
           CUSTOM_REGISTRY_URL: ${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_URL }}
@@ -194,7 +194,7 @@ jobs:
           yarn install
           yarn build
       - name:  build frontend for develop - production Web SDK
-        uses: jakejarvis/s3-sync-action@master
+        uses: ./.github/actions/s3-sync-action-0.5.1
         with:
           args: --acl public-read
         env:
@@ -205,7 +205,7 @@ jobs:
           SOURCE_DIR: "frontend/dist"
           DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
-        uses: chetan/invalidate-cloudfront-action@v2
+        uses: ./.github/actions/invalidate-cloudfront-action-2.4
         env:
           DISTRIBUTION: E5A6FYRYTC8IV
           PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
@@ -216,9 +216,9 @@ jobs:
   build_frontend_develop_staging_docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -230,13 +230,13 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@1.0.1
+        uses: ./.github/actions/ecr-login-action-3
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
       - name: build and publish frontend Docker container for develop - staging Web SDK
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: ./.github/actions/Publish-Docker-Github-Action-5
         env:
           WEB_SDK_DIST_TAG: develop-staging
           UX_KIT_DIST_TAG: develop
@@ -260,9 +260,9 @@ jobs:
     env:
       CLOUDFRONT_DESTINATION_PATH: dev-staging
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -273,7 +273,7 @@ jobs:
           echo "::add-mask::$CODEARTIFACT_TOKEN"
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: build frontend for develop - staging Web SDK
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         env:
           WEB_SDK_DIST_TAG: develop-staging
           UX_KIT_DIST_TAG: develop
@@ -289,7 +289,7 @@ jobs:
           yarn install
           yarn build
       - name:  build frontend for develop - production Web SDK
-        uses: jakejarvis/s3-sync-action@master
+        uses: ./.github/actions/s3-sync-action-0.5.1
         with:
           args: --acl public-read
         env:
@@ -300,7 +300,7 @@ jobs:
           SOURCE_DIR: "frontend/dist"
           DEST_DIR: "${{ env.CLOUDFRONT_DESTINATION_PATH }}"
       - name: invalidate cloudfront distribution paths
-        uses: chetan/invalidate-cloudfront-action@v2
+        uses: ./.github/actions/invalidate-cloudfront-action-2.4
         env:
           DISTRIBUTION: E5A6FYRYTC8IV
           PATHS: /${{ env.CLOUDFRONT_DESTINATION_PATH }}/*
