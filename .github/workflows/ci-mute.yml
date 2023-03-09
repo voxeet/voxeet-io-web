@@ -14,9 +14,9 @@ jobs:
   build_frontend_mute:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: ./.github/actions/configure-aws-credentials-1.7.0
         with:
           aws-access-key-id: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
@@ -28,7 +28,7 @@ jobs:
           echo "CUSTOM_REGISTRY_TOKEN=${{ secrets.CODEARTIFACT_NPM_SNAPSHOTS_REPOSITORY_TOKEN }}$CODEARTIFACT_TOKEN" >> $GITHUB_ENV
       - name: Login to ECR
         id: ecr
-        uses: elgohr/ecr-login-action@1.0.1
+        uses: ./.github/actions/ecr-login-action-3
         with:
           access_key: ${{ secrets.VOXEET_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}

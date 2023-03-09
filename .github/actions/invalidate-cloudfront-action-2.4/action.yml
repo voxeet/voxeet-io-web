@@ -1,0 +1,13 @@
+name: "Invalidate AWS CloudFront"
+description: "Invalidate CloudFront distribution paths"
+author: "Pixelcop Research, Inc."
+branding:
+  icon: "cloud-lightning"
+  color: "orange"
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        $GITHUB_ACTION_PATH/entrypoint.sh
