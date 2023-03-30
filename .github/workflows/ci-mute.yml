@@ -34,7 +34,7 @@ jobs:
           secret_access_key: ${{ secrets.VOXEET_AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
       - name: build and publish frontend Docker container for Web SDK and UX kit mute feature versions
-        uses: elgohr/Publish-Docker-Github-Action@2.22
+        uses: elgohr/Publish-Docker-Github-Action@v5
         env:
           WEB_SDK_DIST_TAG: feature-per-client-mute-staging
           UX_KIT_DIST_TAG: ccu-194-per-client-mutes-for-dolby-voice-server
